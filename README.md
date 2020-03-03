@@ -14,3 +14,6 @@ COMP 4711 Web Dev Project
 *NOTE:  Commit often, but only push for major milestones.*
 8. git push -u origin *your feature name*
 9. Go to Github > Select your feature from dropdown > New Pull Request > Create Pull Request
+
+Wait for someone else to approve the merge into master branch at all times.  
+Merging into develop branch yourself is OK for testing.
