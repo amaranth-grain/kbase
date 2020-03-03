@@ -10,6 +10,6 @@ COMP 4711 Web Dev Project
 5. Work on feature
 6. git add <file> OR 
   git add .
-7. git commit -m"<WRITE MEANINGFUL MESSAGE ON EDITS MADE>"
+7. git commit -m"WRITE MEANINGFUL MESSAGE ON EDITS MADE"
 8. git push -u origin YOURFEATURENAME
 9. Go to Github > Select your feature from dropdown > New Pull Request > Create Pull Request
