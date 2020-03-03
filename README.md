@@ -6,10 +6,11 @@ COMP 4711 Web Dev Project
 1. git clone https://github.com/amaranth-grain/kbase.git
 2. cd kbase
 3. git checkout -b develop origin/develop
-4. git checkout -b YOURFEATURENAME (name + xx, e.g. christy01)
+4. git checkout -b *your feature name* (name + xx, e.g. christy01)
 5. Work on feature
-6. git add <file> OR 
+6. git add *file* OR 
   git add .
-7. git commit -m"WRITE MEANINGFUL MESSAGE ON EDITS MADE"
-8. git push -u origin YOURFEATURENAME
+7. git commit -m" *meaningful msg on edits made in this commit* "   
+*NOTE:  Commit often, but only push for major milestones.*
+8. git push -u origin *your feature name*
 9. Go to Github > Select your feature from dropdown > New Pull Request > Create Pull Request
