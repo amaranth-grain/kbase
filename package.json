@@ -1,0 +1,27 @@
+{
+  "name": "kbase",
+  "version": "1.0.0",
+  "description": "COMP 4711 Web Dev Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amaranth-grain/kbase.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amaranth-grain/kbase/issues"
+  },
+  "homepage": "https://github.com/amaranth-grain/kbase#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
