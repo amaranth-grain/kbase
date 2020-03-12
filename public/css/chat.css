@@ -69,7 +69,7 @@
     flex-grow: 2;
     background: #fff;
     border-right: 4px solid #ddd;
-    min-width: 10%;
+    min-width: 250px;
 }
 
 #chats{
@@ -82,4 +82,22 @@
 #allContacts .contactContainer{
     border-bottom: 2px solid #ddd;
     padding: 10px 0px;
+}
+
+#messageInput{
+    width: 96.5%;
+    height: 10vh;
+    border-top: 2px solid #ddd;
+    margin-top: 5%;
+    padding: 2%;
+    resize: none;
+}
+
+#sendMsg{
+    float: right;
+    border: 0px;
+    padding: 1% 2%;
+    background-color: #6d84b4;
+    color: white;
+    margin: 1% 1% 0% 0%;
 }

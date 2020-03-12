@@ -67,6 +67,14 @@
                 </div>
             </div>
         </div>
+
+        <form action="/message/new" method="POST">
+            <textarea id="messageInput" placeholder="Write a message..."></textarea>
+            <input type="hidden" id="conversationId?"/>
+            <input type="hidden" id="sender?"/>
+            <input type="submit" id="sendMsg" value="Send">
+        </form>
+
     </div>
     
 </div>
