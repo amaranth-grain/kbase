@@ -2,6 +2,8 @@
   --logoBlue: rgb(100, 197, 240);
   --buttonBlue: rgb(0, 162, 232);
   --offWhite: rgb(240, 240, 248);
+  --inputGrey: rgb(225, 235, 235);
+  --textGrey: rgb(110, 120, 130);
 }
 body {
   font-family: "Roboto", sans-serif;
@@ -9,8 +11,8 @@ body {
 }
 input {
   display: inline-block;
-  line-height: 1.5em;
-  padding-left: 0.2em;
+  height: 5vh;
+  padding-left: 2em;
 }
 textarea {
   margin: 1em 0;
@@ -24,17 +26,17 @@ img {
   background-color: white;
   border: 1px solid var(--buttonBlue);
 }
-/****** LOGIN *****/
-#divWrapper {
-  max-width: 800px;
-  min-width: 700px;
-  margin: 0 auto;
-}
 nav {
   display: flex;
   justify-content: center;
   align-items: center;
   padding-right: 4vw;
+}
+/****** LOGIN *****/
+#divWrapper {
+  max-width: 800px;
+  min-width: 700px;
+  margin: 0 auto;
 }
 #logo {
   flex-grow: 2;
@@ -93,7 +95,6 @@ button {
   font-weight: bold;
   font-size: 3em;
 }
-/****** SIGN UP DETAILS END *****/
 #signupTag {
   font-weight: bold;
   font-size: 2rem;
@@ -110,3 +111,87 @@ button {
 #btnRegister {
   width: 20vw;
 }
+/****** SIGN UP DETAILS END *****/
+/****** HOMEPAGE *****/
+#logoAbbr {
+  flex-grow: 0.3;
+}
+#formSearch {
+  display: inline-block;
+  flex-grow: 3;
+}
+#formSearch input[type="text"] {
+  background-color: var(--inputGrey);
+  color: var(--textGrey);
+  border: none;
+}
+#btnLogout {
+  width: 100px;
+  padding-left: 0;
+}
+.searchContainer {
+  display: inline-flex;
+  flex: 1 1 300px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.searchIcon {
+  z-index: 200;
+  left: 1.4em;
+  display: inline-block;
+  position: relative;
+}
+/* .searchIcon {
+  display: inline-block;
+  padding: 0.38em;
+  background-color: var(--inputGrey);
+} */
+/****** HOMEPAGE END *****/
+/****** PROFILE SIDEBAR *****/
+.profileSidebar {
+  margin-top: 2em;
+  text-align: center;
+  align-items: center;
+}
+.profileSidebar {
+  color: var(--textGrey);
+}
+.profileName {
+  font-weight: bold;
+  font-size: 1.4em;
+  color: black;
+}
+.profilePic {
+  width: 100px;
+  clip-path: circle(50%);
+}
+#stats {
+  display: table;
+  margin: 0 auto;
+  width: 80%;
+  text-align: left;
+}
+.statRow {
+  display: table-row;
+}
+.statRow p {
+  display: table-cell;
+  padding-left: 2em;
+  font-weight: bold;
+}
+.statProfile p {
+  padding-left: 2em;
+  margin-top: 2em;
+  font-weight: bold;
+}
+.dropdownTopic {
+  height: 2em;
+  color: var(--buttonBlue);
+  border: 1px solid var(--buttonBlue);
+}
+.btnPostTimeline {
+  width: 60%;
+}
+/****** PROFILE SIDEBAR END *****/

@@ -31,7 +31,21 @@ app.get("/signup", (req, res) => {
 app.post("/signup", (req, res) => {
   res.redirect("/signup");
 });
-
+app.get("/home", function(req, res) {
+  res.render("home", {
+    pageTitle: "Knowledge Base Homepage",
+    imgUrl: "https://randomuser.me/api/portraits/women/84.jpg",
+    name: "Person McPerson",
+    tagline: "10 Years of Experience Doing Stuff",
+    numPost: 0,
+    numMsg: 0,
+    numLike: 0,
+    topics: ["PHP", "NodeJS", "Java", "SQL", "Zend"]
+  });
+});
+app.post("/signup-extended", (req, res) => {
+  res.redirect("/home");
+});
 // app.get("/if", function(req, res) {
 //   res.render("if", { condition: true });
 // });
