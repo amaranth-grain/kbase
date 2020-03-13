@@ -15,7 +15,20 @@ function getPeople(id) {
 function getContacts(id){
     return db.query('(select * from conversation left join people on people.id = conversation.second_person where first_person ='+id +' ) union all (select * from  conversation left join people on people.id = conversation.first_person where second_person = '+ id+')')
 
-    
+ 
+    /* same usage for a controller, need to loop through the data rows 
+    exports.getContacts = function(req,res,next) {
+        let id = req.params.id;
+        let contacts = mod.getcontacts(id);
+        contacts.then((data) => {
+            let rows = data.rows 
+            for (let  i = 0;  i <  Data.length;  i++)  {  
+                console.log(rows[0])
+            }  
+        })
+}
+
+    */
 }
 
 function getConversation(id,contactid){
