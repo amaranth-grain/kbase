@@ -22,11 +22,14 @@ app.get("/", function(req, res) {
     pageTitle: "Knowledge Base Landing Page"
   });
 });
-
 app.get("/signup", (req, res) => {
   res.render("signup-details", {
     pageTitle: "Knowledge Base Signup"
   });
+});
+//TODO sign up logic
+app.post("/signup", (req, res) => {
+  res.redirect("/signup");
 });
 
 // app.get("/if", function(req, res) {
