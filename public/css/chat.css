@@ -39,6 +39,8 @@ body{
 
 .contactImg img{
     border-radius: 50%;
+    width: 72px;
+    height: 72px;
 }
 
 
