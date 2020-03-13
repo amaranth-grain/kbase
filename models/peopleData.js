@@ -12,6 +12,7 @@ function getPeople(id) {
     return db.query('Select * from people where id = ' + id);
 }
 
+//gets a list of people that a user has conversations with 
 function getContacts(id){
     return db.query('(select * from conversation left join people on people.id = conversation.second_person where first_person ='+id +' ) union all (select * from  conversation left join people on people.id = conversation.first_person where second_person = '+ id+')')
 
@@ -31,22 +32,23 @@ function getContacts(id){
     */
 }
 
+//get an individual conversation based on id and the other users id 
 function getConversation(id,contactid){
     return db.query('select conversation_id from conversation where first_contact =' + id + ' and second_contact =' + contactid + ' or first_contact=' +contactid+ 'and second_contact=' + id);
 }
 
-function getMessages(id){
-    return db.query('select message from message where conversation_id =' + id)
+
+//gets messages for the specified conversation id 
+function getMessages(conversation_id){
+    return db.query('select message from message where conversation_id =' + conversation_id)
 }
 
-function addContact(id,addid){
-    return db.query('INSERT INTO contacts (user_id,contact_id) VALUES (' + id + ',' + addid + '),(' + addid + ',' + id + ');')
-}
-
+//inserts a message into the message table 
 function writeMessage(conversationid,senderid,datetime,message){
     return db.query('INSERT INTO message (conversation_id,sender,message,datetime) VALUES (' + conversationid + ', ' + senderid +','+ message +',' + datetime+');')
 }
 
+//creates a conversation between the two users 
 function createConversation(id,receiverid){
     return db.query('INSERT INTO public.conversation (first_contact,second_contact) VALUES (' + id + ','+receiverid +');')
 }
