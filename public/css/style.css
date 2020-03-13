@@ -1,0 +1,197 @@
+:root {
+  --logoBlue: rgb(100, 197, 240);
+  --buttonBlue: rgb(0, 162, 232);
+  --offWhite: rgb(240, 240, 248);
+  --inputGrey: rgb(225, 235, 235);
+  --textGrey: rgb(110, 120, 130);
+}
+body {
+  font-family: "Roboto", sans-serif;
+  padding: 1.5em 4em;
+}
+input {
+  display: inline-block;
+  height: 5vh;
+  padding-left: 2em;
+}
+textarea {
+  margin: 1em 0;
+}
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.btnInverse {
+  color: var(--buttonBlue);
+  background-color: white;
+  border: 1px solid var(--buttonBlue);
+}
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 4vw;
+}
+/****** LOGIN *****/
+#divWrapper {
+  max-width: 800px;
+  min-width: 700px;
+  margin: 0 auto;
+}
+#logo {
+  flex-grow: 2;
+}
+#logoBase {
+  color: var(--logoBlue);
+}
+.inputLogin {
+  margin: 0 0.4em;
+  width: 120px;
+}
+button {
+  background-color: var(--buttonBlue);
+  border-radius: 0.2em;
+  color: var(--offWhite);
+  font-weight: bold;
+  border: none;
+  padding: 0.4em 2em 0.4em 0.6em;
+}
+/****** LOGIN END *****/
+/****** SIGN UP *****/
+* {
+  box-sizing: border-box;
+}
+.row {
+  display: flex;
+  margin-top: 1em;
+}
+#colLeft {
+  width: 40%;
+}
+#colRight {
+  width: 55%;
+  display: flex;
+  justify-content: center;
+}
+#divSignup {
+  width: 70%;
+}
+.inputHalf {
+  width: 10vw;
+}
+.inputFull {
+  width: 20vw;
+}
+.input {
+  margin-bottom: 1em;
+}
+#btnSignup {
+  width: 20vw;
+}
+/****** SIGN UP END *****/
+/****** SIGN UP DETAILS *****/
+#colLeft h2 {
+  align-items: flex-start;
+  font-weight: bold;
+  font-size: 3em;
+}
+#signupTag {
+  font-weight: bold;
+  font-size: 2rem;
+  width: 35%;
+  margin-right: 3em;
+}
+#signupDetails {
+  padding: 2em 1em;
+  width: 55%;
+}
+#signupAbout {
+  width: 20vw;
+}
+#btnRegister {
+  width: 20vw;
+}
+/****** SIGN UP DETAILS END *****/
+/****** HOMEPAGE *****/
+#logoAbbr {
+  flex-grow: 0.3;
+}
+#formSearch {
+  display: inline-block;
+  flex-grow: 3;
+}
+#formSearch input[type="text"] {
+  background-color: var(--inputGrey);
+  color: var(--textGrey);
+  border: none;
+}
+#btnLogout {
+  width: 100px;
+  padding-left: 0;
+}
+.searchContainer {
+  display: inline-flex;
+  flex: 1 1 300px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.searchIcon {
+  z-index: 200;
+  left: 1.4em;
+  display: inline-block;
+  position: relative;
+}
+/* .searchIcon {
+  display: inline-block;
+  padding: 0.38em;
+  background-color: var(--inputGrey);
+} */
+/****** HOMEPAGE END *****/
+/****** PROFILE SIDEBAR *****/
+.profileSidebar {
+  margin-top: 2em;
+  text-align: center;
+  align-items: center;
+}
+.profileSidebar {
+  color: var(--textGrey);
+}
+.profileName {
+  font-weight: bold;
+  font-size: 1.4em;
+  color: black;
+}
+.profilePic {
+  width: 100px;
+  clip-path: circle(50%);
+}
+#stats {
+  display: table;
+  margin: 0 auto;
+  width: 80%;
+  text-align: left;
+}
+.statRow {
+  display: table-row;
+}
+.statRow p {
+  display: table-cell;
+  padding-left: 2em;
+  font-weight: bold;
+}
+.statProfile p {
+  padding-left: 2em;
+  margin-top: 2em;
+  font-weight: bold;
+}
+.dropdownTopic {
+  height: 2em;
+  color: var(--buttonBlue);
+  border: 1px solid var(--buttonBlue);
+}
+.btnPostTimeline {
+  width: 60%;
+}
+/****** PROFILE SIDEBAR END *****/
