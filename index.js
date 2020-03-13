@@ -1,6 +1,7 @@
 let express = require("express");
 let path = require("path");
 let app = express();
+let chatRoutes = require('./routes/chatRoutes.js');
 
 const expressHbs = require("express-handlebars");
 
@@ -16,6 +17,14 @@ app.engine(
 );
 app.set("view engine", "hbs");
 app.set("views", "views");
+
+
+//CHAT ROUTES ADDED HERE!
+app.use(chatRoutes);
+
+
+
+/////////////////////////
 
 app.get("/", function(req, res) {
   res.render("landing", {
