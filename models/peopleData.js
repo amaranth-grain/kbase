@@ -13,7 +13,9 @@ function getPeople(id) {
 }
 
 function getContacts(id){
-    return db.query('select * from contacts left join people on people.id = contacts.user_id where user_id = ' + id);
+    return db.query('(select * from conversation left join people on people.id = conversation.second_person where first_person ='+id +' ) union all (select * from  conversation left join people on people.id = conversation.first_person where second_person = '+ id+')')
+
+    
 }
 
 function getConversation(id,contactid){
@@ -28,7 +30,7 @@ function addContact(id,addid){
     return db.query('INSERT INTO contacts (user_id,contact_id) VALUES (' + id + ',' + addid + '),(' + addid + ',' + id + ');')
 }
 
-function writeMessage(conversationid,senderid,,datetime,message){
+function writeMessage(conversationid,senderid,datetime,message){
     return db.query('INSERT INTO message (conversation_id,sender,message,datetime) VALUES (' + conversationid + ', ' + senderid +','+ message +',' + datetime+');')
 }
 
@@ -41,10 +43,10 @@ module.exports = {
     add : addPeople,
     getall : getAllPeople,
     getpeople: getPeople,
-    getconvo:getConversation,
-    getmessages:getMessages,
-    getcontacts:getContacts,
-    addcontact:addContact,
-    writemessage:writeMessage,
-    createconvo:createConversation
+    getconvo: getConversation,
+    getmessages: getMessages,
+    getcontacts: getContacts,
+    addcontact: addContact,
+    writemessage: writeMessage,
+    createconvo: createConversation
 }
