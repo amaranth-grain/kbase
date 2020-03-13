@@ -18,9 +18,14 @@ app.set("view engine", "hbs");
 app.set("views", "views");
 
 app.get("/", function(req, res) {
-  res.render("home", {
-    pageTitle: "Knowledge Base",
-    heading: "Welcome to kbase"
+  res.render("landing", {
+    pageTitle: "Knowledge Base Landing Page"
+  });
+});
+
+app.get("/signup", (req, res) => {
+  res.render("signup-details", {
+    pageTitle: "Knowledge Base Signup"
   });
 });
 
