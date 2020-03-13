@@ -28,7 +28,7 @@ function addContact(id,addid){
     return db.query('INSERT INTO contacts (user_id,contact_id) VALUES (' + id + ',' + addid + '),(' + addid + ',' + id + ');')
 }
 
-function writeMessage(conversationid,senderid,,datetime,message){
+function writeMessage(conversationid,senderid,datetime,message){
     return db.query('INSERT INTO message (conversation_id,sender,message,datetime) VALUES (' + conversationid + ', ' + senderid +','+ message +',' + datetime+');')
 }
 
