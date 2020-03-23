@@ -17,5 +17,5 @@ function getReplies(discussion_id){
 module.exports = {
     creatediscussion:createDiscussion,
     createreply: createReply,
-    getreplies: getreplies
+    getreplies: getReplies
 }
