@@ -34,7 +34,7 @@ function getContacts(id){
 
 //get an individual conversation based on id and the other users id 
 function getConversation(id,contactid){
-    return db.query('select conversation_id from conversation where first_contact =' + id + ' and second_contact =' + contactid + ' or first_contact=' +contactid+ 'and second_contact=' + id);
+    return db.query('select conversation_id from conversation where first_person =' + id + ' and second_person =' + contactid + ' or first_person=' +contactid+ 'and second_person=' + id);
 }
 
 

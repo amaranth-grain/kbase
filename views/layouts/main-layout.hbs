@@ -9,12 +9,15 @@
   <link rel="stylesheet" href="/css/style.css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
   {{#if chatAssests}}
-    <link href='/css/chat.css' rel='stylesheet' />
+  <link href='/css/chat.css' rel='stylesheet' />
   {{/if}}
 </head>
 
 <body>
   {{{ body }}}
+  {{#if chatAssests}}
+  <script src="/js/chat.js" defer></script>
+  {{/if}}
 </body>
 
 </html>
