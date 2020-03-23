@@ -1,20 +1,7 @@
 let db = require('../db/db');
-
-function addPeople(e) {
-     db.query("Insert into people (name,about,imageurl,dob,country) VALUES ('" + e.name +"','"+ e.about + "','"+ e.url +"','"+ e.dob + "','"+ e.country + "')");
-}
-
-function getAllPeople() {
-    return db.query('Select * from people');
-}
-
-function getPeople(id) {
-    return db.query('Select * from people where id = ' + id);
-}
-
-//gets a list of people that a user has conversations with 
+//gets a list of users that a user has conversations with 
 function getContacts(id){
-    return db.query('(select * from conversation left join people on people.id = conversation.second_person where first_person ='+id +' ) union all (select * from  conversation left join people on people.id = conversation.first_person where second_person = '+ id+')')
+    return db.query('(select * from conversation left join users on users.id = conversation.second_person where first_person ='+id +' ) union all (select * from  conversation left join users on users.id = conversation.first_person where second_person = '+ id+')')
 
  
     /* same usage for a controller, need to loop through the data rows 
@@ -55,20 +42,10 @@ function createConversation(id,receiverid){
 
 
 module.exports = {
-    add : addPeople,
-    getall : getAllPeople,
-    getpeople: getPeople,
     getconvo: getConversation,
     getmessages: getMessages,
     getcontacts: getContacts,
     // addcontact: addContact,
     createmessage: createMessage,
-    createconvo: createConversation,
-<<<<<<< HEAD:models/chatData.js
-
-=======
-    creatediscussion:createDiscussion,
-    createreply: createReply,
-    getreplies: getReplies
->>>>>>> develop:models/peopleData.js
+    createconvo: createConversation
 }
