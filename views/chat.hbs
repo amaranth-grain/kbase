@@ -1,0 +1,60 @@
+<div id="chatContainer">
+    <div id="allContacts">
+        {{#each contacts}}
+            <div class="contactContainer" id={{this.id}} onclick="loadConversation(this)">
+                <div class="contactImg"><img src={{this.imageurl}}></div>
+                <div class="contactName">{{this.name}}<div>{{this.about}}</div></div>
+                <div class="contactDate">Sept 18</div>
+            </div>
+        {{/each}}
+    </div>
+
+
+    <div id="rightSide">
+        <div id="conversation">
+            {{#each message}}
+                <div class="message">
+                    <h4><span>SEP 4</span></h4>
+                    <div class="contactContainer">
+                        <div class="contactImg"><img src="https://randomuser.me/api/portraits/med/women/64.jpg"></div>
+                        <div class="chatCenter">
+                            <div>
+                                <div class="contactName"><b>Heather Stone</b></div>
+                                &#x2022;
+                                <div class="messageTime">9:08 PM</div>
+                            </div>
+                            <div class="messageData">
+                                {{this.message}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+            <div class="message">
+                <h4><span>SEP 4</span></h4>
+                <div class="contactContainer">
+                    <div class="contactImg"><img src="https://randomuser.me/api/portraits/med/women/64.jpg"></div>
+                    <div class="chatCenter">
+                        <div>
+                            <div class="contactName"><b>Heather Stone</b></div>
+                            &#x2022;
+                            <div class="messageTime">9:08 PM</div>
+                        </div>
+                        <div class="messageData">
+                            You have great zend skills, want to conduct a workshop?
+                            You have great zend skills, want to conduct a workshop?
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form action="/message/new" method="POST">
+            <textarea id="messageInput" placeholder="Write a message..."></textarea>
+            <input type="hidden" id="conversationId?"/>
+            <input type="hidden" id="sender?"/>
+            <input type="submit" id="sendMsg" value="Send">
+        </form>
+
+    </div>
+    
+</div>
