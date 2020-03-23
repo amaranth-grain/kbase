@@ -7,7 +7,6 @@ function loadConversation(req,res,next) {
     dbQuery.then((data) => {
         let messages = mod.getmessages(data.rows[0]["conversation_id"]);
         messages.then((data) => {
-            console.log(JSON.stringify({"messages": data.rows}))
             res.json({"messages": data.rows});
         }).catch(err => console.log(err)); 
 

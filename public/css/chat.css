@@ -21,11 +21,6 @@ body{
     flex-direction: column;
 }
 
-.chats{
-    display: flex;
-    flex-direction: column;
-}
-
 .contactContainer{
     display: flex;
     flex-direction: row;
@@ -77,9 +72,10 @@ body{
     background: #fff;
     border-right: 4px solid #ddd;
     min-width: 250px;
+    max-width: 380px;
 }
 
-#chats{
+#rightSide{
     flex-grow: 4;
     background: #fff;
     margin-left: 1%;
