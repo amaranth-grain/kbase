@@ -1,7 +1,7 @@
 let db = require('../db/db');
 //gets a list of users that a user has conversations with 
 function getContacts(id){
-    return db.query('(select * from conversation left join users on users.id = conversation.second_person where first_person ='+id +' ) union all (select * from  conversation left join users on users.id = conversation.first_person where second_person = '+ id+')')
+    return db.query('(select * from conversation left join users on users.id = conversation.second_user where first_user ='+id +' ) union all (select * from  conversation left join users on users.id = conversation.first_user where second_user = '+ id+')')
 
  
     /* same usage for a controller, need to loop through the data rows 
@@ -21,7 +21,7 @@ function getContacts(id){
 
 //get an individual conversation based on id and the other users id 
 function getConversation(id,contactid){
-    return db.query('select conversation_id from conversation where first_person =' + id + ' and second_person =' + contactid + ' or first_person=' +contactid+ 'and second_person=' + id);
+    return db.query('select conversation_id from conversation where first_user =' + id + ' and second_user =' + contactid + ' or first_user=' +contactid+ 'and second_user=' + id);
 }
 
 
@@ -45,7 +45,6 @@ module.exports = {
     getconvo: getConversation,
     getmessages: getMessages,
     getcontacts: getContacts,
-    // addcontact: addContact,
     createmessage: createMessage,
     createconvo: createConversation
 }
