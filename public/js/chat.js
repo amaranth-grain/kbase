@@ -13,21 +13,31 @@ function loadConversation(element){
         while (container.firstChild) {
             container.firstChild.remove();
         }
+
+
+        console.log(data);
+        
+
         for(let i = 0; i < data.messages.length; i++){
-            createMessage(data.messages[i].message);
+            let date = new Date(data.messages[i].datetime);
+            createMessage(date.toLocaleString('default', { month: 'short' }), 
+                          date.getDate(), 
+                          date.toLocaleString('default', { hour: 'numeric', hour12: true, minute: 'numeric'}),
+                          data.messages[i].name, 
+                          data.messages[i].message);
         }
     })
     .catch((err) => console.log(err));
 }
 
-function createMessage(message){
+function createMessage(month, day, msgTime, sender, message){
     var container = document.getElementById("conversation");
 	let msgContainer = document.createElement("div");
     msgContainer.classList.add("message");
     
     let dateContainer = document.createElement("h4");
     let date = document.createElement("span");
-    date.textContent = "PES 4";
+    date.textContent = `${month} ${day}`;
 
     let imgContainer = document.createElement("div");
     imgContainer.classList.add("contactImg");
@@ -44,13 +54,13 @@ function createMessage(message){
     
     let name = document.createElement("div");
     name.classList.add("contactName");
-    name.textContent = "FAKE NAME";
+    name.textContent = sender;
     name.style.fontWeight = "bold";
     let dot = document.createTextNode(" \u2022 ");
 
     let time = document.createElement("div");
     time.classList.add("messageTime");
-    time.textContent = "60:06 PM";
+    time.textContent = msgTime;
 
     let msg = document.createElement("div");
     msg.classList.add("messageData");

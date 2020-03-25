@@ -27,7 +27,7 @@ function getConversation(id,contactid){
 
 //gets messages for the specified conversation id 
 function getMessages(conversation_id){
-    return db.query('select * from message where conversation_id =' + conversation_id)
+    return db.query('select * from message left join users on id = message.sender where conversation_id =' + conversation_id)
 }
 
 //inserts a message into the message table 
