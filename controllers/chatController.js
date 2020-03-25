@@ -1,4 +1,4 @@
-let mod = require('../models/peopleData');
+let mod = require('../models/chatData');
 
 function loadConversation(req,res,next) {
     let user_id = req.body.user_id;
