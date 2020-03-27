@@ -1,35 +1,3 @@
-function loadConversation(element){
-    var user_id = 1;
-    fetch('/conversation', {
-		method: 'post',
-		headers: {
-			"Content-type": "application/json"
-		},
-		body: JSON.stringify({"user_id": user_id, "contact_id": element.id})
-	})
-    .then((res) => res.json())
-    .then((data) => {
-        var container = document.getElementById("conversation");
-        while (container.firstChild) {
-            container.firstChild.remove();
-        }
-
-
-        console.log(data);
-        
-
-        for(let i = 0; i < data.messages.length; i++){
-            let date = new Date(data.messages[i].datetime);
-            createMessage(date.toLocaleString('default', { month: 'short' }), 
-                          date.getDate(), 
-                          date.toLocaleString('default', { hour: 'numeric', hour12: true, minute: 'numeric'}),
-                          data.messages[i].name, 
-                          data.messages[i].message);
-        }
-    })
-    .catch((err) => console.log(err));
-}
-
 function createMessage(month, day, msgTime, sender, message){
     var container = document.getElementById("conversation");
 	let msgContainer = document.createElement("div");
