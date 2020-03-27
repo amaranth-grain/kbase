@@ -27,12 +27,18 @@ function getConversation(id,contactid){
 
 //gets messages for the specified conversation id 
 function getMessages(conversation_id){
-    return db.query('select * from message left join users on id = message.sender where conversation_id =' + conversation_id)
+    return db.query('select * from message left join users on id = message.sender where conversation_id =' + conversation_id + ' order by date asc,time asc')
+
 }
 
+function getLatestMessage(conversation_id){
+    return db.query('select * from message left join users on id = message.sender where conversation_id = ' + conversation_id + ' order by date desc,time desc limit 1')
+}
+
+
 //inserts a message into the message table 
-function createMessage(conversationid,senderid,datetime,message){
-    return db.query('INSERT INTO message (conversation_id,sender,message,datetime) VALUES (' + conversationid + ', ' + senderid +','+ message +',' + datetime+');')
+function createMessage(conversationid,senderid,message,date,time){
+    return db.query("INSERT INTO message (conversation_id,sender,message,date,time) VALUES (" + conversationid + ", " + senderid +",'" + message +"','" + date+"','" +time+"');")
 }
 
 //creates a conversation between the two users 
@@ -46,5 +52,6 @@ module.exports = {
     getmessages: getMessages,
     getcontacts: getContacts,
     createmessage: createMessage,
-    createconvo: createConversation
+    createconvo: createConversation,
+    getlatest: getLatestMessage
 }
