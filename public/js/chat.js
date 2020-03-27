@@ -1,33 +1,11 @@
-function loadConversation(element){
-    var user_id = 1;
-    fetch('/conversation', {
-		method: 'post',
-		headers: {
-			"Content-type": "application/json"
-		},
-		body: JSON.stringify({"user_id": user_id, "contact_id": element.id})
-	})
-    .then((res) => res.json())
-    .then((data) => {
-        var container = document.getElementById("conversation");
-        while (container.firstChild) {
-            container.firstChild.remove();
-        }
-        for(let i = 0; i < data.messages.length; i++){
-            createMessage(data.messages[i].message);
-        }
-    })
-    .catch((err) => console.log(err));
-}
-
-function createMessage(message){
+function createMessage(month, day, msgTime, sender, message){
     var container = document.getElementById("conversation");
 	let msgContainer = document.createElement("div");
     msgContainer.classList.add("message");
     
     let dateContainer = document.createElement("h4");
     let date = document.createElement("span");
-    date.textContent = "PES 4";
+    date.textContent = `${month} ${day}`;
 
     let imgContainer = document.createElement("div");
     imgContainer.classList.add("contactImg");
@@ -44,13 +22,13 @@ function createMessage(message){
     
     let name = document.createElement("div");
     name.classList.add("contactName");
-    name.textContent = "FAKE NAME";
+    name.textContent = sender;
     name.style.fontWeight = "bold";
     let dot = document.createTextNode(" \u2022 ");
 
     let time = document.createElement("div");
     time.classList.add("messageTime");
-    time.textContent = "60:06 PM";
+    time.textContent = msgTime;
 
     let msg = document.createElement("div");
     msg.classList.add("messageData");

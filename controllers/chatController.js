@@ -1,17 +1,30 @@
-let mod = require('../models/peopleData');
+let mod = require('../models/chatData');
 
 function loadConversation(req,res,next) {
-    let user_id = req.body.user_id;
-    let contact_id = req.body.contact_id;
-    let dbQuery = mod.getconvo(user_id, contact_id);
-    dbQuery.then((data) => {
-        let messages = mod.getmessages(data.rows[0]["conversation_id"]);
-        messages.then((data) => {
-            res.json({"messages": data.rows});
-        }).catch(err => console.log(err)); 
-
-    //TO DO CHANGE TO REDIRECT!
+    // let user_id = req.body.user_id;
+    var user_id = 1;
+    var contact_id = req.body.contactId;
+    var newContacts = [];
+    var newMessages = [];
+    var conversationId = null;
+    var queryContacts = mod.getcontacts(user_id);
+    queryContacts.then((data) => {
+        newContacts = data.rows;
     }).catch(err => console.log(err));  
+
+    var queryConv = mod.getconvo(user_id, contact_id);
+    queryConv
+    .then((data) => {
+        conversationId = (data.rows[0]["conversation_id"]);
+        mod.getmessages(data.rows[0]["conversation_id"])
+        .then((data) => {
+            newMessages = data.rows;
+        })
+    .then(() => {
+        res.render('chat', {chatAssests: true, contact: newContacts, message: newMessages, convId: conversationId, sender: user_id});
+    }) 
+    }).catch(err => console.log(err));  
+
 }
 
 function loadChat(req,res,next) {
@@ -19,12 +32,21 @@ function loadChat(req,res,next) {
     let user_id = 1;
     let dbQuery = mod.getcontacts(user_id);
     dbQuery.then((data) => {
-        console.log(data.rows)
-        res.render('chat', {chatAssests: true, contacts: data.rows, });
+        res.render('chat', {chatAssests: true, contact: data.rows, });
+    }).catch(err => console.log(err));  
+}
+
+function newMessage(req,res,next) {
+    console.log(req.body)
+    res.end();
+    let dbQuery = mod.createmessage(req.body.convId, req.body.sender, Date.now(), req.body.messageInput);
+    dbQuery.then((data) => {
+        res.render('chat', {chatAssests: true, contact: data.rows});
     }).catch(err => console.log(err));  
 }
 
 module.exports = {
     loadChat: loadChat,
     loadConversation: loadConversation,
+    newMessage: newMessage,
 }
