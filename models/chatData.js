@@ -32,7 +32,7 @@ function getMessages(conversation_id){
 
 //inserts a message into the message table 
 function createMessage(conversationid,senderid,datetime,message){
-    return db.query("INSERT INTO message (conversation_id,sender,message,datetime) VALUES (" + conversationid + ", " + senderid +",'" + message +"'," + datetime+");")
+    return db.query("INSERT INTO message (conversation_id,sender,message,datetime) VALUES (" + conversationid + ", " + senderid +",'" + message +"','" + datetime+"');")
 }
 
 //creates a conversation between the two users 
