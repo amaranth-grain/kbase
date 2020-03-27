@@ -30,8 +30,8 @@ function getMessages(conversation_id){
     return db.query('select * from message left join users on id = message.sender where conversation_id =' + conversation_id + ' order by date asc,time asc')
 }
 
-function getLatestMessage(conversation_id,user_id){
-    return db.query('select * from message left join users on id = message.sender where conversation_id = ' + conversation_id + ' and sender != '+ user_id + ' order by date desc,time desc limit 1')
+function getLatestMessage(conversation_id){
+    return db.query('select * from message left join users on id = message.sender where conversation_id = ' + conversation_id + ' order by date desc,time desc limit 1')
 }
 
 
