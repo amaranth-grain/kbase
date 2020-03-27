@@ -1,6 +1,9 @@
 body{
     padding: 0em;
 }
+#loadConversationButton{
+    display: none;
+}
 
 .message h4 {
     width: 100%; 
