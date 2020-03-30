@@ -20,7 +20,7 @@ function loadConversation(req,res,next) {
             element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
             element.time = date.toLocaleString('default', { hour: 'numeric', hour12: true, minute: 'numeric'});
         });
-        res.render('chat', {chatAssests: true, contact: res.locals.contacts, message: newMessages, convId: res.locals.convId, sender: user_id});
+        res.render('chat', {chatAssests: true, contacts: res.locals.contacts, messages: newMessages, convId: res.locals.convId, sender: user_id});
     })
 }
 
