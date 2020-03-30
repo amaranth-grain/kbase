@@ -27,9 +27,11 @@ function loadConversation(req,res,next) {
 function getContacts(req,res,next) {
     // let user_id = req.body.user_id;
     let user_id = 1;
+    console.log("TEST: " + req.body.convId)
     let dbQuery = mod.getcontacts(user_id);
     dbQuery.then((data) => {
         res.locals.contacts = data.rows;
+        // console.log(res.locals.contacts)
         next();
     }).catch(err => console.log(err));  
 }
@@ -44,11 +46,12 @@ function getConvId(req,res,next) {
     //
     //
     var user_id = 1;
+
     var contact_id = req.query.contactId;
     if(contact_id == undefined){
         contact_id = res.locals.contacts[0].id;
     }
-    
+
     var queryConv = mod.getconvo(user_id, contact_id);
     queryConv
     .then((data) => {
