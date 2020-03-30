@@ -19,10 +19,13 @@ function loadConversation(req,res,next) {
         mod.getmessages(data.rows[0]["conversation_id"])
         .then((data) => {
             newMessages = data.rows;
+            newMessages.forEach(element => {
+                let date = element.date;
+                element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
+                element.time = date.toLocaleString('default', { hour: 'numeric', hour12: true, minute: 'numeric'});
+            });
+            res.render('chat', {chatAssests: true, contact: newContacts, message: newMessages, convId: conversationId, sender: user_id});
         })
-    .then(() => {
-        res.render('chat', {chatAssests: true, contact: newContacts, message: newMessages, convId: conversationId, sender: user_id});
-    }) 
     }).catch(err => console.log(err));  
 
 }
