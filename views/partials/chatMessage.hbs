@@ -1,0 +1,18 @@
+{{#each message}}
+    <div class="message">
+        <h4><span>{{this.date}}</span></h4>
+        <div class="contactContainer">
+            <div class="contactImg"><img src="{{this.imageurl}}"></div>
+            <div class="chatCenter">
+                <div>
+                    <div class="contactName"><b>{{this.name}}</b></div>
+                    &#x2022;
+                    <div class="messageTime">{{this.time}}</div>
+                </div>
+                <div class="messageData">
+                    {{this.message}}
+                </div>
+            </div>
+        </div>
+    </div>
+{{/each}}
