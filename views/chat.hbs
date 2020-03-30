@@ -1,7 +1,7 @@
 <div id="chatContainer">
     <div id="allContacts">
         {{#each contact}}
-            <form action="/chat/loadConversation" method="POST">
+            <form action="/chat" method="GET">
                 <div class="contactContainer" id={{this.id}} onclick='document.getElementById("loadConversationButton").click()'>
                     <div class="contactImg"><img src={{this.imageurl}}></div>
                     <div class="contactName">{{this.name}}<div>{{this.about}}</div></div>
