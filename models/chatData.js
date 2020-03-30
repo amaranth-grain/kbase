@@ -27,18 +27,18 @@ function getConversation(id,contactid){
 
 //gets messages for the specified conversation id 
 function getMessages(conversation_id){
-    return db.query('select * from message left join users on id = message.sender where conversation_id =' + conversation_id + ' order by date asc,time asc')
-
+    //return db.query('select * from message left join users on id = message.sender where conversation_id =' + conversation_id + ' order by date asc,time asc')
+    return db.query('select * from message left join users on id = message.sender where conversation_id = '+ conversation_id + ' order by timestamp asc')
 }
 
 function getLatestMessage(conversation_id){
     return db.query('select * from message left join users on id = message.sender where conversation_id = ' + conversation_id + ' order by date desc,time desc limit 1')
 }
 
-
+// sample sql input INSERT INTO message (conversation_id,sender,message,timestamp) VALUES (1,1 ,'testtest','2017-03-14 07:10:00');
 //inserts a message into the message table 
-function createMessage(conversationid,senderid,message,date,time){
-    return db.query("INSERT INTO message (conversation_id,sender,message,date,time) VALUES (" + conversationid + ", " + senderid +",'" + message +"','" + date+"','" +time+"');")
+function createMessage(conversationid,senderid,message,timestamp){
+    return db.query("INSERT INTO message (conversation_id,sender,message,timestamp) VALUES (" + conversationid + ", " + senderid +",'" + message +"','" + timestamp+"');")
 }
 
 //creates a conversation between the two users 
