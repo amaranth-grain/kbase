@@ -80,8 +80,8 @@ body{
     flex-grow: 2;
     background: #fff;
     border-right: 4px solid #ddd;
-    min-width: 250px;
-    max-width: 380px;
+    /* min-width: 250px;
+    max-width: 380px; */
 }
 
 #rightSide{
@@ -89,6 +89,7 @@ body{
     background: #fff;
     margin-left: 1%;
     border-left: 4px solid #ddd;
+    width: 60%;
 }
 
 #allContacts .contactContainer{

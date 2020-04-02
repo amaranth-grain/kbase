@@ -58,7 +58,13 @@ function getLatestMessage(req,res,next) {
 
     contacts.forEach(element => {
         mod.getlatest(element.conversation_id).then((data) => {
-            element.latestMessage = data.rows[0].message;
+            if(data.rows[0].message.length > 20){
+                element.latestMessage = data.rows[0].message.substring(0, 17) + "..."; 
+            } else {
+                element.latestMessage = data.rows[0].message;
+            }
+            let date = data.rows[0].timestamp;
+            element.latestMessageDate = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
         }).catch(err => console.log(err));  
     });
     
