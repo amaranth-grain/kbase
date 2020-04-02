@@ -13,7 +13,6 @@ function loadConversation(req,res,next) {
     var conservationId = res.convId;
     
     var queryConv = mod.getmessages(conservationId);
-    console.log("HERE" + res.convId)
 
     queryConv
     .then((data) => {

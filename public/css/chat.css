@@ -38,13 +38,13 @@ body{
 .contactImg{
     padding-left: 1%;
     background: #fff;
+    margin-right: 2%;
 }
 
 .contactImg img{
     border-radius: 50%;
     min-width: 72px;
     min-height: 72px;
-    padding-right: 2%;
 }
 
 
@@ -57,7 +57,7 @@ body{
     display: inline;
 }
 
-.chatCenter{
+.contactCenter{
     flex-grow: 4;
     max-width: 100%;
 }
@@ -80,8 +80,6 @@ body{
     flex-grow: 2;
     background: #fff;
     border-right: 4px solid #ddd;
-    /* min-width: 250px;
-    max-width: 380px; */
 }
 
 #rightSide{

@@ -2,7 +2,11 @@
     <form action="/chat" method="POST">
         <div class="contactContainer" onclick='document.getElementById("{{this.id}}").click()'>
             <div class="contactImg"><img src={{this.imageurl}}></div>
-            <div class="contactName">{{this.name}}<div>{{this.latestMessage}}</div></div>
+            <div class="contactCenter">
+                <div>
+                    <div class="contactName">{{this.name}}<div>{{this.latestMessage}}</div></div>
+                </div>
+            </div>
             <div class="contactDate">{{this.latestMessageDate}}</div>
         </div>
         <input type="hidden" name="convId" value={{this.conversation_id}}>
