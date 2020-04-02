@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const loginController = require('../controllers/loginController');
-const { ensureAuth, forwardAuth } = require('../config/auth');
+const { forwardAuth } = require('../config/auth');
 
 router.get('/login', forwardAuth, (req, res) => {
     res.render('landing');
