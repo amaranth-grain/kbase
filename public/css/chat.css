@@ -1,8 +1,14 @@
 body{
     padding: 0em;
 }
-#loadConversationButton{
+
+.loadConversationButton{
     display: none;
+}
+
+#conversation{
+    height: 70vh;
+    overflow:auto;
 }
 
 .message h4 {
@@ -30,9 +36,9 @@ body{
 }
 
 .contactImg{
-    padding-top: 4px;
+    padding-left: 1%;
     background: #fff;
-    margin-right: 1.5%;
+    margin-right: 2%;
 }
 
 .contactImg img{
@@ -51,7 +57,7 @@ body{
     display: inline;
 }
 
-.chatCenter{
+.contactCenter{
     flex-grow: 4;
     max-width: 100%;
 }
@@ -59,7 +65,7 @@ body{
 .contactDate{
     padding: 1.4% 2% 0% 0%;
     text-align: right;
-    flex-grow: 2;
+    flex-grow: 0.5;
     background: #fff;
     font-size: 0.95em;
 }
@@ -74,8 +80,6 @@ body{
     flex-grow: 2;
     background: #fff;
     border-right: 4px solid #ddd;
-    min-width: 250px;
-    max-width: 380px;
 }
 
 #rightSide{
@@ -83,6 +87,7 @@ body{
     background: #fff;
     margin-left: 1%;
     border-left: 4px solid #ddd;
+    width: 60%;
 }
 
 #allContacts .contactContainer{
@@ -94,7 +99,7 @@ body{
     width: 100%;
     height: 15vh;
     border-top: 2px solid #ddd;
-    margin-top: 5%;
+    margin-top: 2%;
     padding: 2%;
     resize: none;
 }
