@@ -1,7 +1,7 @@
 let db = require('../db/db');
 
 function addusers(e) {
-    query = `Insert into users (name,about,imageurl,dob,country) VALUES ('${e.name}','${e.about}','${e.url}','${e.dob}','${e.country}')`
+    query = `Insert into users (name,about,imageurl,dob,country,email,password) VALUES ('${e.name}','${e.about}','${e.url}','${e.dob}','${e.country},${e.email},${e.password}')`
      db.query(query);
 }
 
