@@ -54,12 +54,15 @@ function getLatestMessage(req,res,next) {
     //
     //
     let user_id = 1;
-    // let contacts = res.contacts = 
-    // for
-    // mod.getlatest().then((data) => {
-    //     res.contacts = data.rows;
-    //     next();
-    // }).catch(err => console.log(err));  
+    let contacts = res.contacts;
+
+    contacts.forEach(element => {
+        mod.getlatest(element.conversation_id).then((data) => {
+            element.latestMessage = data.rows[0].message;
+        }).catch(err => console.log(err));  
+    });
+    
+    next();
 }
 
 function getConvId(req,res,next) {
@@ -102,4 +105,5 @@ module.exports = {
     getConvId: getConvId,
     loadConversation: loadConversation,
     newMessage: newMessage,
+    getLatestMessage: getLatestMessage
 }
