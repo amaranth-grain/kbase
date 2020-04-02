@@ -13,12 +13,18 @@ function createReply(person_id,discussion_id,reply_details,reply_time){
 
 //gets the replies of a discussion based on the discussion id
 function getReplies(discussion_id){
-    query = `select reply_details from reply where discussion_id = ${discussion_id} order by reply_time;`
+    query = `select * from reply where discussion_id = ${discussion_id} order by reply_time;`
+    return db.query(query)
+}
+
+function filterByTag(tag){
+    query = `select * from discussion where tag = ${tag}`
     return db.query(query)
 }
 
 module.exports = {
     creatediscussion:createDiscussion,
     createreply: createReply,
-    getreplies: getReplies
+    getreplies: getReplies,
+    filterbytag:filterByTag
 }
