@@ -14,8 +14,8 @@ function getusers(id) {
     return db.query(query);
 }
 
-function checkUser() {
-    return db.query("SELECT * FROM users WHERE username = '" + user + "' AND password = '" + pass + "'");
+function checkUser(email, pass) {
+    return db.query("SELECT * FROM users WHERE email = '" + email + "' AND password = '" + pass + "'");
 }
 
 
