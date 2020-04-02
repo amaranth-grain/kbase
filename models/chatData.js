@@ -32,13 +32,13 @@ function getMessages(conversation_id){
 }
 
 function getLatestMessage(conversation_id){
-    return db.query('select * from message left join users on id = message.sender where conversation_id = ' + conversation_id + ' order by date desc,time desc limit 1')
+    return db.query('select * from message left join users on id = message.sender where conversation_id = ' + conversation_id + ' order by timestamp desc limit 1')
 }
 
 // sample sql input INSERT INTO message (conversation_id,sender,message,timestamp) VALUES (1,1 ,'testtest','2017-03-14 07:10:00');
 //inserts a message into the message table 
 function createMessage(conversationid,senderid,message,timestamp){
-    return db.query("INSERT INTO message (conversation_id,sender,message,timestamp) VALUES (" + conversationid + ", " + senderid +",'" + message +"','" + timestamp+"');")
+    return db.query("INSERT INTO message (conversation_id,sender,message,timestamp) VALUES (" + conversationid + ", " + senderid +", '" + message + "', to_timestamp(" + timestamp+"/ 1000.0));")
 }
 
 //creates a conversation between the two users 

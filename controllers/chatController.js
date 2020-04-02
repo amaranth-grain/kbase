@@ -13,6 +13,7 @@ function loadConversation(req,res,next) {
     var conservationId = res.convId;
     
     var queryConv = mod.getmessages(conservationId);
+    console.log("HERE" + res.convId)
 
     queryConv
     .then((data) => {
@@ -64,9 +65,9 @@ function getLatestMessage(req,res,next) {
             }
             let date = data.rows[0].timestamp;
             element.latestMessageDate = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
-        }).catch(err => console.log(err)); 
+        }).catch(err => console.log(err))
     });
-    
+
     next();
 }
 
@@ -97,12 +98,10 @@ function getConvId(req,res,next) {
 }
 
 function newMessage(req,res,next) {
-    console.log(req.body)
-    res.end();
-    let dbQuery = mod.createmessage(req.body.convId, req.body.sender, Date.now(), req.body.messageInput);
-    dbQuery.then((data) => {
-        res.render('chat', {chatAssests: true, contact: data.rows});
-    }).catch(err => console.log(err));  
+    let dbQuery = mod.createmessage(req.body.convId, req.body.sender, req.body.messageInput, Date.now());
+    dbQuery.then((data) => {}).catch(err => console.log(err));  
+    res.convId = req.body.convId;
+    next();
 }
 
 module.exports = {
