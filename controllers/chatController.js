@@ -55,19 +55,24 @@ function getLatestMessage(req,res,next) {
     //
     let user_id = 1;
 
-    res.contacts.forEach(element => {
-        mod.getlatest(element.conversation_id).then((data) => {
-            if(data.rows[0].message.length > 20){
-                element.latestMessage = data.rows[0].message.substring(0, 17) + "..."; 
-            } else {
-                element.latestMessage = data.rows[0].message;
-            }
-            let date = data.rows[0].timestamp;
-            element.latestMessageDate = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
-        }).catch(err => console.log(err))
+    let promise = new Promise(function(resolve, reject){
+        res.contacts.forEach(element => {
+            mod.getlatest(element.conversation_id).then((data) => {
+                if(data.rows[0].message.length > 20){
+                    element.latestMessage = data.rows[0].message.substring(0, 17) + "..."; 
+                } else {
+                    element.latestMessage = data.rows[0].message;
+                }
+                let date = data.rows[0].timestamp;
+                element.latestMessageDate = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
+            }).catch(err => reject(err))
+        });
+        resolve();
     });
 
-    next();
+    promise.then(()=> next()).catch((err) => console.log(err));
+
+
 }
 
 function getConvId(req,res,next) {
