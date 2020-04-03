@@ -34,6 +34,10 @@ function getusers(id) {
     return db.query(query);
 }
 
+function checkUser(email, pass) {
+    return db.query("SELECT * FROM users WHERE email = '" + email + "' AND password = '" + pass + "'");
+}
+
 
 module.exports = {
     add : addusers,
@@ -42,5 +46,6 @@ module.exports = {
     addprofile:addProfile,
     createcredentials:createCredentials,
     addpicture:addPicture,
-    getId:getID
+    getId:getID,
+    check: checkUser
 }
