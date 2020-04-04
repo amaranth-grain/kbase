@@ -54,9 +54,9 @@ function getLatestMessage(req,res,next) {
     //
     //
     let user_id = 1;
-
-    let promise = new Promise(function(resolve, reject){
-        res.contacts.forEach(element => {
+    var contacts = res.contacts;
+    var promises = contacts.map(element => {
+        return new Promise((resolve, reject) => {
             mod.getlatest(element.conversation_id).then((data) => {
                 if(data.rows[0].message.length > 15){
                     element.latestMessage = data.rows[0].message.substring(0, 12) + "..."; 
@@ -65,13 +65,15 @@ function getLatestMessage(req,res,next) {
                 }
                 let date = data.rows[0].timestamp;
                 element.latestMessageDate = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
-            }).catch(err => reject(err))
+            }).then(()=>resolve()).catch(err => reject(err))
         });
-        resolve();
     });
 
-    promise.then(()=> next()).catch(() => res.render('chat', {chatAssests: true, contacts: [{"latestMessage": "Error: getting latest messages failed."}]})); 
-
+    Promise.all(promises)
+    .then(() => {
+        res.contacts = contacts;
+        next();
+    }).catch(() => res.render('chat', {chatAssests: true, contacts: [{"latestMessage": "Error: getting latest messages failed."}]})); 
 
 }
 
