@@ -5,13 +5,12 @@ body {
 }
 
 /****** FOR CHAT FRONTEND ^ *****/
-
 :root {
   --logoBlue: rgb(100, 197, 240);
   --buttonBlue: rgb(0, 162, 232);
   --offWhite: rgb(240, 240, 248);
   --inputGrey: rgb(225, 235, 235);
-  --textGrey: rgb(110, 120, 130);
+  --textGrey: rgb(131, 134, 139);
 }
 body {
   font-family: "Roboto", sans-serif;
@@ -20,7 +19,7 @@ body {
 input {
   display: inline-block;
   height: 35px;
-  padding-left: 2em;
+  padding-left: 0.5em;
 }
 textarea {
   margin: 1em 0;
@@ -40,9 +39,15 @@ nav {
   align-items: center;
   padding-right: 4vw;
 }
+.disabled{
+  pointer-events: none;
+}
+.test {
+  border: 1px solid grey;
+}
 /****** LOGIN *****/
 #divWrapper {
-  max-width: 800px;
+  max-width: 900px;
   min-width: 700px;
   margin: 0 auto;
 }
@@ -54,7 +59,7 @@ nav {
 }
 .inputLogin {
   margin: 0 0.4em;
-  width: 120px;
+  width: 170px;
 }
 button {
   background-color: var(--buttonBlue);
@@ -78,24 +83,23 @@ button {
   width: 40%;
 }
 #colRight {
-  width: 55%;
-  display: flex;
+  width: 60%;
   justify-content: center;
 }
 #divSignup {
   width: 70%;
 }
 .inputHalf {
-  width: 10vw;
+  width: 45%;
 }
 .inputFull {
-  width: 20vw;
+  width: 90%;
 }
 .input {
-  margin-bottom: 1em;
+  margin-bottom: 1.2em;
 }
 #btnSignup {
-  width: 20vw;
+  width: 90%;
 }
 /****** SIGN UP END *****/
 /****** SIGN UP DETAILS *****/
@@ -133,6 +137,7 @@ button {
   background-color: var(--inputGrey);
   color: var(--textGrey);
   border: none;
+  padding-left: 2em;
 }
 #btnLogout {
   width: 100px;
@@ -174,6 +179,7 @@ button {
 }
 .profilePic {
   width: 100px;
+  height: 100px;
   clip-path: circle(50%);
 }
 #stats {
@@ -199,8 +205,45 @@ button {
   height: 2em;
   color: var(--buttonBlue);
   border: 1px solid var(--buttonBlue);
+  margin-right: 0.5em;
 }
 .btnPostTimeline {
   width: 60%;
 }
 /****** PROFILE SIDEBAR END *****/
+/****** QUESITON INPUT *****/
+#formDiscussion input {
+  width: 75%;
+}
+#formDiscussion textarea {
+  width: 75%;
+}
+/****** DISCUSSION ******/
+#discussion {
+  margin-top: 2em;
+}
+#searchDiscussion {
+  color: var(--textGrey);
+}
+.cardDiscussion {
+  display: flex;
+}
+.cardDiscussionHeader {
+  display: flex;
+}
+.cardDiscussionFooter {
+  display: flex;
+}
+.dateDiscussion {
+  flex-grow: 2;
+}
+.cardDiscussion .profilePic {
+  margin-right: 1em;
+}
+.cardDiscussionText {
+  width: 65%;
+}
+.subjectDiscussion {
+  font-size: 1.3em;
+  flex-grow: 2;
+}
