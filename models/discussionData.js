@@ -33,13 +33,14 @@ function getSpecificDateDiscussion(date){
 }
 
 //will be used for pagination, used to select what shows up on each page 
+//for example if you wanted row 5 to 10 do offset 5 limit 5
 function selectTopicRange(start_row,num_of_rows){
     query = `select * from discussion order by datetime desc offset ${start_row} limit ${num_of_rows} `
     return db.query(query)
 }
 
 function selectTopicRangeFilter(start_row,num_of_rows,filter){
-    query = `select * from discussion order by datetime desc offset ${start_row} limit ${num_of_rows} `
+    query = `select * from discussion where tag = ${filter} order by datetime desc offset ${start_row} limit ${num_of_rows} `
     return db.query(query)
 }
 
