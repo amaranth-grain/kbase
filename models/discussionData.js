@@ -22,6 +22,11 @@ function getNumOfReplies(discussion_id){
     return db.query(query)
 }
 
+function getDiscussion(discussion_id){
+    query = `select * from discussion where discussion_id = ${discussion_id}`
+    return db.query(query)
+}
+
 function getSpecificDateReply(date){
     query = `select * from reply where DATE(reply_time) = '${date}';`
     return db.query(query)
@@ -68,5 +73,7 @@ module.exports = {
     selectTopicRangeFilter:selectTopicRangeFilter,
     getSpecificDateDiscussion:getSpecificDateDiscussion,
     getSpecificDateReply:getSpecificDateReply,
-    incrementLikes:incrementLikes
+    incrementLikes:incrementLikes,
+    getNumOfReplies:getNumOfReplies,
+    getDiscussion:getDiscussion
 }
