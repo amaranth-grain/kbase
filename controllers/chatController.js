@@ -23,7 +23,7 @@ function loadConversation(req,res,next) {
             element.time = date.toLocaleString('default', { hour: 'numeric', hour12: true, minute: 'numeric'});
         });
         res.render('chat', {chatAssests: true, contacts: res.contacts, messages: newMessages, convId: conservationId, sender: user_id});
-    }).catch(err => console.log(err));  
+    }).catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"name": "Error: getting messages failed."}], convId: conservationId, sender: user_id}));
 
 }
 
@@ -41,7 +41,7 @@ function getContacts(req,res,next) {
     dbQuery.then((data) => {
         res.contacts = data.rows;
         next();
-    }).catch(err => console.log(err));  
+    }).catch(() => res.render('chat', {chatAssests: true, contacts: [{"name": "Error: getting contacts failed"}]})); 
 }
 
 function getLatestMessage(req,res,next) {
@@ -55,19 +55,24 @@ function getLatestMessage(req,res,next) {
     //
     let user_id = 1;
 
-    res.contacts.forEach(element => {
-        mod.getlatest(element.conversation_id).then((data) => {
-            if(data.rows[0].message.length > 20){
-                element.latestMessage = data.rows[0].message.substring(0, 17) + "..."; 
-            } else {
-                element.latestMessage = data.rows[0].message;
-            }
-            let date = data.rows[0].timestamp;
-            element.latestMessageDate = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
-        }).catch(err => console.log(err))
+    let promise = new Promise(function(resolve, reject){
+        res.contacts.forEach(element => {
+            mod.getlatest(element.conversation_id).then((data) => {
+                if(data.rows[0].message.length > 15){
+                    element.latestMessage = data.rows[0].message.substring(0, 12) + "..."; 
+                } else {
+                    element.latestMessage = data.rows[0].message;
+                }
+                let date = data.rows[0].timestamp;
+                element.latestMessageDate = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
+            }).catch(err => reject(err))
+        });
+        resolve();
     });
 
-    next();
+    promise.then(()=> next()).catch(() => res.render('chat', {chatAssests: true, contacts: [{"latestMessage": "Error: getting latest messages failed."}]})); 
+
+
 }
 
 function getConvId(req,res,next) {
@@ -92,13 +97,15 @@ function getConvId(req,res,next) {
         .then((data) => {
             res.convId = data.rows[0]["conversation_id"];
             next();
-        }).catch(err => console.log(err));  
+        }).catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"message": "Error: getting conversation id failed."}]}));
     }
 }
 
 function newMessage(req,res,next) {
     let dbQuery = mod.createmessage(req.body.convId, req.body.sender, req.body.messageInput, Date.now());
-    dbQuery.then((data) => {}).catch(err => console.log(err));  
+    dbQuery
+    .then((data) => {})
+    .catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"message": "Error: getting sending message failed."}]})); 
     res.convId = req.body.convId;
     next();
 }

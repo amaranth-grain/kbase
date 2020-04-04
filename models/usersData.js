@@ -25,16 +25,16 @@ function addPicture(imageurl,id){
     db.query(query)
 }
 
-function getID(email){
+function getId(email){
     query = `select id from users where email = '${email}';`
     db.query(query)
 }
 
-function getAllusers() {
+function getAllUsers() {
     return db.query('Select * from users');
 }
 
-function getusers(id) {
+function getUser(id) {
     query = `Select * from users where id = ${id}`
     return db.query(query);
 }
@@ -57,18 +57,17 @@ function getNumOfMessages(user_id){
     return db.query(query)
 }
 
-
 module.exports = {
     add : addusers,
-    createuser : createUser,
-    getall : getAllusers,
-    getusers: getusers,
-    addprofile:addProfile,
-    createcredentials:createCredentials,
-    addpicture:addPicture,
-    getId:getID,
+    getAll : getAllUsers,
+    getUser: getUser,
+    addProfile:addProfile,
+    createCredentials:createCredentials,
+    addPicture:addPicture,
+    getId:getId,
     check: checkUser,
-    checkemail: checkEmail,
-    getnumposts:getNumOfPosts,
-    getnummess:getNumOfMessages
+    createUser : createUser,    
+    checkEmail: checkEmail,
+    getNumOfPosts:getNumOfPosts,
+    getNumOfMessages:getNumOfMessages
 }

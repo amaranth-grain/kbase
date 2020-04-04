@@ -9,6 +9,7 @@ body{
 #conversation{
     height: 70vh;
     overflow:auto;
+    overflow-y:scroll;
 }
 
 .message h4 {
@@ -41,6 +42,10 @@ body{
     margin-right: 2%;
 }
 
+.message img {
+    margin-right: 1%;
+}
+
 .contactImg img{
     border-radius: 50%;
     min-width: 72px;
@@ -59,7 +64,6 @@ body{
 
 .contactCenter{
     flex-grow: 4;
-    max-width: 100%;
 }
 
 .contactDate{
@@ -107,8 +111,7 @@ body{
 #sendMsg{
     float: right;
     border: 0px;
-    padding: 1% 2%;
+    padding: 0.5% 2%;
     background-color: #6d84b4;
     color: white;
-    margin-top: 1%;
 }
