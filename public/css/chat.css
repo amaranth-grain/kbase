@@ -7,7 +7,7 @@ body{
 }
 
 #conversation{
-    height: 70vh;
+    height: 61vh;
     overflow:auto;
     overflow-y:scroll;
 }
@@ -68,7 +68,7 @@ body{
 
 
 .contactDate{
-    padding: 1.4% 2% 0% 0%;
+    margin: 1.4% 2% 0% 0%;
     text-align: right;
     flex-grow: 0.5;
     background: #fff;
@@ -114,7 +114,7 @@ body{
     height: 15vh;
     border-top: 2px solid #ddd;
     margin-top: 2%;
-    padding: 2%;
+    padding: 1%;
     resize: none;
 }
 

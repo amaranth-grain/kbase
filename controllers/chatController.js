@@ -24,7 +24,6 @@ function getContacts(req,res,next) {
     let dbQuery = mod.getcontacts(user_id);
     dbQuery.then((data) => {
         res.contacts = data.rows;
-        console.log(data.rows)
         next();
     }).catch(() => res.render('chat', {chatAssests: true, contacts: [{"name": "Error: getting contacts failed"}]})); 
 }
@@ -56,15 +55,14 @@ function getConvId(req,res,next) {
     if(req.body.convId != undefined){
         res.convId = req.body.convId;
         next();
+    } else if (res.convId != undefined){
+        res.convId = res.session.convId;
     } else {
         var user_id = req.session.userId;
 
         if(res.contacts.length < 1){
-            console.log("HERE")
             res.render('chat', {chatAssests: true, contacts: [{"name": "No contacts"}]});
         } else {
-            console.log("HERE2")
-
             var contact_id = res.contacts[0].id;
     
             var queryConv = mod.getconvo(user_id, contact_id);
@@ -83,8 +81,8 @@ function newMessage(req,res,next) {
     dbQuery
     .then((data) => {})
     .catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"message": "Error: getting sending message failed."}]})); 
-    res.convId = req.body.convId;
-    next();
+    res.session.convId = req.body.convId;
+    res.redirect("/chat");
 }
 
 module.exports = {
