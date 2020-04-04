@@ -35,8 +35,16 @@ app.set('view engine', 'hbs');
 app.set('views', 'views');
 
 app.use(mainRoutes);
-app.use(chatRoutes);
 app.use(loginRoutes);
+
+app.use((req,res,next) => {
+  if(!req.session.username) 
+    return res.redirect('/');
+  
+    next();
+})
+
+app.use(chatRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);
