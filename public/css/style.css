@@ -84,6 +84,7 @@ button {
 }
 #colRight {
   width: 60%;
+  padding-left: 3em;
   justify-content: center;
 }
 #divSignup {
@@ -108,11 +109,17 @@ button {
   font-weight: bold;
   font-size: 3em;
 }
+#divSignup input {
+  width: 350px;
+}
+#divSignup textarea {
+  width: 350px;
+}
 #signupTag {
   font-weight: bold;
   font-size: 2rem;
   width: 35%;
-  margin-right: 3em;
+  margin-right: 1em;
 }
 #signupDetails {
   padding: 2em 1em;

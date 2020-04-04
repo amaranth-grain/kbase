@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 const mainRoutes = require('./routes/index');
 const chatRoutes = require('./routes/chatRoutes');
 const loginRoutes = require('./routes/loginRoutes');
+const signupRoutes = require('./routes/signupRoutes');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -37,6 +38,8 @@ app.set('views', 'views');
 app.use(mainRoutes);
 app.use(chatRoutes);
 app.use(loginRoutes);
+app.use(signupRoutes);
+
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);
