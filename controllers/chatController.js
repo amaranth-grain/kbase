@@ -1,15 +1,7 @@
 let mod = require('../models/chatData');
 
 function loadConversation(req,res,next) {
-    // let user_id = req.body.user_id;
-    // REPLACE WITH SESSIONS... 
-    //
-    //
-    //
-    //
-    //
-    //
-    var user_id = 1;
+    var user_id = req.session.userId;
     var conservationId = res.convId;
     
     var queryConv = mod.getmessages(conservationId);
@@ -28,32 +20,17 @@ function loadConversation(req,res,next) {
 }
 
 function getContacts(req,res,next) {
-    // let user_id = req.body.user_id;
-    // REPLACE WITH SESSIONS... 
-    //
-    //
-    //
-    //
-    //
-    //
-    let user_id = 1;
+    var user_id = req.session.userId;
     let dbQuery = mod.getcontacts(user_id);
     dbQuery.then((data) => {
         res.contacts = data.rows;
+        console.log(data.rows)
         next();
     }).catch(() => res.render('chat', {chatAssests: true, contacts: [{"name": "Error: getting contacts failed"}]})); 
 }
 
 function getLatestMessage(req,res,next) {
-    // let user_id = req.body.user_id;
-    // REPLACE WITH SESSIONS... 
-    //
-    //
-    //
-    //
-    //
-    //
-    let user_id = 1;
+    var user_id = req.session.userId;
 
     let promise = new Promise(function(resolve, reject){
         res.contacts.forEach(element => {
@@ -80,24 +57,24 @@ function getConvId(req,res,next) {
         res.convId = req.body.convId;
         next();
     } else {
-        // let user_id = req.body.user_id;
-        // REPLACE WITH SESSIONS... 
-        //
-        //
-        //
-        //
-        //
-        //
-        var user_id = 1;
+        var user_id = req.session.userId;
 
-        var contact_id = res.contacts[0].id;
+        if(res.contacts.length < 1){
+            console.log("HERE")
+            res.render('chat', {chatAssests: true, contacts: [{"name": "No contacts"}]});
+        } else {
+            console.log("HERE2")
 
-        var queryConv = mod.getconvo(user_id, contact_id);
-        queryConv
-        .then((data) => {
-            res.convId = data.rows[0]["conversation_id"];
-            next();
-        }).catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"message": "Error: getting conversation id failed."}]}));
+            var contact_id = res.contacts[0].id;
+    
+            var queryConv = mod.getconvo(user_id, contact_id);
+            queryConv
+            .then((data) => {
+                res.convId = data.rows[0]["conversation_id"];
+                next();
+            }).catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"message": "Error: getting conversation id failed."}]}));
+
+        }
     }
 }
 
