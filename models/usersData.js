@@ -57,6 +57,11 @@ function getNumOfMessages(user_id){
     return db.query(query)
 }
 
+function getNumOfLikes(user_id){
+    query = `select sum(num_of_likes) from reply where user_id = ${user_id}`
+    return db.query(query)
+}
+
 module.exports = {
     add : addusers,
     getAll : getAllUsers,
@@ -69,5 +74,6 @@ module.exports = {
     createUser : createUser,    
     checkEmail: checkEmail,
     getNumOfPosts:getNumOfPosts,
-    getNumOfMessages:getNumOfMessages
+    getNumOfMessages:getNumOfMessages,
+    getNumOfLikes:getNumOfLikes
 }
