@@ -63,9 +63,9 @@ module.exports = {
     createreply: createReply,
     getreplies: getReplies,
     filterbytag:filterByTag,
-    selecttopicrange:selectTopicRange,
-    selecttopicrangefilter:selectTopicRangeFilter,
-    getspecificdatediscussion:getSpecificDateDiscussion,
-    getspecificdatereply:getSpecificDateReply,
-    incrementlikes:incrementLikes
+    selectTopicRange:selectTopicRange,
+    selectTopicRangeFilter:selectTopicRangeFilter,
+    getSpecificDateDiscussion:getSpecificDateDiscussion,
+    getSpecificDateReply:getSpecificDateReply,
+    incrementLikes:incrementLikes
 }
