@@ -134,6 +134,15 @@ button {
 }
 /****** SIGN UP DETAILS END *****/
 /****** HOMEPAGE *****/
+a, a:visited, a:hover, a:active {
+  color: inherit;
+}
+
+#logoLink{
+  text-decoration: none;
+}
+
+
 #logoAbbr {
   flex-grow: 0.3;
 }

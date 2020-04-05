@@ -5,9 +5,13 @@ function addUsers(name,about,imageurl,dob,country,email,password) {
      db.query(query);
 }
 
-function createCredentials(u){
-    console.log("Creating credentials...")
-    query = `Insert into users (name, email,password) VALUES ('${u.fname}', '${u.email}','${u.password}')`
+function createUser(name,email,password){
+    query = `Insert into users (name,email,password) VALUES ('${name},${email}','${password}')`
+    db.query(query);
+}
+
+function createCredentials(email,password){
+    query = `Insert into users (email,password) VALUES ('${email}','${password}')`
     db.query(query);
 }
 
@@ -39,6 +43,25 @@ function checkUser(email, pass) {
     return db.query("SELECT * FROM users WHERE email = '" + email + "' AND password = '" + pass + "'");
 }
 
+function checkEmail(email){
+    query = `select count (*) from users where email = ${email}`
+    return db.query(query)
+}
+
+function getNumOfPosts(user_id){
+    query = `select count (*) from reply where user_id = ${user_id}`
+    return db.query(query)
+}
+function getNumOfMessages(user_id){
+    query = `select count (*) from conversation where first_user = ${user_id} or second_user = ${user_id}`
+    return db.query(query)
+}
+
+function getNumOfLikes(user_id){
+    query = `select sum(num_of_likes) from reply where user_id = ${user_id}`
+    return db.query(query)
+}
+
 module.exports = {
     add : addUsers,
     getAll : getAllUsers,
@@ -47,5 +70,10 @@ module.exports = {
     createCredentials:createCredentials,
     addPicture:addPicture,
     getId:getId,
-    check: checkUser
+    check: checkUser,
+    createUser : createUser,    
+    checkEmail: checkEmail,
+    getNumOfPosts:getNumOfPosts,
+    getNumOfMessages:getNumOfMessages,
+    getNumOfLikes:getNumOfLikes
 }
