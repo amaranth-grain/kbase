@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const { ensureAuth } = require('../config/auth');
 const mod = require('../models/usersData');
-
+const discController = require('../controllers/discussionController');
 
 router.get('/', ensureAuth, (req, res) => {
     res.redirect('/home');
 })
 
-router.get('/home', ensureAuth, (req, res) => {
+function temp(req,res,next) {
     let userId = req.session.userId;
     mod.getUser(userId).then(user => {       
         let imgUrl = user["rows"][0].imageurl;
@@ -19,8 +19,13 @@ router.get('/home', ensureAuth, (req, res) => {
         let tagline = user["rows"][0].about;
         //TODO Grab topics from db
         let topics = ["NodeJS", "Java", "SQL", "PHP", "Zend"];
-        res.render('home', {imgUrl, name, tagline, numPost, numMsg, numLike, topics})
-    });
-});
+        res.profile = {"imgUrl": imgUrl, "name": name, "numPost": numPost, 
+                        "numMsg": numMsg, "numLike": numLike, "tagline": tagline}
+        next();
+    }).catch((err) => console.log(err));
+}
+
+router.get('/home', ensureAuth, temp, discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
+                    discController.getNumOfReplies, discController.loadLatestDiscussions);
 
 module.exports = router;
