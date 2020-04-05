@@ -7,7 +7,7 @@ function createDiscussion(id,details,datetime,tag){
 }
 
 function createReply(person_id,discussion_id,reply_details,reply_time){
-    query = `insert into reply (person_id,discussion_id,reply_details,reply_time) values (${person_id},${discussion_id},${reply_details},${reply_time});`
+    query = `insert into reply (user_id,discussion_id,reply_details,reply_time) values (${person_id},${discussion_id},${reply_details},${reply_time});`
     return db.query(query)
 }
 
