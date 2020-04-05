@@ -53,12 +53,7 @@ function getLatestMessage(req,res,next) {
 
 function getConvId(req,res,next) {
     if(req.body.convId != undefined){
-        req.session.convId = req.body.convId;
-    } 
-    
-    if(req.session.convId != undefined){
-        res.convId = req.session.convId;
-        next();
+        req.convId = req.body.convId;
     } else {
         var user_id = req.session.userId;
 
@@ -83,7 +78,6 @@ function newMessage(req,res,next) {
     dbQuery
     .then((data) => {})
     .catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"message": "Error: getting sending message failed."}]})); 
-    req.session.convId = req.body.convId;
     res.redirect("/chat");
 }
 
