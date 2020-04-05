@@ -245,6 +245,7 @@ a, a:visited, a:hover, a:active {
 }
 .cardDiscussion {
   display: flex;
+  margin-bottom: 2%;
 }
 .cardDiscussionHeader {
   display: flex;
