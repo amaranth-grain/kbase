@@ -2,32 +2,34 @@ let db = require('../db/db');
 
 function addUsers(name,about,imageurl,dob,country,email,password) {
     query = `Insert into users (name,about,imageurl,dob,country,email,password) VALUES ('${name}','${about}', '${imageurl}', '${dob}', '${country}','${email}','${password}')`
-     db.query(query);
-}
-
-function createUser(name,email,password){
-    query = `Insert into users (name,email,password) VALUES ('${name},${email}','${password}')`
     db.query(query);
 }
+/**** FOR SIGN UP ****/
+function createUser(user){
+    let sql = `Insert into users (name, lastname, email, password) values ('${user.fname}','${user.lname}','${user.email}','${user.password}')`;
+    db.query(sql);
+    return 1;
+}
+
+function getId(email){
+    let query = `select id from users where email = '${email}';`
+    return db.query(query);
+}
+
+function updateProfile(id, user){
+    query = `update users set imageurl='${user.imgUrl}', about='${user.about}',dob='${user.dob}',country='${user.country}' where id = ${id};`
+    db.query(query);
+}
+/**** FOR SIGN UP ****/
 
 function createCredentials(email,password){
     query = `Insert into users (email,password) VALUES ('${email}','${password}')`
     db.query(query);
 }
 
-function addProfile(name,about,dob,country,id){
-    query = `update users set name = '${name}', about='${about}',dob='${dob}',country='${country}' where id = ${id};`
-    db.query(query);
-}
-
 function addPicture(imageurl,id){
     query = `update users set imageurl = '${imageurl}' where id = ${id};`
     db.query(query);
-}
-
-function getId(email){
-    query = `select id from users where email = '${email}';`
-    db.query(query)
 }
 
 function getAllUsers() {
@@ -66,12 +68,12 @@ module.exports = {
     add : addUsers,
     getAll : getAllUsers,
     getUser: getUser,
-    addProfile:addProfile,
+    updateProfile: updateProfile,
     createCredentials:createCredentials,
     addPicture:addPicture,
     getId:getId,
     check: checkUser,
-    createUser : createUser,    
+    createUser : createUser,
     checkEmail: checkEmail,
     getNumOfPosts:getNumOfPosts,
     getNumOfMessages:getNumOfMessages,

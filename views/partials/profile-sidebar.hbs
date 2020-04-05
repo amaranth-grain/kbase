@@ -1,22 +1,22 @@
 <div class="profileSidebar">
-  <img class="profilePic" src={{imgUrl}}>
-  <p class="profileName">{{name}}</p>
-  <p>{{tagline}}</p>
+  <img class="profilePic" src={{imageurl}}>
+  <p class="profileName">{{name}} {{lastname}}</p>
+  <p>{{about}}</p>
   <div id="stats">
     <div class="statRow">
       <p><a href="/">Posts</a></p>
-      <p>{{numPost}}</p>
+      <p>{{num_posts}}</p>
     </div>
     <div class="statRow">
       <p><a href="/">Messages</a></p>
-      <p>{{numMsg}}</p>
+      <p>{{num_messages}}</p>
     </div>
     <div class="statRow">
       <p><a href="/">Likes</a></p>
-      <p>{{numLike}}</p>
+      <p>{{num_likes}}</p>
     </div>
     <div class="statProfile">
-      <p><a href="/">Edit Profile</a></p>
+      <p><a href={{profilePath}}>Edit Profile</a></p>
     </div>
   </div>
 </div>

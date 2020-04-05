@@ -17,7 +17,7 @@ body {
   padding: 1.5em 4em;
 }
 input {
-  display: inline-block;
+  /* display: inline-block; */
   height: 35px;
   padding-left: 0.5em;
 }
@@ -80,16 +80,20 @@ button {
   display: flex;
   margin-top: 1em;
 }
+.msg {
+  color: red;
+  font-size: 1.5em;
+  text-align: center;
+}
 #colLeft {
   width: 40%;
 }
 #colRight {
   width: 60%;
   padding-left: 3em;
-  justify-content: center;
 }
 #divSignup {
-  width: 70%;
+  width: 80%;
 }
 .inputHalf {
   width: 45%;
@@ -137,12 +141,10 @@ button {
 a, a:visited, a:hover, a:active {
   color: inherit;
 }
-
 #logoLink{
   text-decoration: none;
+  font-size: 1.7em;
 }
-
-
 #logoAbbr {
   flex-grow: 0.3;
 }

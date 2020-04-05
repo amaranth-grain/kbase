@@ -9,4 +9,6 @@ router.get('/signup', forwardAuth, (req, res) => {
 
 router.post('/signup', signupController.signup);
 
+router.post('/signup-extended', signupController.signupExtended);
+
 module.exports = router;
