@@ -11,14 +11,6 @@ router.get('/login', forwardAuth, (req, res) => {
 /* Attempt to login by comparing user and pw against db values. */
 router.post('/login', loginController.checkUser);
 
-router.post('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if (err) { 
-            throw err;
-        } else {
-            return res.redirect('/');
-        }
-    }) 
-})
+router.post('/logout', loginController.logout);
  
 module.exports = router;

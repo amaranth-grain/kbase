@@ -46,7 +46,7 @@ nav {
   border: 1px solid grey;
 }
 /****** LOGIN *****/
-#divWrapper {
+.divWrapper {
   max-width: 900px;
   min-width: 750px;
   margin: 0 auto;
@@ -83,6 +83,10 @@ button {
 .msg {
   color: red;
   font-size: 1.5em;
+  text-align: center;
+}
+.err {
+  color: red;
   text-align: center;
 }
 #colLeft {

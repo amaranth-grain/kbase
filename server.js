@@ -7,7 +7,7 @@ const session = require('express-session');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const mainRoutes = require('./routes/index');
+const mainRoutes = require('./routes/mainRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const signupRoutes = require('./routes/signupRoutes');

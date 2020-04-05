@@ -1,14 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const { ensureAuth } = require('../config/auth');
 const mod = require('../models/usersData');
 
-
-router.get('/', ensureAuth, (req, res) => {
-    res.redirect('/home');
-})
-
-router.get('/home', ensureAuth, (req, res) => {
+exports.getHome = (req, res) => {
     let userId = req.session.userId;
     mod.getUser(userId).then(data => {       
         user = {
@@ -21,20 +13,18 @@ router.get('/home', ensureAuth, (req, res) => {
             about: data["rows"][0].about,
             id: data["rows"][0].id
         }
-        let profilePath = `/profile/${user.id}`
         let {imageurl, name, lastname, num_posts, num_messages, num_likes, about, id} = user;
+        let profilePath = `/profile/${id}`
         let topics = ["NodeJS", "Java", "SQL", "PHP", "Zend"];
         res.render('home', {imageurl, name, lastname, num_posts, num_messages, num_likes, about, profilePath, topics})
     });
-});
+}
 
-router.get('/profile/:userId', (req, res) => {
+exports.getProfile = (req, res) => {
     mod.getUser(req.params.userId).then(data => {
         let {name, lastname, country, about, id, imageurl} = data["rows"][0];
         let profilePath = `/profile/${id}`;
         console.log("profile info: ", name, lastname, country, about, profilePath, imageurl);
         res.render('profile', {name, lastname, imageurl, country, about, profilePath});
     });
-})
-
-module.exports = router;
+}

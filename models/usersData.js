@@ -46,12 +46,12 @@ function checkUser(email, pass) {
 }
 
 function checkEmail(email){
-    query = `select count (*) from users where email = ${email}`
+    let query = `select count (*) from users where email = '${email}';`;
     return db.query(query)
 }
 
 function getNumOfPosts(user_id){
-    query = `select count (*) from reply where user_id = ${user_id}`
+    query = `select count (*) from reply where user_id = '${user_id}'`
     return db.query(query)
 }
 function getNumOfMessages(user_id){

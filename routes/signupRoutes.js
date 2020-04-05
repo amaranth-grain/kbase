@@ -3,9 +3,7 @@ const router = express.Router();
 const signupController = require('../controllers/signupController');
 const { forwardAuth } = require('../config/auth');
 
-router.get('/signup', forwardAuth, (req, res) => {
-    res.render('signup-details');
-})
+router.get('/signup', forwardAuth, signupController.getSignup);
 
 router.post('/signup', signupController.signup);
 
