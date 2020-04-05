@@ -9,14 +9,17 @@
             <p>{{this.details}}</p>
             <div class="cardDiscussionFooter">
                 <p class="dateDiscussion">{{this.date}}</p>
-                <div>
-                    <form action="/discussion/toggleReplies" method="POST">
-                        <input type="submit" id="showReplies" value="{{this.numReplies}} replies">
-                        <input type="hidden" name="discId" value="{{this.discussion_id}}" />
-                    </form>
-                </div>
             </div>
             {{>cardReply}}          
         </div>
+    </div>
+    <div>
+        <form action="/discussion/newReply" method="POST">
+            <div class="replyContainer">
+                <textarea name="replyInput" class="replyInput" required placeholder="Add your reply..."></textarea>
+                <div><input type="hidden" name="discId" value="{{this.discussion_id}}" /></div>
+                <div><input type="submit" class="sendReply" value="Comment"></div>
+            </div>
+        </form>
     </div>
 {{/each}}

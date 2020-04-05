@@ -75,7 +75,8 @@ function getReplies(req,res,next) {
     var promises = discussions.map(element => {
         return new Promise((resolve, reject) => {
             mod.getreplies(element.discussion_id).then((data) => {
-                element.replies = data.rows[0];
+                element.reply = data.rows;
+                console.log(element.reply);
             }).then(()=>resolve()).catch(err => reject(err))
         });
     });

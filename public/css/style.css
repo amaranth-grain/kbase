@@ -228,6 +228,31 @@ a, a:visited, a:hover, a:active {
   width: 75%;
 }
 /****** DISCUSSION ******/
+
+.replyContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.replyInput {
+  display: block;
+  width: 75%;
+  height: 10vh;
+  margin-left: auto;
+  padding: 2%;
+  border: 1px solid grey;
+  margin-right: 4%;
+}
+
+.sendReply {
+  border: none;
+  color: white;
+  background-color: #01A2E8;
+  float: right;
+  margin-bottom: 4%;
+  margin-right: 4%;
+}
+
 #showReplies{
   border: none;
   background-color: white;
