@@ -70,6 +70,23 @@ function getNumOfReplies(req,res,next) {
     }).catch((err) => console.log(err));
 }
 
+function getReplies(req,res,next) {
+    var discussions = res.discussions;
+    var promises = discussions.map(element => {
+        return new Promise((resolve, reject) => {
+            mod.getreplies(element.discussion_id).then((data) => {
+                element.replies = data.rows[0];
+            }).then(()=>resolve()).catch(err => reject(err))
+        });
+    });
+
+    Promise.all(promises)
+    .then(() => {
+        res.discussions = discussions;
+        next();
+    }).catch((err) => console.log(err));
+}
+
 function loadLatestDiscussions(req,res,next) {
     res.render('home', {profile: [res.profile], discussion: res.discussions});
 }
@@ -80,5 +97,6 @@ module.exports = {
     getUserImages: getUserImages,
     formatDatetime: formatDatetime,
     getNumOfReplies: getNumOfReplies,
-    loadLatestDiscussions: loadLatestDiscussions
+    loadLatestDiscussions: loadLatestDiscussions,
+    getReplies: getReplies
 }

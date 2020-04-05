@@ -26,6 +26,6 @@ function temp(req,res,next) {
 }
 
 router.get('/home', ensureAuth, temp, discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
-                    discController.getNumOfReplies, discController.loadLatestDiscussions);
+                    discController.getNumOfReplies, discController.getReplies, discController.loadLatestDiscussions);
 
 module.exports = router;
