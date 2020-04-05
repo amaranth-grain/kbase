@@ -1,6 +1,6 @@
 {{#each discussion}}
     <div class="cardDiscussion">
-        <img class="profilePic" src="https://randomuser.me/api/portraits/med/women/17.jpg" />
+        <img class="profilePic" src="{{this.imageurl}}">
         <div class="cardDiscussionText">
             <div class="cardDiscussionHeader">
                 <span class="subjectDiscussion">Dummy Topic Subject</span>
@@ -8,8 +8,8 @@
             </div>
             <p>{{this.details}}</p>
             <div class="cardDiscussionFooter">
-                <p class="dateDiscussion">Jan 01 2020</p>
-                <p ><a href="/">x replies</a></p>
+                <p class="dateDiscussion">{{this.date}}</p>
+                <p ><a href="/">{{this.numReplies}} replies</a></p>
             </div>
         </div>
     </div>

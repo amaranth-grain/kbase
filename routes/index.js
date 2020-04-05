@@ -19,12 +19,13 @@ function temp(req,res,next) {
         let tagline = user["rows"][0].about;
         //TODO Grab topics from db
         let topics = ["NodeJS", "Java", "SQL", "PHP", "Zend"];
-        res.profile = {"imgUrl": imgUrl, "name": "name", "numPost": numPost, 
-                        "numMsg": numMsg, "numLike": numLike, "tagline": "tagline"}
+        res.profile = {"imgUrl": imgUrl, "name": name, "numPost": numPost, 
+                        "numMsg": numMsg, "numLike": numLike, "tagline": tagline}
         next();
     }).catch((err) => console.log(err));
 }
 
-router.get('/home', ensureAuth, temp, discController.getLatestDiscussion);
+router.get('/home', ensureAuth, temp, discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
+                    discController.getNumOfReplies, discController.loadLatestDiscussions);
 
 module.exports = router;
