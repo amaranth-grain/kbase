@@ -18,7 +18,7 @@ router.post('/logout', (req, res) => {
         } else {
             return res.redirect('/');
         }
-    })
+    }) 
 })
-
+ 
 module.exports = router;

@@ -48,18 +48,19 @@ nav {
 /****** LOGIN *****/
 #divWrapper {
   max-width: 900px;
-  min-width: 700px;
+  min-width: 750px;
   margin: 0 auto;
 }
 #logo {
+  font-size: 2.2em;
   flex-grow: 2;
 }
 #logoBase {
   color: var(--logoBlue);
 }
 .inputLogin {
-  margin: 0 0.4em;
-  width: 170px;
+  margin: 0 0.4em; 
+  width: 170px; 
 }
 button {
   background-color: var(--buttonBlue);
