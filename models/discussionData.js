@@ -1,8 +1,8 @@
 let db = require('../db/db');
 
 //creates a discussion row in the table, sample datime 2017-03-04 06:08:00
-function createDiscussion(id,details,datetime,tag){
-    query = `insert into discussion (user_id,details,datetime,tag) values (${id},${details},${datetime}, ${tag});`
+function createDiscussion(id,details,datetime,tag,subject){
+    query = `insert into discussion (user_id,details,datetime,tag,subject) values (${id},${details},${datetime}, ${tag},${subject});`
     return db.query(query)
 }
 
@@ -13,10 +13,14 @@ function createReply(person_id,discussion_id,reply_details,reply_time){
 
 //gets the replies of a discussion based on the discussion id
 function getReplies(discussion_id){
-    query = `select * from reply where discussion_id = ${discussion_id} order by reply_time;`
+    query = `select reply.*, users.imageurl from reply left join users on (reply.user_id = users.id) where discussion_id = ${discussion_id} order by reply_time`
     return db.query(query)
 }
 
+function searchForSubject(subject){
+    query = `select * from discussion where subject = ${subject}`
+    return db.query(query)
+}
 function getNumOfReplies(discussion_id){
     query = `SELECT count(*) from reply where discussion_id = ${discussion_id};`
     return db.query(query)
@@ -60,7 +64,15 @@ function incrementLikes(reply_id){
     return db.query(query)
 }
 
+function getDiscussionsByUser(user_id){
+    query = `select * from discussion where user_id = ${user_id} order by datetime desc`
+    return db.query(query)
+}
 
+function getNumberOfDiscussions(){
+    query = `select count(*) from discussion`
+    return db.query(query)
+}
 
 
 
@@ -75,5 +87,8 @@ module.exports = {
     getSpecificDateReply:getSpecificDateReply,
     incrementLikes:incrementLikes,
     getNumOfReplies:getNumOfReplies,
-    getDiscussion:getDiscussion
+    getDiscussion:getDiscussion,
+    searchForSubject:searchForSubject,
+    getDiscussionsByUser:getDiscussionsByUser,
+    getNumberOfDiscussions:getNumberOfDiscussions
 }

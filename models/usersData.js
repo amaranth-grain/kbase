@@ -6,7 +6,12 @@ function addusers(name,about,url,dob,country,email,password) {
 }
 
 function createUser(name,email,password){
-    query = `Insert into users (name,email,password) VALUES ('${name},${email}','${password}')`
+    query = `Insert into users (name,email,password) VALUES ('${name}','${email}','${password}')`
+    db.query(query);
+}
+
+function createUserWithLastName(name,lastname,email,password){
+    query = `Insert into users (name,lastname,email,password) VALUES ('${name}','${lastname}','${email}','${password}')`
     db.query(query);
 }
 
@@ -75,5 +80,6 @@ module.exports = {
     checkEmail: checkEmail,
     getNumOfPosts:getNumOfPosts,
     getNumOfMessages:getNumOfMessages,
-    getNumOfLikes:getNumOfLikes
+    getNumOfLikes:getNumOfLikes,
+    createUserWithLastName:createUserWithLastName
 }
