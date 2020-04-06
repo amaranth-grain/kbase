@@ -26,14 +26,14 @@ router.post('/edit', ensureAuth, mainController.edit, mainController.getHome, di
 discController.getNumOfReplies, discController.loadLatestDiscussions);
 
 router.post('/searchDiscussion', ensureAuth,mainController.getHome, discController.resetOffsetForSearch,discController.getLatestTopic,discController.formatDatetime, discController.getUserImages,
-discController.getNumOfReplies,discController.loadLatestDiscussions,);
+discController.getNumOfReplies,discController.getReplies,discController.loadLatestDiscussions,);
 
 
 router.get('/nextPageFiltered', ensureAuth,mainController.getHome, discController.incrementOffsetForSearch, discController.getLatestTopic,discController.formatDatetime, discController.getUserImages,
-discController.getNumOfReplies,discController.loadLatestDiscussions,);
+discController.getNumOfReplies,discController.getReplies,discController.loadLatestDiscussions,);
 
 router.get('/previousPageFiltered', ensureAuth,mainController.getHome, discController.decrementOffsetForSearch, discController.getLatestTopic,discController.formatDatetime, discController.getUserImages,
-discController.getNumOfReplies,discController.loadLatestDiscussions,);
+discController.getNumOfReplies,discController.getReplies,discController.loadLatestDiscussions,);
 
 
 module.exports = router;
