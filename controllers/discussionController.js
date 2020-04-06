@@ -136,6 +136,9 @@ function loadLatestDiscussions(req,res,next) {
 }
 
 function newReply(req,res,next) {
+    console.log(req.body.discId)
+    console.log(Date.now())
+    let dbQuery = mod.createreply(req.session.userId, req.body.discId, req.body.replyInput, Date.now());
     res.redirect("/home");
 }
 
