@@ -25,7 +25,15 @@ router.get('/profile/:userId/edit', ensureAuth, mainController.getEditProfile);
 router.post('/edit', ensureAuth, mainController.edit, mainController.getHome, discController.resetOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
 discController.getNumOfReplies, discController.loadLatestDiscussions);
 
-router.post('/searchDiscussion', ensureAuth, mainController.getHome, discController.getLatestTopic, discController.formatDatetime, discController.getUserImages, 
-discController.getNumOfReplies,discController.loadLatestDiscussions);
+router.post('/searchDiscussion', ensureAuth,mainController.getHome, discController.resetOffsetForSearch,discController.getLatestTopic,discController.formatDatetime, discController.getUserImages,
+discController.getNumOfReplies,discController.loadLatestDiscussions,);
+
+
+router.get('/nextPageFiltered', ensureAuth,mainController.getHome, discController.incrementOffsetForSearch, discController.getLatestTopic,discController.formatDatetime, discController.getUserImages,
+discController.getNumOfReplies,discController.loadLatestDiscussions,);
+
+router.get('/previousPageFiltered', ensureAuth,mainController.getHome, discController.decrementOffsetForSearch, discController.getLatestTopic,discController.formatDatetime, discController.getUserImages,
+discController.getNumOfReplies,discController.loadLatestDiscussions,);
+
 
 module.exports = router;

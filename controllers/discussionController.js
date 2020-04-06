@@ -22,11 +22,41 @@ function incrementOffset(req,res,next){
     
 }
 
+function incrementOffsetForSearch(req,res,next){
+    
+    res.backVisibleFiltered = true;
+    var queryConv =  mod.getNumFilteredDiscussions(req.session.filter)
+    queryConv
+    .then((data) => {
+        maxRows = data.rows[0].count;
+        req.session.offset += pagelimit
+        if(req.session.offset+pagelimit>maxRows){
+            res.nextVisibleFiltered= false;
+        } else {
+            res.nextVisibleFiltered = true;
+        }
+        next();
+    }).catch((err) => console.log(err));
+    
+}
+
 function resetOffset(req,res,next){
     req.session.offset = 0;
     res.backVisible = false;
-    res.nextVisible = true;
-    next();
+    var queryConv = mod.getNumberOfDiscussions();
+    
+    queryConv
+    .then((data) => {
+        
+        maxRows = parseInt(data.rows[0].count);
+        if(req.session.offset+pagelimit>maxRows){
+            res.nextVisible = false;
+        } else {
+            res.nextVisible = true;
+        }
+        
+        next();
+    }).catch((err) => console.log(err));
 }
 
 function decrementOffset(req,res,next){
@@ -38,6 +68,19 @@ function decrementOffset(req,res,next){
         res.backVisible = true;
     }
     res.nextVisible = true;
+    next()
+}
+
+
+function decrementOffsetForSearch(req,res,next){
+    req.session.offset -= pagelimit;
+    if(req.session.offset-pagelimit < 0){
+        res.prevVisibleFiltered = false;
+        req.session.offset = 0;
+    } else {
+        res.backVisibleFiltered = true;
+    }
+    res.nextVisibleFiltered = true;
     next()
 }
 function getLatestDiscussion(req,res,next) {
@@ -53,14 +96,32 @@ function getLatestDiscussion(req,res,next) {
 
 function getLatestTopic(req,res,next) {
     var limit = 5;
-    var queryConv = mod.selectTopicRangeFilter(req.session.offset, limit, res.topic);
-
+    var queryConv = mod.selectTopicRangeFilter(req.session.offset, limit, req.session.filter);
     queryConv
     .then((data) => {
         res.discussions = data.rows;
         next();
     }).catch((err) => console.log(err));
 }
+
+
+function resetOffsetForSearch(req,res,next){
+    req.session.filter = res.topic
+    req.session.offset = 0;
+    res.backVisibleFiltered = false;
+    var queryConv =  mod.getNumFilteredDiscussions(req.session.filter)
+    queryConv
+    .then((data) => {
+        maxRows = data.rows[0].count;
+        if(req.session.offset+pagelimit>maxRows){
+            res.nextVisibleFiltered= false;
+        } else {
+            res.nextVisibleFiltered = true;
+        }
+        next();
+    }).catch((err) => console.log(err));
+}
+
 
 function getUserImages(req,res,next) {
     var discussions = res.discussions;
@@ -142,7 +203,7 @@ function getReplies(req,res,next) {
 
 
 function loadLatestDiscussions(req,res,next) {
-    res.render('home', {profile: [res.profile], discussion: res.discussions,backVisible:res.backVisible,nextVisible:res.nextVisible});
+    res.render('home', {profile: [res.profile], discussion: res.discussions,backVisible:res.backVisible,nextVisible:res.nextVisible,nextVisibleFiltered:res.nextVisibleFiltered,backVisibleFiltered:res.backVisibleFiltered});
 }
 
 function newReply(req,res,next) {
@@ -154,7 +215,9 @@ function newReply(req,res,next) {
 
 module.exports = {
     resetOffset:resetOffset,
+    resetOffsetForSearch:resetOffsetForSearch,
     incrementOffset:incrementOffset,
+    incrementOffsetForSearch:incrementOffsetForSearch,
     decrementOffset:decrementOffset,
     getLatestDiscussion: getLatestDiscussion,
     getUserImages: getUserImages,
@@ -163,5 +226,6 @@ module.exports = {
     loadLatestDiscussions: loadLatestDiscussions,
     getReplies: getReplies,
     newReply: newReply,
-    getLatestTopic: getLatestTopic
+    getLatestTopic: getLatestTopic,
+    decrementOffsetForSearch:decrementOffsetForSearch
 }
