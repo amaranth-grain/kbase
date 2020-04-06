@@ -17,7 +17,7 @@ body {
   padding: 1.5em 4em;
 }
 input {
-  display: inline-block;
+  /* display: inline-block; */
   height: 35px;
   padding-left: 0.5em;
 }
@@ -46,20 +46,21 @@ nav {
   border: 1px solid grey;
 }
 /****** LOGIN *****/
-#divWrapper {
+.divWrapper {
   max-width: 900px;
-  min-width: 700px;
+  min-width: 750px;
   margin: 0 auto;
 }
 #logo {
+  font-size: 2.2em;
   flex-grow: 2;
 }
 #logoBase {
   color: var(--logoBlue);
 }
 .inputLogin {
-  margin: 0 0.4em;
-  width: 170px;
+  margin: 0 0.4em; 
+  width: 170px; 
 }
 button {
   background-color: var(--buttonBlue);
@@ -79,15 +80,24 @@ button {
   display: flex;
   margin-top: 1em;
 }
-#colLeft {
+.msg {
+  color: red;
+  font-size: 1.5em;
+  text-align: center;
+}
+.err {
+  color: red;
+  text-align: center;
+}
+.colLeft {
   width: 40%;
 }
-#colRight {
-  width: 60%;
-  justify-content: center;
+.colRight {
+  width: 50%;
+  padding-left: 3em;
 }
 #divSignup {
-  width: 70%;
+  width: 80%;
 }
 .inputHalf {
   width: 45%;
@@ -108,11 +118,17 @@ button {
   font-weight: bold;
   font-size: 3em;
 }
+#divSignup input {
+  width: 350px;
+}
+#divSignup textarea {
+  width: 350px;
+}
 #signupTag {
   font-weight: bold;
   font-size: 2rem;
   width: 35%;
-  margin-right: 3em;
+  margin-right: 1em;
 }
 #signupDetails {
   padding: 2em 1em;
@@ -129,12 +145,10 @@ button {
 a, a:visited, a:hover, a:active {
   color: inherit;
 }
-
 #logoLink{
   text-decoration: none;
+  font-size: 1.7em;
 }
-
-
 #logoAbbr {
   flex-grow: 0.3;
 }
