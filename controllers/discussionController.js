@@ -76,13 +76,18 @@ function getReplies(req,res,next) {
         return new Promise((resolve, reject) => {
             mod.getreplies(element.discussion_id).then((data) => {
                 element.reply = data.rows;
-                console.log(element.reply);
             }).then(()=>resolve()).catch(err => reject(err))
         });
     });
 
     Promise.all(promises)
     .then(() => {
+        discussions.forEach((element) => {
+            element.reply.forEach((reply) => {
+                let date = new Date(Date.parse(reply.reply_time + "+0000"));
+                reply.reply_time = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
+            })
+        })
         res.discussions = discussions;
         next();
     }).catch((err) => console.log(err));

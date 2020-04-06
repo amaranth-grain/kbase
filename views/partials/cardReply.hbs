@@ -1,11 +1,13 @@
+{{#each reply}}
     <div class="repliesContainer">
         <div class="cardDiscussion">
-            <img class="profilePic" src="https://randomuser.me/api/portraits/med/women/17.jpg" />
+            <img class="profilePic" src="{{this.imageurl}}" />
             <div class="cardDiscussionText">
                 <p>{{this.reply_details}}</p>
                 <div class="cardDiscussionFooter">
-                    <p class="dateDiscussion">Jan 01 2020</p>
+                    <p class="dateDiscussion">{{this.reply_time}}</p>
                 </div>
             </div>
         </div>
     </div>
+{{/each}}
