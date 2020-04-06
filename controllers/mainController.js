@@ -1,6 +1,8 @@
 const mod = require('../models/usersData');
+const mod2 = require('../models/discussionData');
 
-exports.getHome = (req, res, next) => {
+
+function getHome(req,res,next) {
     let userId = req.session.userId;
     mod.getUser(userId).then(data => {       
         user = {
@@ -22,3 +24,28 @@ exports.getHome = (req, res, next) => {
     }).catch(err => console.log("Error: Problem with getting user from DB. ", err));
 }
 
+function getProfile(req,res,next) {
+    var id = req.params.userId;
+    var profile;
+    var profilePath;
+    var discussions;
+    mod.getUser(id).then(data => {
+        profile = data["rows"][0];
+        profilePath = `/profile/${id}`;
+    }).then(()=>{
+        mod2.getDiscussionsByUser(id).then(data => {
+            var {name, lastname, country, about, id, imageurl} = profile;
+            discussions = data.rows;
+            discussions.forEach((element) => {
+                element.imageurl = imageurl;
+            })
+            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions});
+        }).catch((err) => console.log(err));
+
+    }).catch((err) => console.log(err));
+}
+
+module.exports = {
+    getProfile: getProfile,
+    getHome: getHome,
+}

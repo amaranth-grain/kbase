@@ -8,13 +8,18 @@
       <p>{{country}}</p>
     </div>
     <div class="column" id="profileRight">
-      <button>Message</button>
+      <form action="/chat/messageProfile" method="POST">
+          <input type="hidden" name="profileId" value="{{id}}" />
+          <input type="hidden" name="profileImgUrl" value="{{imageurl}}" />
+          <input class="messageProfileButton" type="submit" value="Message">
+      </form>
       <p>{{numLike}} Likes <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></p>
       <p>{{numPost}} Posts</p>
     </div>
   </div>
   <div class = "row">
     <div class="column">
+      <h2 id="headerDiscussion">Latest Posts by {{name}}</h2>
       {{>cardDiscussion}}
     </div>
   </div>
