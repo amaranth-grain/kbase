@@ -25,7 +25,13 @@ function temp(req,res,next) {
     }).catch((err) => console.log(err));
 }
 
-router.get('/home', ensureAuth, temp, discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
-                    discController.getNumOfReplies, discController.loadLatestDiscussions);
+router.get('/home', ensureAuth, temp, discController.resetOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
+                    discController.getNumOfReplies,discController.loadLatestDiscussions);
+
+router.get('/nextPage', ensureAuth, temp, discController.incrementOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
+discController.getNumOfReplies,discController.loadLatestDiscussions);
+
+router.get('/previousPage', ensureAuth, temp, discController.decrementOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
+discController.getNumOfReplies,discController.loadLatestDiscussions);
 
 module.exports = router;
