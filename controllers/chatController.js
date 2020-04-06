@@ -145,7 +145,7 @@ function sendEmail(req,res,next) {
             to: email,
             subject: res.subject,
             html:
-            `${res.message} \nFrom ${name}`
+            `${res.message} From ${name}`
           };
         
           // Finish sending maiil to user
@@ -154,9 +154,7 @@ function sendEmail(req,res,next) {
                 console.log(error);
             }
           });
-    
-        res.redirect(`/profile/${res.contact}`)
-    })
+    }).then(() => {res.redirect(`/profile/${res.contact}`)})
     .catch((err) => console.log(err));
 
 }
