@@ -38,6 +38,8 @@ function getProfile(req,res,next) {
             discussions = data.rows;
             discussions.forEach((element) => {
                 element.imageurl = imageurl;
+                let date = new Date(Date.parse(element.datetime + "+0000"));
+                element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
             })
             res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions});
         }).catch((err) => console.log(err));
