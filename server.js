@@ -11,6 +11,7 @@ const mainRoutes = require('./routes/mainRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const signupRoutes = require('./routes/signupRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -38,6 +39,7 @@ app.set('views', 'views');
 app.use(mainRoutes);
 app.use(loginRoutes);
 app.use(signupRoutes);
+app.use(profileRoutes);
 
 
 app.use((req,res,next) => {

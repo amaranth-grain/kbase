@@ -1,4 +1,3 @@
-const express = require('express');
 const mod = require('../models/usersData');
 
 exports.getHome = (req, res, next) => {
@@ -16,21 +15,10 @@ exports.getHome = (req, res, next) => {
         }
         let profile = user;
         profile["profilePath"] = `/profile/${user.id}`;
+        profile["editPath"] = `/profile/${user.id}/edit`;
         profile["topics"] = ["NodeJS", "Java", "SQL", "PHP", "Zend"];
         res.profile = profile;
         next();
-        // let {imageurl, name, lastname, num_posts, num_messages, num_likes, about, id} = user;
-        // let profilePath = `/profile/${id}`
-        // let topics = ["NodeJS", "Java", "SQL", "PHP", "Zend"];
-        // res.render('home', {imageurl, name, lastname, num_posts, num_messages, num_likes, about, profilePath, topics})
     }).catch(err => console.log("Error: Problem with getting user from DB. ", err));
 }
 
-exports.getProfile = (req, res) => {
-    mod.getUser(req.params.userId).then(data => {
-        let {name, lastname, country, about, id, imageurl} = data["rows"][0];
-        let profilePath = `/profile/${id}`;
-        console.log("profile info: ", name, lastname, country, about, profilePath, imageurl);
-        res.render('profile', {name, lastname, imageurl, country, about, profilePath});
-    });
-}
