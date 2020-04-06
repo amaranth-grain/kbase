@@ -35,13 +35,15 @@ function getLatestMessage(req,res,next) {
     var promises = contacts.map(element => {
         return new Promise((resolve, reject) => {
             mod.getlatest(element.conversation_id).then((data) => {
-                if(data.rows[0].message.length > 15){
-                    element.latestMessage = data.rows[0].message.substring(0, 12) + "..."; 
-                } else {
-                    element.latestMessage = data.rows[0].message;
+                if(data.rows.length > 0){
+                    if(data.rows[0].message.length > 15){
+                        element.latestMessage = data.rows[0].message.substring(0, 12) + "..."; 
+                    } else {
+                        element.latestMessage = data.rows[0].message;
+                    }
+                    let date = data.rows[0].timestamp;
+                    element.latestMessageDate = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
                 }
-                let date = data.rows[0].timestamp;
-                element.latestMessageDate = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
             }).then(()=>resolve()).catch(err => reject(err))
         });
     });
@@ -51,7 +53,6 @@ function getLatestMessage(req,res,next) {
         res.contacts = contacts;
         next();
     }).catch(() => res.render('chat', {chatAssests: true, contacts: [{"latestMessage": "Error: getting latest messages failed."}]})); 
-
 }
 
 function getConvId(req,res,next) {
