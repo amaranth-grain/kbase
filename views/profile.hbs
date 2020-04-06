@@ -8,17 +8,18 @@
       <p>{{country}}</p>
     </div>
     <div class="column" id="profileRight">
+      {{#if notOwnProfile}}
       <form action="/chat/messageProfile" method="POST">
         <input type="hidden" name="profileId" value="{{id}}" />
         <input type="hidden" name="profileImgUrl" value="{{imageurl}}" />
         <input class="messageProfileButton" type="submit" value="Message">
       </form>
+      {{/if}}
+      <p>{{likes}} Likes </p>
       {{#if notOwnProfile}}
       {{#if alreadyLiked}} 
-      <button class="fa fa-plus-circle fa-lg" aria-hidden="true">Liked</button>
         {{else}}        
         <form id="formLike" action="/profile/like" method="POST">
-        <p>{{likes}} Likes </p>
         <i onClick="submitForm('formLike')" class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
         <input type="hidden" name="userId" value="{{id}}" />
         </form>
