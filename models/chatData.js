@@ -46,8 +46,8 @@ function createMessage(conversationid,senderid,message,timestamp){
 }
 
 //creates a conversation between the two users 
-function createConversation(id,receiverid){
-    query = `INSERT INTO conversation (first_contact,second_contact) VALUES (${id},${receiverid});`
+function createConversation(id,receiverid,subject){
+    query = `INSERT INTO public.conversation(first_user, second_user, subject) VALUES(${id}, ${receiverid}, '${subject}');`
     return db.query(query)
 }
 
