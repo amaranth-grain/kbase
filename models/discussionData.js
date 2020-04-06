@@ -2,6 +2,8 @@ let db = require('../db/db');
 
 //creates a discussion row in the table, sample datime 2017-03-04 06:08:00
 function createDiscussion(id,details,datetime,tag,subject){
+    increment = `update users set num_posts = num_posts +1 where id = ${id}`
+    db.query(increment)
     query = `insert into discussion (user_id,details,datetime,tag,subject) values ('${id}','${details}', to_timestamp(${datetime}/ 1000.0), '${tag}','${subject}');`
     return db.query(query)
 }

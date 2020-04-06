@@ -203,7 +203,7 @@ module.exports = {
     getHome,
     edit,
     getEditProfile,
-    likeProfile:likeProfile
+    likeProfile:likeProfile,
     search,
     displaySearch
 }
