@@ -4,6 +4,9 @@ const mod2 = require('../models/discussionData');
 
 function getHome(req,res,next) {
     let userId = req.session.userId;
+    mod.getNumOfLikes(req.session.userId).then(data => {
+      likes = data.rows[0].count;
+    }).catch((err) => console.log(err));
     mod.getUser(userId).then(data => {       
         user = {
             imgUrl: data["rows"][0].imageurl,
@@ -11,7 +14,7 @@ function getHome(req,res,next) {
             lastname: data["rows"][0].lastname,
             numPost: data["rows"][0].num_posts,
             numMsg: data["rows"][0].num_messages,
-            numLike: data["rows"][0].num_likes,
+            numLike: likes,
             tagline: data["rows"][0].about,
             id: data["rows"][0].id
         }
@@ -27,6 +30,41 @@ function getHome(req,res,next) {
     }).catch(err => console.log("Error: Problem with getting user from DB. ", err));
 }
 
+function likeProfile(req,res,next){
+  if (req.session.userId != req.body.userId) {
+    console.log(req.params.userId + " ------------" + req.body.userId)
+      mod.incrementNumOfLikes(req.body.userId,req.session.userId).catch((err) => console.log(err));
+  }
+  var id = req.body.userId;
+  var profile;
+  var profilePath;
+  var discussions;
+  var likes;
+  mod.getNumOfLikes(req.body.userId).then(data => {
+    
+    likes = data.rows[0].count;
+  }).catch((err) => console.log(err));
+  mod.getUser(id).then(data => {
+      profile = data["rows"][0];
+      profilePath = `/profile/${id}`;
+  }).then(()=>{
+      mod2.getDiscussionsByUser(id).then(data => {
+          var {name, lastname, country, about, id, imageurl} = profile;
+          discussions = data.rows;
+          discussions.forEach((element) => {
+              element.imageurl = imageurl;
+              let date = new Date(Date.parse(element.datetime + "+0000"));
+              element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
+          })
+          
+          res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes});
+      }).catch((err) => console.log(err));
+
+  }).catch((err) => console.log(err));
+  
+}
+
+
 function getProfile(req,res,next) {
     //TODO Disable ability to message self or increment likes if not own account
     if (req.session.userId != req.params.userId) {
@@ -36,6 +74,11 @@ function getProfile(req,res,next) {
     var profile;
     var profilePath;
     var discussions;
+    var likes;
+    mod.getNumOfLikes(req.params.userId).then(data => {
+      
+      likes = data.rows[0].count;
+    }).catch((err) => console.log(err));
     mod.getUser(id).then(data => {
         profile = data["rows"][0];
         profilePath = `/profile/${id}`;
@@ -48,11 +91,13 @@ function getProfile(req,res,next) {
                 let date = new Date(Date.parse(element.datetime + "+0000"));
                 element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
             })
-            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions});
+            
+            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes});
         }).catch((err) => console.log(err));
 
     }).catch((err) => console.log(err));
 }
+
 
 getEditProfile = (req, res) => {
     //Redirect user to homepage if they attempt to visit edit profile page of another user
@@ -94,5 +139,6 @@ module.exports = {
     getProfile,
     getHome,
     edit,
-    getEditProfile
+    getEditProfile,
+    likeProfile:likeProfile
 }

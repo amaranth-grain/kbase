@@ -80,6 +80,10 @@ function getNumberOfDiscussions(){
     return db.query(query)
 }
 
+function checkIfLiked(profile_id,liking_id){
+    query = `select count(*) from likes where profile_id = ${profile_id} and liking_id = ${liking_id}`
+    return db.query(query)
+}
 
 
 module.exports = {
@@ -97,5 +101,6 @@ module.exports = {
     searchForSubject:searchForSubject,
     getDiscussionsByUser:getDiscussionsByUser,
     getNumberOfDiscussions:getNumberOfDiscussions,
-    getNumFilteredDiscussions:getNumberOfFilteredDiscussions
+    getNumFilteredDiscussions:getNumberOfFilteredDiscussions,
+    checkIfLiked:checkIfLiked
 }

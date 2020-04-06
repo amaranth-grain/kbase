@@ -65,13 +65,13 @@ function getNumOfLikesOnPosts(user_id){
     return db.query(query)
 }
 
-function incrementNumOfLikes(user_id){
-    query = `update users set num_likes = num_likes+1 where id = ${user_id}`
+function incrementNumOfLikes(profile_id,user_id){
+    query = `insert into likes (profile_id,liking_id) VALUES (${profile_id},${user_id})`
     return db.query(query)
 }
 
 function getNumOfLikes(user_id){
-    query = `select num_likes from users where id = ${user_id}`
+    query = `select count(*) from likes where profile_id = ${user_id}`
     return db.query(query)
 }
 module.exports = {

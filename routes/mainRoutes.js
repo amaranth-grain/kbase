@@ -35,5 +35,6 @@ discController.getNumOfReplies,discController.getReplies,discController.loadLate
 router.get('/previousPageFiltered', ensureAuth,mainController.getHome, discController.decrementOffsetForSearch, discController.getLatestTopic,discController.formatDatetime, discController.getUserImages,
 discController.getNumOfReplies,discController.getReplies,discController.loadLatestDiscussions,);
 
+router.post('/profile/like',ensureAuth, mainController.likeProfile)
 
 module.exports = router;
