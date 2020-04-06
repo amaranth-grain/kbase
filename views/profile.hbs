@@ -15,11 +15,14 @@
         <input class="messageProfileButton" type="submit" value="Message">
       </form>
       {{/if}}
-      <p>{{likes}} Likes </p>
+      
       {{#if notOwnProfile}}
+        
       {{#if alreadyLiked}} 
+        <p>{{likes}} Likes </p>
         {{else}}        
         <form id="formLike" action="/profile/like" method="POST">
+        <p>{{likes}} Likes </p>
         <i onClick="submitForm('formLike')" class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
         <input type="hidden" name="userId" value="{{id}}" />
         </form>
