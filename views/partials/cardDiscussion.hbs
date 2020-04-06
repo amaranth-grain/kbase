@@ -4,19 +4,19 @@
         <div class="cardDiscussionText">
             <div class="cardDiscussionHeader">
                 <span class="subjectDiscussion">{{this.subject}}</span>
-                <button class="btnInverse disabled">{{this.tag}}</button>
+                <button class="btnInverse disabled tag">{{this.tag}}</button>
             </div>
             <p>{{this.details}}</p>
             <div class="cardDiscussionFooter">
                 <p class="dateDiscussion">{{this.date}}</p>
-                <button onclick="toggleReply({{this.discussion_id}})">{{this.numReplies}} replies</button>
+                <button class="toggleReply" onclick="toggleReply({{this.discussion_id}})">{{this.numReplies}} replies</button>
             </div>
             <div class="replyContainer" id="{{this.discussion_id}}">
                 {{>cardReply}}  
                 <form action="/discussion/newReply" method="POST">
                     <textarea name="replyInput" class="replyInput" required placeholder="Add your reply..."></textarea>
                     <div><input type="hidden" name="discId" value="{{this.discussion_id}}" /></div>
-                    <div><input type="submit" class="sendResponse" value="Comment"></div>
+                    <div><button type="submit" class="sendReply" value="Comment">Comment</div>
                 </form>
             </div>        
         </div>

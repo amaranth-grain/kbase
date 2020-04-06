@@ -1,0 +1,15 @@
+<div class="divWrapper">
+  {{>searchbar}}
+  <div class="row">
+    <div class="column" id="editLeft">
+      <img class="profilePic" src={{imageurl}}>
+      <h3 id="profileName">{{name}} {{lastname}}</h3>
+      <p>{{about}}</p>
+      <p>{{country}}</p>
+    </div>
+    <div class="column" id="editRight">
+      {{>edit-inputs}}
+    </div>
+  </div>
+  
+</div>
