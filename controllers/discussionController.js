@@ -213,6 +213,18 @@ function newReply(req,res,next) {
     res.redirect("/home");
 }
 
+const discuss = (req, res) => {
+    let id = req.session.userId;
+    let detail = req.body.detail;
+    let date = Date.now();
+    let tag = req.body.tag.toLowerCase();
+    let subject = req.body.subject;
+    mod.creatediscussion(id, detail, date, tag, subject).catch(err => {
+        console.log("Error: Problem with creating new discussion post. ", err);
+    });
+    res.redirect("/home");
+}
+
 module.exports = {
     resetOffset:resetOffset,
     resetOffsetForSearch:resetOffsetForSearch,
@@ -227,5 +239,6 @@ module.exports = {
     getReplies: getReplies,
     newReply: newReply,
     getLatestTopic: getLatestTopic,
-    decrementOffsetForSearch:decrementOffsetForSearch
+    decrementOffsetForSearch:decrementOffsetForSearch,
+    discuss
 }

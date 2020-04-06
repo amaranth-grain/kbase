@@ -2,7 +2,7 @@ let db = require('../db/db');
 
 //creates a discussion row in the table, sample datime 2017-03-04 06:08:00
 function createDiscussion(id,details,datetime,tag,subject){
-    query = `insert into discussion (user_id,details,datetime,tag,subject) values (${id},${details},${datetime}, ${tag},${subject});`
+    query = `insert into discussion (user_id,details,datetime,tag,subject) values ('${id}','${details}', to_timestamp(${datetime}/ 1000.0), '${tag}','${subject}');`
     return db.query(query)
 }
 
@@ -18,7 +18,7 @@ function getReplies(discussion_id){
 }
 
 function searchForSubject(subject){
-    query = `select * from discussion where subject = ${subject}`
+    query = `select * from discussion where LOWER(subject) like LOWER('%${subject}%')`;
     return db.query(query)
 }
 function getNumOfReplies(discussion_id){
@@ -52,7 +52,6 @@ function selectTopicRangeFilter(start_row,num_of_rows,filter){
     query = `select * from discussion where tag = '${filter}' order by datetime desc offset ${start_row} limit ${num_of_rows} `
     return db.query(query)
 }
-
 
 function filterByTag(tag){
     query = `select * from discussion where tag = '${tag}'`
