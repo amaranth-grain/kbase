@@ -1,11 +1,50 @@
 let mod = require('../models/discussionData');
 let mod2 = require('../models/usersData');
-
-function getLatestDiscussion(req,res,next) {
-    var offset = 0;
-    var limit = 5;
+var pagelimit = 5;
+function incrementOffset(req,res,next){
     
-    var queryConv = mod.selectTopicRange(offset, limit);
+    res.backVisible = true;
+    var queryConv = mod.getNumberOfDiscussions();
+    
+    queryConv
+    .then((data) => {
+        
+        maxRows = parseInt(data.rows[0].count);
+        req.session.offset +=pagelimit;
+        if(req.session.offset+pagelimit>maxRows){
+            res.nextVisible = false;
+        } else {
+            res.nextVisible = true;
+        }
+        
+        next();
+    }).catch((err) => console.log(err));
+    
+}
+
+function resetOffset(req,res,next){
+    req.session.offset = 0;
+    //offset = 0;
+    res.backVisible = false;
+    res.nextVisible = true;
+    next();
+}
+
+function decrementOffset(req,res,next){
+    req.session.offset -= pagelimit;
+    if(req.session.offset-pagelimit < 0){
+        res.backVisible = false;
+        req.session.offset = 0;
+    } else {
+        res.backVisible = true;
+    }
+    res.nextVisible = true;
+    next()
+}
+function getLatestDiscussion(req,res,next) {
+    //var offset = 0;
+    var limit = 5;
+    var queryConv = mod.selectTopicRange(req.session.offset, limit);
 
     queryConv
     .then((data) => {
@@ -91,8 +130,9 @@ function getReplies(req,res,next) {
     }).catch((err) => console.log(err));
 }
 
+
 function loadLatestDiscussions(req,res,next) {
-    res.render('home', {profile: [res.profile], discussion: res.discussions});
+    res.render('home', {profile: [res.profile], discussion: res.discussions,backVisible:res.backVisible,nextVisible:res.nextVisible});
 }
 
 function newReply(req,res,next) {
@@ -100,6 +140,9 @@ function newReply(req,res,next) {
 }
 
 module.exports = {
+    resetOffset:resetOffset,
+    incrementOffset:incrementOffset,
+    decrementOffset:decrementOffset,
     getLatestDiscussion: getLatestDiscussion,
     getUserImages: getUserImages,
     formatDatetime: formatDatetime,
