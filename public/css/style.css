@@ -324,7 +324,7 @@ a, a:visited, a:hover, a:active {
   margin-left: auto;
   border: 1px solid grey;
 }
-.sendResponse {
+.sendReply {
   border: none;
   color: white;
   background-color: #01A2E8;
