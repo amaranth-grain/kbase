@@ -52,3 +52,8 @@ app.use(chatRoutes);
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);
 })
+
+//The 404 Route
+app.get('*', (req, res) => {
+  res.status(404).redirect("/home");
+});

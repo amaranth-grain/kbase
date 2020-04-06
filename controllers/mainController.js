@@ -1,7 +1,6 @@
 const mod = require('../models/usersData');
 const mod2 = require('../models/discussionData');
 
-
 function getHome(req,res,next) {
     let userId = req.session.userId;
     mod.getUser(userId).then(data => {       
@@ -85,9 +84,33 @@ edit = (req, res, next) => {
     next();
   };
 
+search = (req, res, next) => {
+  let keyword = req.body.search;
+  mod2.searchForSubject(keyword).then(data => {
+    console.log("search results ", data["rows"]);
+    res.results = data["rows"];
+    next();
+  }).catch(err => {
+    console.log("Error: Problem with searching discussions by keyword. ", err);
+  });
+}
+
+displaySearch = (req, res, next) => {
+  let discussion = res.results;
+  // discussions.forEach(e => {
+  //   mod.getUser(e.user_id).then(data => {
+  //     console.log(data["rows"][0].imageurl);
+  //     e.imageurl = data["rows"][0].imageurl;
+  //   });
+  // });
+  res.render('search', {discussion});
+}
+
 module.exports = {
     getProfile,
     getHome,
     edit,
-    getEditProfile
+    getEditProfile,
+    search,
+    displaySearch
 }

@@ -25,4 +25,6 @@ router.get('/profile/:userId/edit', ensureAuth, mainController.getEditProfile);
 router.post('/edit', ensureAuth, mainController.edit, mainController.getHome, discController.resetOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
 discController.getNumOfReplies, discController.loadLatestDiscussions);
 
+router.post('/search', ensureAuth, mainController.search, mainController.displaySearch);
+
 module.exports = router;

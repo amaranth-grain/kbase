@@ -18,7 +18,7 @@ function getReplies(discussion_id){
 }
 
 function searchForSubject(subject){
-    query = `select * from discussion where subject = ${subject}`
+    query = `select * from discussion where LOWER(subject) like LOWER('%${subject}%')`;
     return db.query(query)
 }
 function getNumOfReplies(discussion_id){
@@ -52,7 +52,6 @@ function selectTopicRangeFilter(start_row,num_of_rows,filter){
     query = `select * from discussion where tag = ${filter} order by datetime desc offset ${start_row} limit ${num_of_rows} `
     return db.query(query)
 }
-
 
 function filterByTag(tag){
     query = `select * from discussion where tag = ${tag}`
