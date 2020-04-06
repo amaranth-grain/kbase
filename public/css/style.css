@@ -82,7 +82,7 @@ button {
   margin-top: 1em;
 }
 .msg {
-  color: red;
+  color: var(--textGrey);
   font-size: 1.5em;
   text-align: center;
 }
@@ -161,6 +161,7 @@ a, a:visited, a:hover, a:active {
   background-color: var(--inputGrey);
   color: var(--textGrey);
   border: none;
+  width: 300px;
   padding-left: 2em;
 }
 #btnLogout {
@@ -234,8 +235,18 @@ a, a:visited, a:hover, a:active {
 .btnPostTimeline {
   width: 60%;
 }
+#questionInput {
+  padding-bottom: 2em; 
+}
 /****** PROFILE SIDEBAR END *****/
 /****** USER PROFILE *****/
+#formLike {
+  display: flex;
+}
+#formLike i {
+  margin: auto 0;
+  padding-left: 0.5em;
+}
 .messageProfileButton{
   background-color: var(--buttonBlue);
   border-radius: 0.2em;

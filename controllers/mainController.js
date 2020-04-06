@@ -103,8 +103,8 @@ function getProfile(req,res,next) {
     }).catch((err) => console.log(err));
 }
 
-
-getEditProfile = (req, res) => {
+/* Direct user to edit profile page */
+const getEditProfile = (req, res) => {
     //Redirect user to homepage if they attempt to visit edit profile page of another user
     if (req.session.userId != req.params.userId) {
       return res.redirect("/home");
@@ -128,6 +128,7 @@ getEditProfile = (req, res) => {
       );
   };
   
+/* Modify the user's profile information*/
 const edit = (req, res, next) => {
     let id = req.session.userId;
     let user = {
@@ -140,6 +141,7 @@ const edit = (req, res, next) => {
     next();
   };
 
+/* Search for discussions with keyword in subject, and store in res.results */
 const search = (req, res, next) => {
   let keyword = req.body.search;
   mod2.searchForSubject(keyword).then(data => {
@@ -150,55 +152,59 @@ const search = (req, res, next) => {
   });
 }
 
+/* Get the avatar of the person who posted discussion post */
 const getImage = async discussion => {
   let data = await mod.getUser(discussion.user_id);
   return data["rows"][0].imageurl;
 }
-
+/* Get the number of replies within this discussion */
 const getNumReplies = async discussion => {
   let data = await mod2.getNumOfReplies(discussion.discussion_id);
   return parseInt(data.rows[0].count);
 }
-
+/* Get the date of the curent post */
 const getDate = async discussion => {
   let date = new Date(Date.parse(discussion.datetime + "+0000"));
   return `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`
 }
-
+/* Get all images within these results */
 const getAllImages = async res => {
   return Promise.all(res.results.map(e => getImage(e))).catch(err => {
     console.log("Error: Trouble retrieving images for discussion search. ", err);
   });;
 }
-
+/* Get all reply counts within these results */
 const getAllNumReplies = async res => {
   return Promise.all(res.results.map(e => getNumReplies(e))).catch(err => {
     console.log("Error: Trouble retrieving replies for discussion search. ", err);
   });;
 }
-
+/* Get all dates of when discussion was posted within these results */
 const getAllDates = async res => {
   return Promise.all(res.results.map(e => getDate(e))).catch(err => {
     console.log("Error: Trouble retrieving dates for discussion search. ", err);
   });;
 }
-
+/* Get all images, replies, and dates */
 const getAllData = async res => {
   return Promise.all([getAllImages(res), getAllNumReplies(res), getAllDates(res)]).catch(err => {
     console.log("Error: Trouble retrieving data for discussion search. ", err);
   });
 }
-
+/* Display search results */
 const displaySearch = (req, res) => {
   let discussion = res.results;
   getAllData(res).then(data => {
-    for (let i = 0; i < data[0].length; i++) {
-      discussion[i].imageurl = data[0][i];
-      discussion[i].numReplies = data[1][i];
-      discussion[i].date = data[2][i];
+    if (data[0].length == 0) {
+      res.render("search", {msg: "No search results found."});
+    } else {
+      for (let i = 0; i < data[0].length; i++) {
+        discussion[i].imageurl = data[0][i];
+        discussion[i].numReplies = data[1][i];
+        discussion[i].date = data[2][i];
+      }
+      res.render("search", {discussion});
     }
-  }).then(data => {
-    res.render("search", {discussion});
   }).catch(err => {
     console.log("Error: Problem with parsing discussion related data. ", err);
   })
