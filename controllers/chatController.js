@@ -11,12 +11,14 @@ function loadConversation(req,res,next) {
     queryConv
     .then((data) => {
         newMessages = data.rows;
-        newMessages.forEach(element => {
-            let date = new Date(Date.parse(element.timestamp + "+0000"));
-            element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
-            element.time = date.toLocaleString('default', { hour: 'numeric', hour12: true, minute: 'numeric'});
-        });
-        res.render('chat', {chatAssests: true, contacts: res.contacts, messages: newMessages, convId: conservationId, sender: user_id});
+        if(newMessage.length > 0){
+            newMessages.forEach(element => {
+                let date = new Date(Date.parse(element.timestamp + "+0000"));
+                element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}`;
+                element.time = date.toLocaleString('default', { hour: 'numeric', hour12: true, minute: 'numeric'});
+            });
+            res.render('chat', {chatAssests: true, contacts: res.contacts, messages: newMessages, convId: conservationId, sender: user_id});
+        }
     }).catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"name": "Error: getting messages failed."}], convId: conservationId, sender: user_id}));
 
 }
@@ -96,15 +98,24 @@ function createConv(req,res,next) {
     res.userId = parseInt(req.session.userId);
     res.message = req.body.messageInput;
     res.contact = parseInt(req.body.contact);
-    console.log(`${res.subject} ${res.userId} ${res.message} ${res.contact}`)
-    let dbQuery = mod.createconvo(res.userId, res.contact,res.subject);
-    let dbQuery2 = mod.getconvo(res.userId,res.contact);
-    dbQuery2
-    .then((data) => {
-        res.convId = data.rows[0].conversation_id;
-        next();
-    })
-    .catch((err) => console.log("HERE: " + err));
+    let dbQuery = mod.getconvo(res.userId,res.contact);
+    dbQuery.then((data) => {
+        if(data.rows.length < 1){
+            let dbQuery2 = mod.createconvo(res.userId, res.contact,res.subject);
+            dbQuery2.then(()=>{
+                let dbQuery3 = mod.getconvo(res.userId,res.contact);
+                dbQuery3
+                .then((data) => {
+                    res.convId = data.rows[0].conversation_id;
+                    next();
+                })
+                .catch((err) => console.log(err));
+            })
+        } else {
+            res.convId = data.rows[0].conversation_id;
+            next();
+        }
+    }).catch((err) => console.log(err));
 }
 
 function createMessage(req,res,next) {
@@ -114,16 +125,17 @@ function createMessage(req,res,next) {
         next();
     })
     .catch((err) => console.log(err));
-    next();
 }
 
 function sendEmail(req,res,next) {
     let dbQuery = mod2.getUser(res.contact);
+    var email;
+    var name;
     dbQuery
-    // .then((data) => {res.email = data.rows[0].email})
     .then((data) => {
-        var email = data.rows[0].email;
-        var name = data.rows[0].name;
+        email = data.rows[0].email;
+        name = data.rows[0].name;
+    }).then(() => {
         var transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -153,10 +165,11 @@ function sendEmail(req,res,next) {
           transporter.sendMail(mailOptions, function(error, info) {
             if (error) {
                 console.log(error);
+            } else {
+                res.redirect(`/profile/${res.contact}`);
             }
           });
-    }).then(() => {res.redirect(`/profile/${res.contact}`)})
-    .catch((err) => console.log(err));
+    }).catch((err) => console.log(err));
 
 }
 
