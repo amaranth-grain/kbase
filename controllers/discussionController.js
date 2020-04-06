@@ -12,8 +12,6 @@ function getLatestDiscussion(req,res,next) {
         res.discussions = data.rows;
         next();
     }).catch((err) => console.log(err));
-    // }).catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"name": "Error: getting messages failed."}], convId: conservationId, sender: user_id}));
-
 }
 
 function getUserImages(req,res,next) {
@@ -97,6 +95,9 @@ function loadLatestDiscussions(req,res,next) {
     res.render('home', {profile: [res.profile], discussion: res.discussions});
 }
 
+function newReply(req,res,next) {
+    res.redirect("/home");
+}
 
 module.exports = {
     getLatestDiscussion: getLatestDiscussion,
@@ -104,5 +105,6 @@ module.exports = {
     formatDatetime: formatDatetime,
     getNumOfReplies: getNumOfReplies,
     loadLatestDiscussions: loadLatestDiscussions,
-    getReplies: getReplies
+    getReplies: getReplies,
+    newReply: newReply
 }

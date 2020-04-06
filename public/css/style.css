@@ -230,7 +230,7 @@ a, a:visited, a:hover, a:active {
 /****** DISCUSSION ******/
 
 .replyContainer{
-  display: flex;
+  display: none;
   flex-direction: column;
 }
 
