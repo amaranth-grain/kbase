@@ -125,6 +125,7 @@ function getReplies(req,res,next) {
                 reply.reply_time = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
             })
         })
+        //console.log(element.reply)
         res.discussions = discussions;
         next();
     }).catch((err) => console.log(err));

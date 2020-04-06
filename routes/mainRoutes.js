@@ -10,13 +10,13 @@ router.get('/', ensureAuth, (req, res) => {
 })
 
 router.get('/home', ensureAuth, mainController.getHome, discController.resetOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
-                    discController.getNumOfReplies, discController.loadLatestDiscussions);
+                    discController.getNumOfReplies, discController.getReplies,discController.loadLatestDiscussions);
 
 router.get('/nextPage', ensureAuth,mainController.getHome, discController.incrementOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
-discController.getNumOfReplies,discController.loadLatestDiscussions);
+discController.getNumOfReplies,discController.getReplies,discController.loadLatestDiscussions);
 
 router.get('/previousPage', ensureAuth,mainController.getHome, discController.decrementOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
-discController.getNumOfReplies,discController.loadLatestDiscussions);
+discController.getNumOfReplies,discController.getReplies,discController.loadLatestDiscussions);
 
 router.get('/profile/:userId', mainController.getProfile);
 
