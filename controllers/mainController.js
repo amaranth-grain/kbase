@@ -6,13 +6,16 @@ function getHome(req,res,next) {
     mod.getNumOfLikes(req.session.userId).then(data => {
       likes = data.rows[0].count;
     }).catch((err) => console.log(err));
+    mod.getNumOfMessages(req.session.userId).then(data => {
+      messages = data.rows[0].count;
+    }).catch((err) => console.log(err));
     mod.getUser(userId).then(data => {       
         user = {
             imgUrl: data["rows"][0].imageurl,
             name: data["rows"][0].name,
             lastname: data["rows"][0].lastname,
             numPost: data["rows"][0].num_posts,
-            numMsg: data["rows"][0].num_messages,
+            numMsg: messages,
             numLike: likes,
             tagline: data["rows"][0].about,
             id: data["rows"][0].id
