@@ -4,8 +4,10 @@
     <input class="input inputFull" type="text" name="subject" placeholder="subject" /><br />
     <textarea id="signupAbout" name="detail" rows="5" placeholder="explain in detail..."></textarea><br />
     <select class="dropdownTopic inputHalf">
-      {{#each topics}}
-      <option value={{this}}>{{this}}</option>
+      {{#each profile}}
+        {{#each this.topics}}
+          <option value={{this}}>{{this}}</option>
+        {{/each}}
       {{/each}}
     </select>
     <button class="btnInverse" id="btnPostTimeline">post to timeline</button>
