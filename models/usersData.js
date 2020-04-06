@@ -62,8 +62,18 @@ function getNumOfMessages(user_id){
     return db.query(query)
 }
 
-function getNumOfLikes(user_id){
+function getNumOfLikesOnPosts(user_id){
     query = `select sum(num_of_likes) from reply where user_id = ${user_id}`
+    return db.query(query)
+}
+
+function incrementNumOfLikes(user_id){
+    query = `update users set num_likes = num_likes+1 where id = ${user_id}`
+    return db.query(query)
+}
+
+function getNumOfLikes(user_id){
+    query = `select num_likes from users where id = ${user_id}`
     return db.query(query)
 }
 
@@ -80,6 +90,8 @@ module.exports = {
     checkEmail: checkEmail,
     getNumOfPosts:getNumOfPosts,
     getNumOfMessages:getNumOfMessages,
-    getNumOfLikes:getNumOfLikes,
-    createUserWithLastName:createUserWithLastName
+    getNumOfLikesOnPosts:getNumOfLikesOnPosts,
+    createUserWithLastName:createUserWithLastName,
+    incrementNumOfLikes:incrementNumOfLikes,
+    getNumOfLikes,getNumOfLikes
 }
