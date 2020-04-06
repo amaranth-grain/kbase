@@ -35,7 +35,7 @@ signup = (req, res, next) => {
   }).then(data => {
     console.log("User id ", data["rows"][0]["id"]);
     req.session.userId = data["rows"][0]["id"];
-    res.render('signup-details');
+    res.render('signup-details', {btnText: "complete registration"});
   })
   .catch(err => {
     console.log("Error: Problem with retrieving number of accounts registered under this e-mail. ", err);
@@ -51,7 +51,7 @@ signupExtended = (req, res, next) => {
   };
   let id = req.session.userId;
   console.log("extend user id sesson ", req.session.userId);
-  mod.updateProfile(req.session.userId, user);
+  mod.updateProfile(id, user);
   res.render("landing", {
     msg: "Registration successful!  Log into your account now.",
   });

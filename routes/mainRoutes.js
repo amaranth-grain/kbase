@@ -18,6 +18,11 @@ discController.getNumOfReplies,discController.loadLatestDiscussions);
 router.get('/previousPage', ensureAuth,mainController.getHome, discController.decrementOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
 discController.getNumOfReplies,discController.loadLatestDiscussions);
 
-router.get('/profile/:userId', mainController.getProfile);
+router.get('/profile/:userId', ensureAuth, mainController.getProfile);
+
+router.get('/profile/:userId/edit', ensureAuth, mainController.getEditProfile);
+
+router.post('/edit', ensureAuth, mainController.edit, mainController.getHome, discController.resetOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
+discController.getNumOfReplies, discController.loadLatestDiscussions);
 
 module.exports = router;
