@@ -20,6 +20,9 @@ function getHome(req,res,next) {
         profile["editPath"] = `/profile/${user.id}/edit`;
         profile["topics"] = ["NodeJS", "Java", "SQL", "PHP", "Zend"];
         res.profile = profile;
+        if(req.body.topic != undefined){
+          res.topic = req.body.topic;
+        }
         next();
     }).catch(err => console.log("Error: Problem with getting user from DB. ", err));
 }
