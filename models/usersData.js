@@ -52,7 +52,7 @@ function checkEmail(email){
 }
 
 function getNumOfPosts(user_id){
-    query = `select count (*) from reply where user_id = '${user_id}'`
+    query = `select count (*) from discussion where user_id = '${user_id}'`
     return db.query(query)
 }
 function getNumOfMessages(user_id){
