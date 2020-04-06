@@ -119,42 +119,45 @@ function createMessage(req,res,next) {
 function sendEmail(req,res,next) {
     let dbQuery = mod2.getUser(res.contact);
     dbQuery
-    .then((data) => {res.email = data.rows[0].email})
+    // .then((data) => {res.email = data.rows[0].email})
+    .then((data) => {
+        var email = data.rows[0].email;
+        var name = data.rows[0].name;
+        var transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: "ecoquestteam06@gmail.com",
+              pass: "ecoquest2"
+            }
+          });
+    
+          var transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: "comp4711finalproject@gmail.com",
+              pass: "finalproject"
+            }
+          });
+        
+          // Setting mail options
+          var mailOptions = {
+            from: "comp4711finalproject@gmail.com",
+            to: email,
+            subject: res.subject,
+            html:
+            `${res.message} \nFrom ${name}`
+          };
+        
+          // Finish sending maiil to user
+          transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                console.log(error);
+            }
+          });
+    
+        res.redirect(`/profile/${res.contact}`)
+    })
     .catch((err) => console.log(err));
-
-    // var transporter = nodemailer.createTransport({
-    //     service: "gmail",
-    //     auth: {
-    //       user: "ecoquestteam06@gmail.com",
-    //       pass: "ecoquest2"
-    //     }
-    //   });
-
-    //   var transporter = nodemailer.createTransport({
-    //     service: "gmail",
-    //     auth: {
-    //       user: "comp4711finalproject@gmail.com",
-    //       pass: "finalproject"
-    //     }
-    //   });
-    
-    //   // Setting mail options
-    //   var mailOptions = {
-    //     from: "comp4711finalproject@gmail.com",
-    //     to: res.email,
-    //     subject: res.subject,
-    //     html:
-    //       res.message
-    //   };
-    
-    //   // Finish sending maiil to user
-    //   transporter.sendMail(mailOptions, function(error, info) {
-    //     if (error) {
-    //         console.log(error);
-    //     }
-    //   });
-
-    res.redirect(`/profile/${res.contact}`)
 
 }
 
