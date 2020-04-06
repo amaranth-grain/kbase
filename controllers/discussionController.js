@@ -12,8 +12,6 @@ function getLatestDiscussion(req,res,next) {
         res.discussions = data.rows;
         next();
     }).catch((err) => console.log(err));
-    // }).catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"name": "Error: getting messages failed."}], convId: conservationId, sender: user_id}));
-
 }
 
 function getUserImages(req,res,next) {
@@ -70,15 +68,43 @@ function getNumOfReplies(req,res,next) {
     }).catch((err) => console.log(err));
 }
 
+function getReplies(req,res,next) {
+    var discussions = res.discussions;
+    var promises = discussions.map(element => {
+        return new Promise((resolve, reject) => {
+            mod.getreplies(element.discussion_id).then((data) => {
+                element.reply = data.rows;
+            }).then(()=>resolve()).catch(err => reject(err))
+        });
+    });
+
+    Promise.all(promises)
+    .then(() => {
+        discussions.forEach((element) => {
+            element.reply.forEach((reply) => {
+                let date = new Date(Date.parse(reply.reply_time + "+0000"));
+                reply.reply_time = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
+            })
+        })
+        res.discussions = discussions;
+        next();
+    }).catch((err) => console.log(err));
+}
+
 function loadLatestDiscussions(req,res,next) {
     res.render('home', {profile: [res.profile], discussion: res.discussions});
 }
 
+function newReply(req,res,next) {
+    res.redirect("/home");
+}
 
 module.exports = {
     getLatestDiscussion: getLatestDiscussion,
     getUserImages: getUserImages,
     formatDatetime: formatDatetime,
     getNumOfReplies: getNumOfReplies,
-    loadLatestDiscussions: loadLatestDiscussions
+    loadLatestDiscussions: loadLatestDiscussions,
+    getReplies: getReplies,
+    newReply: newReply
 }

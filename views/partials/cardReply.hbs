@@ -1,0 +1,11 @@
+{{#each reply}}
+    <div class="cardDiscussion">
+        <img class="profilePic" src="{{this.imageurl}}" />
+        <div class="cardDiscussionText">
+            <p>{{this.reply_details}}</p>
+            <div class="cardDiscussionFooter">
+                <p class="dateDiscussion">{{this.reply_time}}</p>
+            </div>
+        </div>
+    </div>
+{{/each}}
