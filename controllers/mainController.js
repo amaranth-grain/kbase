@@ -49,6 +49,13 @@ function likeProfile(req,res,next){
   var discussions;
   var likes;
   var posts;
+  var alreadyLiked;
+  mod.checkLiked(req.body.userId,req.session.userId).then(data=>{
+    if(data.rows[0].count >= 1){
+      alreadyLiked = true;
+    } else {
+      already_liked = false;
+    }
   mod.getNumOfPosts(req.session.userId).then(data=> {
     posts = data.rows[0].count
   mod.getNumOfLikes(req.body.userId).then(data => {
@@ -68,10 +75,11 @@ function likeProfile(req,res,next){
               element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
           })
           
-          res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts});
+          res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts,alreadyLiked:alreadyLiked});
       }).catch((err) => console.log(err));
 
   })
+})
 })
 }).catch((err) => console.log(err));
   
@@ -79,9 +87,13 @@ function likeProfile(req,res,next){
 
 
 function getProfile(req,res,next) {
+    var notOwnProfile = true;
     //TODO Disable ability to message self or increment likes if not own account
     if (req.session.userId != req.params.userId) {
         console.log("Not viewing my own profile");
+    } else {
+      console.log("Viewing my own profile")
+      notOwnProfile = false;
     }
     var id = req.params.userId;
     var profile;
@@ -89,6 +101,14 @@ function getProfile(req,res,next) {
     var discussions;
     var likes;
     var posts;
+    var alreadyLiked;
+    mod.checkLiked(req.params.userId,req.session.userId).then(data=>{
+      console.log(data.rows[0].count)
+      if(data.rows[0].count >= 1){
+        alreadyLiked = true;
+      } else {
+        already_liked = false;
+      }
     mod.getNumOfLikes(req.params.userId).then(data => {
       
       likes = data.rows[0].count;
@@ -109,12 +129,13 @@ function getProfile(req,res,next) {
                 element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
             })
             
-            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts});
+            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts,alreadyLiked:alreadyLiked,notOwnProfile:notOwnProfile});
         }).catch((err) => console.log(err));
 
     })
   })
-}).catch((err) => console.log(err));
+})
+    }).catch((err) => console.log(err));
 }
 
 

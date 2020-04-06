@@ -74,6 +74,11 @@ function getNumOfLikes(user_id){
     query = `select count(*) from likes where profile_id = ${user_id}`
     return db.query(query)
 }
+
+function checkLiked(profile_id,user_id){
+    query = `select count(*) from likes where profile_id = ${profile_id} and liking_id = ${user_id}`
+    return db.query(query)
+}
 module.exports = {
     add : addUsers,
     getAll : getAllUsers,
@@ -89,5 +94,6 @@ module.exports = {
     getNumOfMessages:getNumOfMessages,
     getNumOfLikes:getNumOfLikes,
     getNumOfLikesOnPosts:getNumOfLikesOnPosts,
-    incrementNumOfLikes:incrementNumOfLikes
+    incrementNumOfLikes:incrementNumOfLikes,
+    checkLiked:checkLiked
 }
