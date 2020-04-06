@@ -34,6 +34,7 @@ function decrementOffset(req,res,next){
     req.session.offset -= pagelimit;
     if(req.session.offset-pagelimit < 0){
         res.backVisible = false;
+        req.session.offset = 0;
     } else {
         res.backVisible = true;
     }
