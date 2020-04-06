@@ -77,5 +77,6 @@ module.exports = {
     checkEmail: checkEmail,
     getNumOfPosts:getNumOfPosts,
     getNumOfMessages:getNumOfMessages,
-    getNumOfLikes:getNumOfLikes
+    getNumOfLikes:getNumOfLikes,
+    createUserWithLastName:createUserWithLastName
 }

@@ -1,0 +1,16 @@
+{{#each discussion}}
+    <div class="cardDiscussion">
+        <img class="profilePic" src="{{this.imageurl}}">
+        <div class="cardDiscussionText">
+            <div class="cardDiscussionHeader">
+                <span class="subjectDiscussion">Dummy Topic Subject</span>
+                <button class="btnInverse disabled">{{this.tag}}</button>
+            </div>
+            <p>{{this.details}}</p>
+            <div class="cardDiscussionFooter">
+                <p class="dateDiscussion">{{this.date}}</p>
+                <p ><a href="/">{{this.numReplies}} replies</a></p>
+            </div>
+        </div>
+    </div>
+{{/each}}
