@@ -1,30 +1,33 @@
 <div id="discussion">
     <div id="searchDiscussion">
-        <form id="searchDiscussion" action="/searchDiscussion" method="POST"></form>
-        Search by topic
-        <select class="dropdownTopic inputHalf">
-            {{#each profile}}
-            {{#each this.topics}}
-            <option value={{this}}>{{this}}</option>
-            {{/each}}
-            {{/each}}
-        </select>
-        <button id="btnSearchDiscussion">go -&gt;</button>
+        <form id="searchDiscussion" action="/searchDiscussion" method="POST">
+            Search by topic
+            <select name="topic" class="dropdownTopic inputHalf">
+                <option value="nodejs">Node.js</option>
+                <option value="java">Java</option>
+                <option value="sql">SQL</option>
+                <option value="zend">Zend</option>
+                <option value="php">PHP</option>
+            </select>
+            <input type="submit" id="btnSearchDiscussion" value="go -&gt;">
         </form>
     </div>
     <h2 id="headerDiscussion">Latest discussions</h2>
     <div id="latestDiscussion">
         {{>cardDiscussion}}
-        {{#if nextVisible}}
-        <form id="nextPage" action="/nextPage" method="GET">
-        <button id="discussionNextPage">Next</button>
-        {{/if}}
-        </form>
-        {{#if backVisible}}
-        <form id="previousPage" action="/previousPage" method="GET">
-        <button id="discussionPreviousPage">Previous</button>
-        {{/if}}
-        </form>
+        <div id="divPage">
+            {{#if backVisible}}
+            <form id="previousPage" action="/previousPage" method="GET">
+                <button class="btnInverse btnPage" id="discussionPreviousPage">Previous</button>
+                {{/if}}
+            </form>
+            {{#if nextVisible}}
+            <form id="nextPage" action="/nextPage" method="GET">
+                <button class="btnInverse btnPage" id="discussionNextPage">Next</button>
+                {{/if}}
+            </form>
+        </div>
+
     </div>
 
 

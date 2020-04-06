@@ -91,10 +91,10 @@ button {
   text-align: center;
 }
 .colLeft {
-  width: 40%;
+  width: 30%;
 }
 .colRight {
-  width: 50%;
+  width: 60%;
   padding-left: 3em;
 }
 #divSignup {
@@ -120,10 +120,10 @@ button {
   font-size: 3em;
 }
 #divSignup input {
-  width: 350px;
+  width: 400px;
 }
 #divSignup textarea {
-  width: 350px;
+  width: 400px;
 }
 #signupTag {
   font-weight: bold;
@@ -135,7 +135,7 @@ button {
   padding: 2em 1em;
   width: 55%;
 }
-#signupAbout {
+.about {
   width: 20vw;
 }
 #btnRegister {
@@ -204,7 +204,7 @@ a, a:visited, a:hover, a:active {
 .profilePic {
   width: 100px;
   height: 100px;
-  clip-path: circle(50%);
+  clip-path: circle(45%);
 }
 #stats {
   display: table;
@@ -268,36 +268,80 @@ a, a:visited, a:hover, a:active {
 #profileName {
   text-transform: capitalize;
 }
+.latestPosts {
+  margin: 0 auto;
+  width: 60%;
+}
+#headerDiscussion {
+  font-size: 2em;
+  text-transform: capitalize;
+}
 /****** USER PROFILE END *****/
+/****** EDIT PROFILE *****/
+#editLeft {
+  padding-left: 2em;
+  width: 30%;
+}
+#editRight {
+  padding-left: 2em;
+}
+#divEdit input {
+  width: 400px;
+}
+#divEdit textarea {
+  width: 400px;
+}
+#btnEdit {
+  width: 100%;
+}
+/****** EDIT PROFILE END *****/
 /****** QUESITON INPUT *****/
 #formDiscussion input {
-  width: 75%;
+  width: 100%;
 }
 #formDiscussion textarea {
-  width: 75%;
+  width: 100%;
+}
+#btnPostTimeline {
+  width: 50%;
 }
 /****** QUESITON INPUT END *****/
 /****** DISCUSSION ******/
+.tag {
+  color: var(--logoBlue);
+  border: 1px solid var(--logoBlue);
+}
+#divPage {
+  display: flex;
+  justify-content: flex-end;
+}
+#divPage button {
+  display: block;
+  margin-left: 1em;
+  border: 2px solid var(--buttonBlue);
+  width: 100px;
+}
 .replyContainer{
   display: none;
   flex-direction: column;
 }
 .replyInput {
   display: block;
-  width: 75%;
+  width: 90%;
   height: 10vh;
   margin-left: auto;
-  padding: 2%;
   border: 1px solid grey;
-  margin-right: 4%;
 }
-.sendResponse {
+.sendReply {
   border: none;
   color: white;
   background-color: #01A2E8;
   float: right;
-  margin-bottom: 4%;
-  margin-right: 4%;
+}
+.toggleReply {
+  background-color: transparent;
+  color: var(--textGrey);
+  text-decoration: underline;
 }
 #showReplies{
   border: none;
@@ -313,9 +357,12 @@ a, a:visited, a:hover, a:active {
 #searchDiscussion {
   color: var(--textGrey);
 }
+#latestDiscussion{
+  margin: 5% 0;
+}
 .cardDiscussion {
   display: flex;
-  margin-bottom: 2%;
+  margin-bottom: 2em;
 }
 .cardDiscussionHeader {
   display: flex;
@@ -330,13 +377,23 @@ a, a:visited, a:hover, a:active {
   margin-right: 1em;
 }
 .cardDiscussionText {
-  width: 65%;
+  width: 90%;
 }
 .subjectDiscussion {
   font-size: 1.3em;
   flex-grow: 2;
 }
 /****** DISCUSSION ******/
+
+#btnSearchDiscussion{
+  background-color: var(--buttonBlue);
+  border-radius: 0.2em;
+  color: var(--offWhite);
+  font-weight: bold;
+  border: none;
+  height: 35px;
+  padding: 0.4em 2em 0.4em 0.6em;
+}
 
 /****** NEW CONTACT ******/
 .newContact{
