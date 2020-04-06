@@ -1,4 +1,6 @@
 let mod = require('../models/chatData');
+let mod2 = require('../models/usersData');
+let nodemailer = require("nodemailer");
 
 function loadConversation(req,res,next) {
     var user_id = req.session.userId;
@@ -87,11 +89,78 @@ function newMessage(req,res,next) {
 function renderMessageProfile(req,res,next) {
     res.render('messageProfile', {profileId: req.body.profileId, profileImgUrl: req.body.profileImgUrl});
 }
+
+function createConv(req,res,next) {
+    res.subject = req.body.subjectInput;
+    res.userId = req.session.userId;
+    res.message = req.body.messageInput;
+    res.contact = req.body.contact;
+    console.log(`${res.subject} ${res.userId} ${res.messageInput} ${res.contact}`)
+    next();
+    // let dbQuery = mod.createconvo(res.userId, res.contact, res.subject);
+    // dbQuery
+    // .then((data) => {
+    //     console.log(data);
+    //     next();
+    // })
+    // .catch((err) => console.log(err));
+}
+
+function createMessage(req,res,next) {
+    next();
+}
+
+function sendEmail(req,res,next) {
+    let dbQuery = mod2.getUser(res.contact);
+    dbQuery
+    .then((data) => {res.email = data.rows[0].email})
+    .catch((err) => console.log(err));
+
+    var transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "ecoquestteam06@gmail.com",
+          pass: "ecoquest2"
+        }
+      });
+
+      var transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "comp4711finalproject@gmail.com",
+          pass: "finalproject"
+        }
+      });
+    
+      // Setting mail options
+      var mailOptions = {
+        from: "comp4711finalproject@gmail.com",
+        to: res.email,
+        subject: res.subject,
+        html:
+          res.message
+      };
+    
+      // Finish sending maiil to user
+      transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            console.log(error);
+        }
+      });
+
+    //   res.redirect(`/profile/${res.contact}`)
+
+}
+
+
 module.exports = {
     getContacts: getContacts,
     getConvId: getConvId,
     loadConversation: loadConversation,
     newMessage: newMessage,
     getLatestMessage: getLatestMessage,
-    renderMessageProfile: renderMessageProfile
+    renderMessageProfile: renderMessageProfile,
+    createConv: createConv,
+    createMessage: createMessage,
+    sendEmail: sendEmail
 }

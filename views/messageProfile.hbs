@@ -8,7 +8,7 @@
     </div>
     <div class="column colRight newContact">
         <form action="/chat/newContact" method="POST">
-            <div><input type="text" name="submit" id="subjectInput" required placeholder="Subject" /></div>
+            <div><input type="text" name="subjectInput" id="subjectInput" required placeholder="Subject" /></div>
             <div><textarea name="messageInput" id="messageInput" required placeholder="Write a message..."></textarea></div>
             <input type="hidden" name="contact" value="{{profileId}}" />
             <div><input type="submit" class="sendResponse" id="sendMsg" value="Send"></div>
