@@ -3,12 +3,19 @@
   <div class="row">
     <div class="column" id="profileLeft">
       <img class="profilePic" src={{imageurl}}>
-      <h3>{{name}} {{lastname}}</h3>
-      {{about}}
-      {{country}}
+      <h3 id="profileName">{{name}} {{lastname}}</h3>
+      <p>{{about}}</p>
+      <p>{{country}}</p>
     </div>
     <div class="column" id="profileRight">
-      ADD EDIT PROFILE FUNCTIONALITY
+      <button>Message</button>
+      <p>{{numLike}} Likes <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></p>
+      <p>{{numPost}} Posts</p>
+    </div>
+  </div>
+  <div class = "row">
+    <div class="column">
+      {{>cardDiscussion}}
     </div>
   </div>
 </div>
