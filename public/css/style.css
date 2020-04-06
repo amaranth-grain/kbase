@@ -268,6 +268,14 @@ a, a:visited, a:hover, a:active {
 #profileName {
   text-transform: capitalize;
 }
+.latestPosts {
+  margin: 0 auto;
+  width: 60%;
+}
+#headerDiscussion {
+  font-size: 2em;
+  text-transform: capitalize;
+}
 /****** USER PROFILE END *****/
 /****** EDIT PROFILE *****/
 #editLeft {

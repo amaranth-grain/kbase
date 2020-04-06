@@ -20,9 +20,9 @@ discController.getNumOfReplies,discController.loadLatestDiscussions);
 
 router.get('/profile/:userId', ensureAuth, mainController.getProfile);
 
-router.get('/profile/:userId/edit', mainController.getEditProfile);
+router.get('/profile/:userId/edit', ensureAuth, mainController.getEditProfile);
 
-router.post('/edit', mainController.edit, mainController.getHome, discController.resetOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
+router.post('/edit', ensureAuth, mainController.edit, mainController.getHome, discController.resetOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
 discController.getNumOfReplies, discController.loadLatestDiscussions);
 
 module.exports = router;
