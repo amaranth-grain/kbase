@@ -24,7 +24,6 @@ function incrementOffset(req,res,next){
 
 function resetOffset(req,res,next){
     req.session.offset = 0;
-    //offset = 0;
     res.backVisible = false;
     res.nextVisible = true;
     next();
@@ -42,9 +41,19 @@ function decrementOffset(req,res,next){
     next()
 }
 function getLatestDiscussion(req,res,next) {
-    //var offset = 0;
     var limit = 5;
     var queryConv = mod.selectTopicRange(req.session.offset, limit);
+
+    queryConv
+    .then((data) => {
+        res.discussions = data.rows;
+        next();
+    }).catch((err) => console.log(err));
+}
+
+function getLatestTopic(req,res,next) {
+    var limit = 5;
+    var queryConv = mod.selectTopicRangeFilter(req.session.offset, limit, res.topic);
 
     queryConv
     .then((data) => {
@@ -125,6 +134,7 @@ function getReplies(req,res,next) {
                 reply.reply_time = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
             })
         })
+        //console.log(element.reply)
         res.discussions = discussions;
         next();
     }).catch((err) => console.log(err));
@@ -136,6 +146,9 @@ function loadLatestDiscussions(req,res,next) {
 }
 
 function newReply(req,res,next) {
+    console.log(req.body.discId)
+    console.log(Date.now())
+    let dbQuery = mod.createreply(req.session.userId, req.body.discId, req.body.replyInput, Date.now());
     res.redirect("/home");
 }
 
@@ -149,5 +162,6 @@ module.exports = {
     getNumOfReplies: getNumOfReplies,
     loadLatestDiscussions: loadLatestDiscussions,
     getReplies: getReplies,
-    newReply: newReply
+    newReply: newReply,
+    getLatestTopic: getLatestTopic
 }

@@ -10,13 +10,13 @@ router.get('/', ensureAuth, (req, res) => {
 })
 
 router.get('/home', ensureAuth, mainController.getHome, discController.resetOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
-                    discController.getNumOfReplies, discController.loadLatestDiscussions);
+                    discController.getNumOfReplies, discController.getReplies,discController.loadLatestDiscussions);
 
 router.get('/nextPage', ensureAuth,mainController.getHome, discController.incrementOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
-discController.getNumOfReplies,discController.loadLatestDiscussions);
+discController.getNumOfReplies,discController.getReplies,discController.loadLatestDiscussions);
 
 router.get('/previousPage', ensureAuth,mainController.getHome, discController.decrementOffset,discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
-discController.getNumOfReplies,discController.loadLatestDiscussions);
+discController.getNumOfReplies,discController.getReplies,discController.loadLatestDiscussions);
 
 router.get('/profile/:userId', ensureAuth, mainController.getProfile);
 
@@ -26,5 +26,8 @@ router.post('/edit', ensureAuth, mainController.edit, mainController.getHome, di
 discController.getNumOfReplies, discController.loadLatestDiscussions);
 
 router.post('/search', ensureAuth, mainController.search, mainController.displaySearch);
+
+router.post('/searchDiscussion', ensureAuth, mainController.getHome, discController.getLatestTopic, discController.formatDatetime, discController.getUserImages, 
+discController.getNumOfReplies,discController.loadLatestDiscussions);
 
 module.exports = router;

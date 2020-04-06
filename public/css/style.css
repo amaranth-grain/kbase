@@ -387,6 +387,16 @@ a, a:visited, a:hover, a:active {
 }
 /****** DISCUSSION ******/
 
+#btnSearchDiscussion{
+  background-color: var(--buttonBlue);
+  border-radius: 0.2em;
+  color: var(--offWhite);
+  font-weight: bold;
+  border: none;
+  height: 35px;
+  padding: 0.4em 2em 0.4em 0.6em;
+}
+
 /****** NEW CONTACT ******/
 .newContact{
   margin-top: 2em;
