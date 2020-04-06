@@ -3,9 +3,13 @@ const mod2 = require('../models/discussionData');
 
 function getHome(req,res,next) {
     let userId = req.session.userId;
+    var posts;
+    var messages;
+    mod.getNumOfPosts(req.session.userId).then(data=> {
+      posts = data.rows[0].count
     mod.getNumOfLikes(req.session.userId).then(data => {
       likes = data.rows[0].count;
-    }).catch((err) => console.log(err));
+    }).then(data =>{
     mod.getNumOfMessages(req.session.userId).then(data => {
       messages = data.rows[0].count;
     }).then(data => {
@@ -14,7 +18,7 @@ function getHome(req,res,next) {
             imgUrl: data["rows"][0].imageurl,
             name: data["rows"][0].name,
             lastname: data["rows"][0].lastname,
-            numPost: data["rows"][0].num_posts,
+            numPost: posts,
             numMsg: messages,
             numLike: likes,
             tagline: data["rows"][0].about,
@@ -30,7 +34,9 @@ function getHome(req,res,next) {
         }
         next();
     })
-  }).catch(err => console.log("Error: Problem with getting user from DB. ", err));
+  })
+})
+}).catch(err => console.log("Error: Problem with getting user from DB. ", err));
 }
 
 function likeProfile(req,res,next){
@@ -42,10 +48,20 @@ function likeProfile(req,res,next){
   var profilePath;
   var discussions;
   var likes;
+  var posts;
+  var alreadyLiked;
+  mod.checkLiked(req.body.userId,req.session.userId).then(data=>{
+    if(data.rows[0].count >= 1){
+      alreadyLiked = true;
+    } else {
+      already_liked = false;
+    }
+  mod.getNumOfPosts(req.session.userId).then(data=> {
+    posts = data.rows[0].count
   mod.getNumOfLikes(req.body.userId).then(data => {
     
     likes = data.rows[0].count;
-  }).catch((err) => console.log(err));
+  }).then(data=>{
   mod.getUser(id).then(data => {
       profile = data["rows"][0];
       profilePath = `/profile/${id}`;
@@ -59,31 +75,47 @@ function likeProfile(req,res,next){
               element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
           })
           
-          res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes});
+          res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts,alreadyLiked:alreadyLiked});
       }).catch((err) => console.log(err));
 
-  }).catch((err) => console.log(err));
+  })
+})
+})
+}).catch((err) => console.log(err));
   
 }
 
 
 function getProfile(req,res,next) {
+    var notOwnProfile = true;
     //TODO Disable ability to message self or increment likes if not own account
     if (req.session.userId != req.params.userId) {
         console.log("Not viewing my own profile");
+    } else {
+      console.log("Viewing my own profile")
+      notOwnProfile = false;
     }
     var id = req.params.userId;
     var profile;
     var profilePath;
     var discussions;
     var likes;
+    var posts;
+    var alreadyLiked;
+    mod.checkLiked(req.params.userId,req.session.userId).then(data=>{
+      console.log(data.rows[0].count)
+      if(data.rows[0].count >= 1){
+        alreadyLiked = true;
+      } else {
+        already_liked = false;
+      }
     mod.getNumOfLikes(req.params.userId).then(data => {
       
       likes = data.rows[0].count;
-    }).catch((err) => console.log(err));
-    mod.getNumOfMessages(req.session.userId).then(data => {
-      messages = data.rows[0].count;
-    }).catch((err) => console.log(err));
+    }).then(data => {
+    mod.getNumOfPosts(req.session.userId).then(data => {
+      posts = data.rows[0].count;
+    }).then(data=>{
     mod.getUser(id).then(data => {
         profile = data["rows"][0];
         profilePath = `/profile/${id}`;
@@ -97,9 +129,12 @@ function getProfile(req,res,next) {
                 element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
             })
             
-            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,messages:messages});
+            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts,alreadyLiked:alreadyLiked,notOwnProfile:notOwnProfile});
         }).catch((err) => console.log(err));
 
+    })
+  })
+})
     }).catch((err) => console.log(err));
 }
 
