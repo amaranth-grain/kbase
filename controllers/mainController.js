@@ -3,18 +3,22 @@ const mod2 = require('../models/discussionData');
 
 function getHome(req,res,next) {
     let userId = req.session.userId;
+    var posts;
+    var messages;
+    mod.getNumOfPosts(req.session.userId).then(data=> {
+      posts = data.rows[0].count
     mod.getNumOfLikes(req.session.userId).then(data => {
       likes = data.rows[0].count;
-    }).catch((err) => console.log(err));
+    }).then(data =>{
     mod.getNumOfMessages(req.session.userId).then(data => {
       messages = data.rows[0].count;
-    }).catch((err) => console.log(err));
-    mod.getUser(userId).then(data => {       
+    }).then(data => {
+      mod.getUser(userId).then(data => {       
         user = {
             imgUrl: data["rows"][0].imageurl,
             name: data["rows"][0].name,
             lastname: data["rows"][0].lastname,
-            numPost: data["rows"][0].num_posts,
+            numPost: posts,
             numMsg: messages,
             numLike: likes,
             tagline: data["rows"][0].about,
@@ -29,7 +33,10 @@ function getHome(req,res,next) {
           res.topic = req.body.topic;
         }
         next();
-    }).catch(err => console.log("Error: Problem with getting user from DB. ", err));
+    })
+  })
+})
+}).catch(err => console.log("Error: Problem with getting user from DB. ", err));
 }
 
 function likeProfile(req,res,next){
@@ -41,10 +48,13 @@ function likeProfile(req,res,next){
   var profilePath;
   var discussions;
   var likes;
+  var posts;
+  mod.getNumOfPosts(req.session.userId).then(data=> {
+    posts = data.rows[0].count
   mod.getNumOfLikes(req.body.userId).then(data => {
     
     likes = data.rows[0].count;
-  }).catch((err) => console.log(err));
+  }).then(data=>{
   mod.getUser(id).then(data => {
       profile = data["rows"][0];
       profilePath = `/profile/${id}`;
@@ -58,10 +68,12 @@ function likeProfile(req,res,next){
               element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
           })
           
-          res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes});
+          res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts});
       }).catch((err) => console.log(err));
 
-  }).catch((err) => console.log(err));
+  })
+})
+}).catch((err) => console.log(err));
   
 }
 
@@ -76,13 +88,14 @@ function getProfile(req,res,next) {
     var profilePath;
     var discussions;
     var likes;
+    var posts;
     mod.getNumOfLikes(req.params.userId).then(data => {
       
       likes = data.rows[0].count;
-    }).catch((err) => console.log(err));
-    mod.getNumOfMessages(req.session.userId).then(data => {
-      messages = data.rows[0].count;
-    }).catch((err) => console.log(err));
+    }).then(data => {
+    mod.getNumOfPosts(req.session.userId).then(data => {
+      posts = data.rows[0].count;
+    }).then(data=>{
     mod.getUser(id).then(data => {
         profile = data["rows"][0];
         profilePath = `/profile/${id}`;
@@ -96,10 +109,12 @@ function getProfile(req,res,next) {
                 element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
             })
             
-            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,messages:messages});
+            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts});
         }).catch((err) => console.log(err));
 
-    }).catch((err) => console.log(err));
+    })
+  })
+}).catch((err) => console.log(err));
 }
 
 
