@@ -13,6 +13,16 @@
     <h2 id="headerDiscussion">Latest discussions</h2>
     <div id="latestDiscussion">
         {{>cardDiscussion}}
+        {{#if nextVisible}}
+        <form id="nextPage" action="/nextPage" method="GET">
+        <button id="discussionNextPage">Next</button>
+        {{/if}}
+        </form>
+        {{#if backVisible}}
+        <form id="previousPage" action="/previousPage" method="GET">
+        <button id="discussionPreviousPage">Previous</button>
+        {{/if}}
+        </form>
     </div>
 
 

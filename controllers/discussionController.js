@@ -1,10 +1,49 @@
 let mod = require('../models/discussionData');
 let mod2 = require('../models/usersData');
+var offset = 0;
+var pagelimit = 5;
 
-function getLatestDiscussion(req,res,next) {
-    var offset = 0;
-    var limit = 5;
+function incrementOffset(req,res,next){
     
+    res.backVisible = true;
+    var queryConv = mod.getNumberOfDiscussions();
+    
+    queryConv
+    .then((data) => {
+        
+        maxRows = parseInt(data.rows[0].count);
+        offset +=pagelimit;
+        if(offset+pagelimit>maxRows){
+            res.nextVisible = false;
+        } else {
+            res.nextVisible = true;
+        }
+        
+        next();
+    }).catch((err) => console.log(err));
+    
+}
+
+function resetOffset(req,res,next){
+    offset = 0;
+    res.backVisible = false;
+    res.nextVisible = true;
+    next();
+}
+
+function decrementOffset(req,res,next){
+    offset -= pagelimit;
+    if(offset-pagelimit < 0){
+        res.backVisible = false;
+    } else {
+        res.backVisible = true;
+    }
+    res.nextVisible = true;
+    next()
+}
+function getLatestDiscussion(req,res,next) {
+    //var offset = 0;
+    var limit = 5;
     var queryConv = mod.selectTopicRange(offset, limit);
 
     queryConv
@@ -70,15 +109,35 @@ function getNumOfReplies(req,res,next) {
     }).catch((err) => console.log(err));
 }
 
+
+function getNumberOfDiscussionPages(req,res,next){
+    var queryConv = mod.getNumberOfDiscussions();
+    var pages
+    res.pages = []
+    queryConv
+    .then((data) => {
+        pages = Math.ceil(data.rows[0].count/5);
+        for(let i = 1;i<=pages;i++){
+            res.pages[i] = i
+        }
+        next();
+    }).catch((err) => console.log(err));
+}
+
+
 function loadLatestDiscussions(req,res,next) {
-    res.render('home', {profile: [res.profile], discussion: res.discussions});
+    res.render('home', {profile: [res.profile], discussion: res.discussions,backVisible:res.backVisible,nextVisible:res.nextVisible});
 }
 
 
 module.exports = {
+    resetOffset:resetOffset,
+    incrementOffset:incrementOffset,
+    decrementOffset:decrementOffset,
     getLatestDiscussion: getLatestDiscussion,
     getUserImages: getUserImages,
     formatDatetime: formatDatetime,
     getNumOfReplies: getNumOfReplies,
-    loadLatestDiscussions: loadLatestDiscussions
+    getNumberOfDiscussionPages: getNumberOfDiscussionPages,
+    loadLatestDiscussions: loadLatestDiscussions,
 }
