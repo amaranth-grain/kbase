@@ -87,8 +87,8 @@ module.exports = {
     checkEmail: checkEmail,
     getNumOfPosts:getNumOfPosts,
     getNumOfMessages:getNumOfMessages,
+    getNumOfLikes:getNumOfLikes,
     getNumOfLikesOnPosts:getNumOfLikesOnPosts,
     createUserWithLastName:createUserWithLastName,
-    incrementNumOfLikes:incrementNumOfLikes,
-    getNumOfLikes,getNumOfLikes
+    incrementNumOfLikes:incrementNumOfLikes
 }

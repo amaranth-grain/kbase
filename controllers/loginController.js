@@ -20,3 +20,13 @@ exports.checkUser = function (req, res, next) {
       console.log(err);
     });
 };
+
+exports.logout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      throw err;
+    } else {
+      return res.redirect("/");
+    }
+  });
+};

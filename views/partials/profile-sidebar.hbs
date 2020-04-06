@@ -1,11 +1,13 @@
 {{#each profile}}
   <div class="profileSidebar">
-    <img class="profilePic" src={{this.imgUrl}}>
-    <p class="profileName">{{this.name}}</p>
+    <a href={{profilePath}}>
+      <img class="profilePic" src={{this.imgUrl}}>
+    </a>
+    <p class="profileName">{{this.name}} {{this.lastname}}</p>
     <p>{{this.tagline}}</p>
     <div id="stats">
       <div class="statRow">
-        <p><a href="/">Posts</a></p>
+        <p><a href={{profilePath}}>Posts</a></p>
         <p>{{this.numPost}}</p>
       </div>
       <div class="statRow">
@@ -13,11 +15,11 @@
         <p>{{this.numMsg}}</p>
       </div>
       <div class="statRow">
-        <p><a href="/">Likes</a></p>
+        <p>Likes</p>
         <p>{{this.numLike}}</p>
       </div>
       <div class="statProfile">
-        <p><a href="/">Edit Profile</a></p>
+        <p><a href={{profilePath}}>Edit Profile</a></p>
       </div>
     </div>
   </div>
