@@ -12,6 +12,7 @@ const chatRoutes = require('./routes/chatRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const signupRoutes = require('./routes/signupRoutes');
 const discussionRoutes = require('./routes/discussionRoutes');
+const hbs = expressHbs.create({});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -33,6 +34,13 @@ app.engine(
         extname: 'hbs'
     })
 );
+
+hbs.handlebars.registerHelper('select', function(selected, options) {
+  return options.fn(this).replace(
+      new RegExp(' value=\"' + selected + '\"'),
+      '$& selected="selected"');
+});
+
 app.set('view engine', 'hbs');
 app.set('views', 'views');
 

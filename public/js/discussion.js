@@ -8,3 +8,7 @@ function toggleReply(id){
     }
     console.log("CLICK!")
 }
+
+const selectDropdownValue = () => {
+    return document.getElementById("discussTag").value.toLowerCase();
+}

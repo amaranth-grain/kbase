@@ -2,7 +2,7 @@ let db = require('../db/db');
 
 //creates a discussion row in the table, sample datime 2017-03-04 06:08:00
 function createDiscussion(id,details,datetime,tag,subject){
-    query = `insert into discussion (user_id,details,datetime,tag,subject) values (${id},${details},${datetime}, ${tag},${subject});`
+    query = `insert into discussion (user_id,details,datetime,tag,subject) values ('${id}','${details}', to_timestamp(${datetime}/ 1000.0), '${tag}','${subject}');`
     return db.query(query)
 }
 
