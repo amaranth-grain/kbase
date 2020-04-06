@@ -3,13 +3,13 @@
   <form id="formDiscussion" action="/discuss" method="POST">
     <input class="input inputFull" type="text" name="subject" placeholder="subject" /><br />
     <textarea id="signupAbout" name="detail" rows="5" placeholder="explain in detail..."></textarea><br />
-    <select class="dropdownTopic inputHalf">
+    <select name="tag" class="dropdownTopic inputHalf" id="discussTag">
       {{#each profile}}
         {{#each this.topics}}
           <option value={{this}}>{{this}}</option>
         {{/each}}
       {{/each}}
     </select>
-    <button class="btnInverse" id="btnPostTimeline">post to timeline</button>
+    <button class="btnInverse" id="btnPostTimeline" onclick="selectDropdownValue()">post to timeline</button>
   </form>
 </div>
