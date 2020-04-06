@@ -84,7 +84,7 @@ function newMessage(req,res,next) {
     .catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"message": "Error: getting sending message failed."}]})); 
     req.session.convId = req.body.convId;
     res.redirect("/chat")
-}
+}   
 
 function renderMessageProfile(req,res,next) {
     res.render('messageProfile', {profileId: req.body.profileId, profileImgUrl: req.body.profileImgUrl});
@@ -92,14 +92,15 @@ function renderMessageProfile(req,res,next) {
 
 function createConv(req,res,next) {
     res.subject = req.body.subjectInput;
-    res.userId = req.session.userId;
+    res.userId = parseInt(req.session.userId);
     res.message = req.body.messageInput;
-    res.contact = req.body.contact;
+    res.contact = parseInt(req.body.contact);
     console.log(`${res.subject} ${res.userId} ${res.message} ${res.contact}`)
-    let dbQuery = mod.createconvo(res.userId, res.contact);
-    dbQuery
+    let dbQuery = mod.createconvo(res.userId, res.contact,res.subject);
+    let dbQuery2 = mod.getconvo(res.userId,res.contact);
+    dbQuery2
     .then((data) => {
-        res.convId = data.rows[0];
+        res.convId = data.rows[0].conversation_id;
         next();
     })
     .catch((err) => console.log("HERE: " + err));
