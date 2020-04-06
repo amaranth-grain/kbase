@@ -52,6 +52,7 @@ router.post(
   "/searchDiscussion",
   ensureAuth,
   mainController.getHome,
+  discController.resetOffsetForSearch,
   discController.getLatestTopic,
   discController.formatDatetime,
   discController.getUserImages,
