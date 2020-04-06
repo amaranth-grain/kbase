@@ -8,8 +8,8 @@ function getHome(req,res,next) {
     }).catch((err) => console.log(err));
     mod.getNumOfMessages(req.session.userId).then(data => {
       messages = data.rows[0].count;
-    }).catch((err) => console.log(err));
-    mod.getUser(userId).then(data => {       
+    }).then(data => {
+      mod.getUser(userId).then(data => {       
         user = {
             imgUrl: data["rows"][0].imageurl,
             name: data["rows"][0].name,
@@ -29,7 +29,8 @@ function getHome(req,res,next) {
           res.topic = req.body.topic;
         }
         next();
-    }).catch(err => console.log("Error: Problem with getting user from DB. ", err));
+    })
+  }).catch(err => console.log("Error: Problem with getting user from DB. ", err));
 }
 
 function likeProfile(req,res,next){
