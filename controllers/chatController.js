@@ -84,10 +84,14 @@ function newMessage(req,res,next) {
     res.redirect("/chat")
 }
 
+function renderMessageProfile(req,res,next) {
+    res.render('messageProfile', {profileId: req.body.profileId, profileImgUrl: req.body.profileImgUrl});
+}
 module.exports = {
     getContacts: getContacts,
     getConvId: getConvId,
     loadConversation: loadConversation,
     newMessage: newMessage,
-    getLatestMessage: getLatestMessage
+    getLatestMessage: getLatestMessage,
+    renderMessageProfile: renderMessageProfile
 }

@@ -236,6 +236,16 @@ a, a:visited, a:hover, a:active {
 }
 /****** PROFILE SIDEBAR END *****/
 /****** USER PROFILE *****/
+.messageProfileButton{
+  background-color: var(--buttonBlue);
+  border-radius: 0.2em;
+  color: var(--offWhite);
+  font-weight: bold;
+  border: none;
+  height: 35px;
+  padding: 0.4em 2em 0.4em 0.6em;
+}
+
 #profileLeft {
   width:65%;
 }
@@ -281,7 +291,7 @@ a, a:visited, a:hover, a:active {
   border: 1px solid grey;
   margin-right: 4%;
 }
-.sendReply {
+.sendResponse {
   border: none;
   color: white;
   background-color: #01A2E8;
@@ -327,3 +337,30 @@ a, a:visited, a:hover, a:active {
   flex-grow: 2;
 }
 /****** DISCUSSION ******/
+
+/****** NEW CONTACT ******/
+.newContact{
+  margin-top: 2em;
+}
+
+#messageInput{
+  width: 80%;
+  height: 15vh;
+  border-top: 2px solid #ddd;
+  margin-top: 2%;
+  padding: 1%;
+  resize: none;
+  font-family: 'PT Sans', sans-serif;
+}
+
+#subjectInput{
+  width: 80%;
+  margin-top: 2%;
+  padding: 1%;
+  resize: none;
+}
+
+#sendMsg{
+  float: left;
+  padding: 2% 4%;
+}

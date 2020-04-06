@@ -39,7 +39,7 @@ function getProfile(req,res,next) {
             discussions.forEach((element) => {
                 element.imageurl = imageurl;
             })
-            res.render('profile', {name, lastname, imageurl, country, about, profilePath, discussion: discussions});
+            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions});
         }).catch((err) => console.log(err));
 
     }).catch((err) => console.log(err));

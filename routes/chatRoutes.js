@@ -8,4 +8,6 @@ router.post('/chat', chatController.getContacts, chatController.getLatestMessage
 
 router.post('/chat/newMessage', chatController.newMessage);
 
+router.post('/chat/messageProfile', chatController.renderMessageProfile);
+
 module.exports = router;
