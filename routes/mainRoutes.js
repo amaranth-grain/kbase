@@ -110,6 +110,12 @@ router.get(
   discController.getNumOfReplies,
   discController.loadLatestDiscussions
 );
+
+router.post('/profile/like',ensureAuth, mainController.likeProfile)
+
+module.exports = router;
+
+
 /***** PAGINATION END *****/
 
 module.exports = router;

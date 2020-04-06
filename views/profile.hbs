@@ -13,7 +13,11 @@
         <input type="hidden" name="profileImgUrl" value="{{imageurl}}" />
         <input class="messageProfileButton" type="submit" value="Message">
       </form>
-      <p>{{numLike}} Likes <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></p>
+      <p>{{likes}} Likes </p>
+        <form action="/profile/like" method="POST">
+        <button class="fa fa-plus-circle fa-lg" aria-hidden="true" type="submit"></button>
+        <input type="hidden" name="userId" value="{{id}}" />
+        </form>
       <p>{{numPost}} Posts</p>
     </div>
   </div>
