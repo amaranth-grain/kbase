@@ -89,6 +89,5 @@ module.exports = {
     getNumOfMessages:getNumOfMessages,
     getNumOfLikes:getNumOfLikes,
     getNumOfLikesOnPosts:getNumOfLikesOnPosts,
-    createUserWithLastName:createUserWithLastName,
     incrementNumOfLikes:incrementNumOfLikes
 }
