@@ -14,10 +14,17 @@
         <input class="messageProfileButton" type="submit" value="Message">
       </form>
       <p>{{likes}} Likes </p>
+      {{#if notOwnProfile}}
+      {{#if alreadyLiked}} 
+      <button class="fa fa-plus-circle fa-lg" aria-hidden="true">Liked</button>
+        {{else}}
+        
         <form action="/profile/like" method="POST">
         <button class="fa fa-plus-circle fa-lg" aria-hidden="true" type="submit"></button>
         <input type="hidden" name="userId" value="{{id}}" />
         </form>
+        {{/if}}
+       {{/if}} 
       <p>{{posts}} Posts</p>
     </div>
   </div>
