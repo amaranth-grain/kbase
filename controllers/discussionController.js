@@ -1,8 +1,6 @@
 let mod = require('../models/discussionData');
 let mod2 = require('../models/usersData');
-var offset = 0;
 var pagelimit = 5;
-
 function incrementOffset(req,res,next){
     
     res.backVisible = true;
@@ -12,8 +10,8 @@ function incrementOffset(req,res,next){
     .then((data) => {
         
         maxRows = parseInt(data.rows[0].count);
-        offset +=pagelimit;
-        if(offset+pagelimit>maxRows){
+        req.session.offset +=pagelimit;
+        if(req.session.offset+pagelimit>maxRows){
             res.nextVisible = false;
         } else {
             res.nextVisible = true;
@@ -25,15 +23,16 @@ function incrementOffset(req,res,next){
 }
 
 function resetOffset(req,res,next){
-    offset = 0;
+    req.session.offset = 0;
+    //offset = 0;
     res.backVisible = false;
     res.nextVisible = true;
     next();
 }
 
 function decrementOffset(req,res,next){
-    offset -= pagelimit;
-    if(offset-pagelimit < 0){
+    req.session.offset -= pagelimit;
+    if(req.session.offset-pagelimit < 0){
         res.backVisible = false;
     } else {
         res.backVisible = true;
@@ -44,7 +43,7 @@ function decrementOffset(req,res,next){
 function getLatestDiscussion(req,res,next) {
     //var offset = 0;
     var limit = 5;
-    var queryConv = mod.selectTopicRange(offset, limit);
+    var queryConv = mod.selectTopicRange(req.session.offset, limit);
 
     queryConv
     .then((data) => {
