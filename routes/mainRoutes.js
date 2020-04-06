@@ -30,4 +30,11 @@ router.post('/search', ensureAuth, mainController.search, mainController.display
 router.post('/searchDiscussion', ensureAuth, mainController.getHome, discController.getLatestTopic, discController.formatDatetime, discController.getUserImages, 
 discController.getNumOfReplies,discController.loadLatestDiscussions);
 
+router.get('/nextPageFiltered', ensureAuth,mainController.getHome, discController.incrementOffsetForSearch, discController.getLatestTopic,discController.formatDatetime, discController.getUserImages,
+discController.getNumOfReplies,discController.loadLatestDiscussions,);
+
+router.get('/previousPageFiltered', ensureAuth,mainController.getHome, discController.decrementOffsetForSearch, discController.getLatestTopic,discController.formatDatetime, discController.getUserImages,
+discController.getNumOfReplies,discController.loadLatestDiscussions,);
+
+
 module.exports = router;

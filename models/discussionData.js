@@ -54,7 +54,13 @@ function selectTopicRangeFilter(start_row,num_of_rows,filter){
 }
 
 function filterByTag(tag){
-    query = `select * from discussion where tag = ${tag}`
+    query = `select * from discussion where tag = '${tag}'`
+    return db.query(query)
+}
+
+
+function getNumberOfFilteredDiscussions(tag){
+    query = `select count(*) from discussion where tag = '${tag}'`
     return db.query(query)
 }
 
@@ -89,5 +95,6 @@ module.exports = {
     getDiscussion:getDiscussion,
     searchForSubject:searchForSubject,
     getDiscussionsByUser:getDiscussionsByUser,
-    getNumberOfDiscussions:getNumberOfDiscussions
+    getNumberOfDiscussions:getNumberOfDiscussions,
+    getNumFilteredDiscussions:getNumberOfFilteredDiscussions
 }
