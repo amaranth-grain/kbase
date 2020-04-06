@@ -77,7 +77,7 @@ getEditProfile = (req, res) => {
       );
   };
   
-edit = (req, res, next) => {
+const edit = (req, res, next) => {
     let id = req.session.userId;
     let user = {
       imgUrl: req.body.imgUrl,
@@ -89,10 +89,9 @@ edit = (req, res, next) => {
     next();
   };
 
-search = (req, res, next) => {
+const search = (req, res, next) => {
   let keyword = req.body.search;
   mod2.searchForSubject(keyword).then(data => {
-    console.log("search results ", data["rows"]);
     res.results = data["rows"];
     next();
   }).catch(err => {
@@ -100,15 +99,58 @@ search = (req, res, next) => {
   });
 }
 
-displaySearch = (req, res, next) => {
+const getImage = async discussion => {
+  let data = await mod.getUser(discussion.user_id);
+  return data["rows"][0].imageurl;
+}
+
+const getNumReplies = async discussion => {
+  let data = await mod2.getNumOfReplies(discussion.discussion_id);
+  return parseInt(data.rows[0].count);
+}
+
+const getDate = async discussion => {
+  let date = new Date(Date.parse(discussion.datetime + "+0000"));
+  return `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`
+}
+
+const getAllImages = async res => {
+  return Promise.all(res.results.map(e => getImage(e))).catch(err => {
+    console.log("Error: Trouble retrieving images for discussion search. ", err);
+  });;
+}
+
+const getAllNumReplies = async res => {
+  return Promise.all(res.results.map(e => getNumReplies(e))).catch(err => {
+    console.log("Error: Trouble retrieving replies for discussion search. ", err);
+  });;
+}
+
+const getAllDates = async res => {
+  return Promise.all(res.results.map(e => getDate(e))).catch(err => {
+    console.log("Error: Trouble retrieving dates for discussion search. ", err);
+  });;
+}
+
+const getAllData = async res => {
+  return Promise.all([getAllImages(res), getAllNumReplies(res), getAllDates(res)]).catch(err => {
+    console.log("Error: Trouble retrieving data for discussion search. ", err);
+  });
+}
+
+const displaySearch = (req, res) => {
   let discussion = res.results;
-  // discussions.forEach(e => {
-  //   mod.getUser(e.user_id).then(data => {
-  //     console.log(data["rows"][0].imageurl);
-  //     e.imageurl = data["rows"][0].imageurl;
-  //   });
-  // });
-  res.render('search', {discussion});
+  getAllData(res).then(data => {
+    for (let i = 0; i < data[0].length; i++) {
+      discussion[i].imageurl = data[0][i];
+      discussion[i].numReplies = data[1][i];
+      discussion[i].date = data[2][i];
+    }
+  }).then(data => {
+    res.render("search", {discussion});
+  }).catch(err => {
+    console.log("Error: Problem with parsing discussion related data. ", err);
+  })
 }
 
 module.exports = {
@@ -119,3 +161,5 @@ module.exports = {
     search,
     displaySearch
 }
+
+
