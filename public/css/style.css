@@ -8,6 +8,7 @@ body {
 :root {
   --logoBlue: rgb(100, 197, 240);
   --buttonBlue: rgb(0, 162, 232);
+  --darkBlue: rgb(0, 115, 177);
   --offWhite: rgb(240, 240, 248);
   --inputGrey: rgb(225, 235, 235);
   --textGrey: rgb(131, 134, 139);
@@ -234,6 +235,30 @@ a, a:visited, a:hover, a:active {
   width: 60%;
 }
 /****** PROFILE SIDEBAR END *****/
+/****** USER PROFILE *****/
+#profileLeft {
+  width:65%;
+}
+.fa-plus-circle {
+  color: var(--buttonBlue);
+  font-size: 3em;
+}
+#profileRight {
+  margin: auto 0;
+  padding-left: 2em;
+}
+#profileRight button {
+  background-color: var(--darkBlue);
+  color: var(--offWhite);
+}
+#profileLeft img {
+  width: 175px;
+  height: auto;
+}
+#profileName {
+  text-transform: capitalize;
+}
+/****** USER PROFILE END *****/
 /****** QUESITON INPUT *****/
 #formDiscussion input {
   width: 75%;
@@ -241,13 +266,12 @@ a, a:visited, a:hover, a:active {
 #formDiscussion textarea {
   width: 75%;
 }
+/****** QUESITON INPUT END *****/
 /****** DISCUSSION ******/
-
 .replyContainer{
   display: none;
   flex-direction: column;
 }
-
 .replyInput {
   display: block;
   width: 75%;
@@ -257,7 +281,6 @@ a, a:visited, a:hover, a:active {
   border: 1px solid grey;
   margin-right: 4%;
 }
-
 .sendReply {
   border: none;
   color: white;
@@ -266,7 +289,6 @@ a, a:visited, a:hover, a:active {
   margin-bottom: 4%;
   margin-right: 4%;
 }
-
 #showReplies{
   border: none;
   background-color: white;
@@ -275,7 +297,6 @@ a, a:visited, a:hover, a:active {
   margin-block-start: 1em;
   height: auto;
 }
-
 #discussion {
   margin-top: 2em;
 }
@@ -305,3 +326,4 @@ a, a:visited, a:hover, a:active {
   font-size: 1.3em;
   flex-grow: 2;
 }
+/****** DISCUSSION ******/
