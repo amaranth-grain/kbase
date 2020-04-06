@@ -26,6 +26,8 @@ function temp(req,res,next) {
 }
 
 router.get('/home', ensureAuth, temp, discController.getLatestDiscussion, discController.formatDatetime, discController.getUserImages, 
-                    discController.getNumOfReplies, discController.loadLatestDiscussions);
+                    discController.getNumOfReplies, discController.getReplies, discController.loadLatestDiscussions);
+
+router.post('/discussion/newReply', discController.newReply);
 
 module.exports = router;
