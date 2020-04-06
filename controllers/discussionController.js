@@ -110,21 +110,6 @@ function getNumOfReplies(req,res,next) {
 }
 
 
-function getNumberOfDiscussionPages(req,res,next){
-    var queryConv = mod.getNumberOfDiscussions();
-    var pages
-    res.pages = []
-    queryConv
-    .then((data) => {
-        pages = Math.ceil(data.rows[0].count/5);
-        for(let i = 1;i<=pages;i++){
-            res.pages[i] = i
-        }
-        next();
-    }).catch((err) => console.log(err));
-}
-
-
 function loadLatestDiscussions(req,res,next) {
     res.render('home', {profile: [res.profile], discussion: res.discussions,backVisible:res.backVisible,nextVisible:res.nextVisible});
 }
@@ -138,6 +123,5 @@ module.exports = {
     getUserImages: getUserImages,
     formatDatetime: formatDatetime,
     getNumOfReplies: getNumOfReplies,
-    getNumberOfDiscussionPages: getNumberOfDiscussionPages,
     loadLatestDiscussions: loadLatestDiscussions,
 }
