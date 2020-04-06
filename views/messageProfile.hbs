@@ -1,0 +1,20 @@
+<div class="divWrapper">
+  {{>searchbar}}
+  <div class="row">
+    <div class="column">
+        <div class="profileSidebar">
+            <img class="profilePic" src={{profileImgUrl}}>
+        </div>
+    </div>
+    <div class="column colRight newContact">
+        <form action="/chat/newContact" method="POST">
+            <div><input type="text" name="subjectInput" id="subjectInput" required placeholder="Subject" /></div>
+            <div><textarea name="messageInput" id="messageInput" required placeholder="Write a message..."></textarea></div>
+            <input type="hidden" name="contact" value="{{profileId}}" />
+            <div><input type="submit" class="sendResponse" id="sendMsg" value="Send"></div>
+        </form>
+    </div>
+  </div>
+</div>
+
+
