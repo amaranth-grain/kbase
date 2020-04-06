@@ -47,8 +47,9 @@ function createMessage(conversationid,senderid,message,timestamp){
 
 //creates a conversation between the two users 
 function createConversation(id,receiverid,subject){
-    query = `INSERT INTO conversation(first_user, second_user, subject) VALUES(${id}, ${receiverid}, '${subject}');`
-    return db.query(query)
+    query = `insert into conversation (first_user, second_user, subject) VALUES(${id}, ${receiverid}, '${subject}');`
+    db.query(query)
+    return getConversation(id,receiverid)
 }
 
 

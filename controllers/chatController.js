@@ -1,4 +1,6 @@
 let mod = require('../models/chatData');
+let mod2 = require('../models/usersData');
+let nodemailer = require("nodemailer");
 
 function loadConversation(req,res,next) {
     var user_id = req.session.userId;
@@ -82,12 +84,89 @@ function newMessage(req,res,next) {
     .catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"message": "Error: getting sending message failed."}]})); 
     req.session.convId = req.body.convId;
     res.redirect("/chat")
+}   
+
+function renderMessageProfile(req,res,next) {
+    res.render('messageProfile', {profileId: req.body.profileId, profileImgUrl: req.body.profileImgUrl});
 }
+
+function createConv(req,res,next) {
+    res.subject = req.body.subjectInput;
+    res.userId = parseInt(req.session.userId);
+    res.message = req.body.messageInput;
+    res.contact = parseInt(req.body.contact);
+    console.log(`${res.subject} ${res.userId} ${res.message} ${res.contact}`)
+    let dbQuery = mod.createconvo(res.userId, res.contact,res.subject);
+    let dbQuery2 = mod.getconvo(res.userId,res.contact);
+    dbQuery2
+    .then((data) => {
+        res.convId = data.rows[0].conversation_id;
+        next();
+    })
+    .catch((err) => console.log("HERE: " + err));
+}
+
+function createMessage(req,res,next) {
+    let dbQuery = mod.createmessage(res.convId, res.userId, res.message, Date.now());
+    dbQuery
+    .then(() => {
+        next();
+    })
+    .catch((err) => console.log(err));
+    next();
+}
+
+function sendEmail(req,res,next) {
+    let dbQuery = mod2.getUser(res.contact);
+    dbQuery
+    .then((data) => {res.email = data.rows[0].email})
+    .catch((err) => console.log(err));
+
+    // var transporter = nodemailer.createTransport({
+    //     service: "gmail",
+    //     auth: {
+    //       user: "ecoquestteam06@gmail.com",
+    //       pass: "ecoquest2"
+    //     }
+    //   });
+
+    //   var transporter = nodemailer.createTransport({
+    //     service: "gmail",
+    //     auth: {
+    //       user: "comp4711finalproject@gmail.com",
+    //       pass: "finalproject"
+    //     }
+    //   });
+    
+    //   // Setting mail options
+    //   var mailOptions = {
+    //     from: "comp4711finalproject@gmail.com",
+    //     to: res.email,
+    //     subject: res.subject,
+    //     html:
+    //       res.message
+    //   };
+    
+    //   // Finish sending maiil to user
+    //   transporter.sendMail(mailOptions, function(error, info) {
+    //     if (error) {
+    //         console.log(error);
+    //     }
+    //   });
+
+    res.redirect(`/profile/${res.contact}`)
+
+}
+
 
 module.exports = {
     getContacts: getContacts,
     getConvId: getConvId,
     loadConversation: loadConversation,
     newMessage: newMessage,
-    getLatestMessage: getLatestMessage
+    getLatestMessage: getLatestMessage,
+    renderMessageProfile: renderMessageProfile,
+    createConv: createConv,
+    createMessage: createMessage,
+    sendEmail: sendEmail
 }
