@@ -3,8 +3,10 @@
         <form id="searchDiscussion" action="/searchDiscussion" method="POST"></form>
         Search by topic
         <select class="dropdownTopic inputHalf">
-            {{#each topics}}
+            {{#each profile}}
+            {{#each this.topics}}
             <option value={{this}}>{{this}}</option>
+            {{/each}}
             {{/each}}
         </select>
         <button id="btnSearchDiscussion">go -&gt;</button>
