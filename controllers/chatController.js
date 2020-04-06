@@ -95,18 +95,23 @@ function createConv(req,res,next) {
     res.userId = req.session.userId;
     res.message = req.body.messageInput;
     res.contact = req.body.contact;
-    console.log(`${res.subject} ${res.userId} ${res.messageInput} ${res.contact}`)
-    next();
-    // let dbQuery = mod.createconvo(res.userId, res.contact, res.subject);
-    // dbQuery
-    // .then((data) => {
-    //     console.log(data);
-    //     next();
-    // })
-    // .catch((err) => console.log(err));
+    console.log(`${res.subject} ${res.userId} ${res.message} ${res.contact}`)
+    let dbQuery = mod.createconvo(res.userId, res.contact);
+    dbQuery
+    .then((data) => {
+        res.convId = data.rows[0];
+        next();
+    })
+    .catch((err) => console.log("HERE: " + err));
 }
 
 function createMessage(req,res,next) {
+    let dbQuery = mod.createmessage(res.convId, res.userId, res.message, Date.now());
+    dbQuery
+    .then(() => {
+        next();
+    })
+    .catch((err) => console.log(err));
     next();
 }
 
@@ -116,39 +121,39 @@ function sendEmail(req,res,next) {
     .then((data) => {res.email = data.rows[0].email})
     .catch((err) => console.log(err));
 
-    var transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: "ecoquestteam06@gmail.com",
-          pass: "ecoquest2"
-        }
-      });
+    // var transporter = nodemailer.createTransport({
+    //     service: "gmail",
+    //     auth: {
+    //       user: "ecoquestteam06@gmail.com",
+    //       pass: "ecoquest2"
+    //     }
+    //   });
 
-      var transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: "comp4711finalproject@gmail.com",
-          pass: "finalproject"
-        }
-      });
+    //   var transporter = nodemailer.createTransport({
+    //     service: "gmail",
+    //     auth: {
+    //       user: "comp4711finalproject@gmail.com",
+    //       pass: "finalproject"
+    //     }
+    //   });
     
-      // Setting mail options
-      var mailOptions = {
-        from: "comp4711finalproject@gmail.com",
-        to: res.email,
-        subject: res.subject,
-        html:
-          res.message
-      };
+    //   // Setting mail options
+    //   var mailOptions = {
+    //     from: "comp4711finalproject@gmail.com",
+    //     to: res.email,
+    //     subject: res.subject,
+    //     html:
+    //       res.message
+    //   };
     
-      // Finish sending maiil to user
-      transporter.sendMail(mailOptions, function(error, info) {
-        if (error) {
-            console.log(error);
-        }
-      });
+    //   // Finish sending maiil to user
+    //   transporter.sendMail(mailOptions, function(error, info) {
+    //     if (error) {
+    //         console.log(error);
+    //     }
+    //   });
 
-    //   res.redirect(`/profile/${res.contact}`)
+    res.redirect(`/profile/${res.contact}`)
 
 }
 
