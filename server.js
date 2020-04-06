@@ -11,6 +11,7 @@ const mainRoutes = require('./routes/mainRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const signupRoutes = require('./routes/signupRoutes');
+const discussionRoutes = require('./routes/discussionRoutes');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,6 +49,7 @@ app.use((req,res,next) => {
 })
 
 app.use(chatRoutes);
+app.use(discussionRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);
