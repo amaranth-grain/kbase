@@ -34,7 +34,6 @@ function getHome(req,res,next) {
 
 function likeProfile(req,res,next){
   if (req.session.userId != req.body.userId) {
-    console.log(req.params.userId + " ------------" + req.body.userId)
       mod.incrementNumOfLikes(req.body.userId,req.session.userId).catch((err) => console.log(err));
   }
   var id = req.body.userId;
@@ -81,6 +80,9 @@ function getProfile(req,res,next) {
       
       likes = data.rows[0].count;
     }).catch((err) => console.log(err));
+    mod.getNumOfMessages(req.session.userId).then(data => {
+      messages = data.rows[0].count;
+    }).catch((err) => console.log(err));
     mod.getUser(id).then(data => {
         profile = data["rows"][0];
         profilePath = `/profile/${id}`;
@@ -94,7 +96,7 @@ function getProfile(req,res,next) {
                 element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
             })
             
-            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes});
+            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,messages:messages});
         }).catch((err) => console.log(err));
 
     }).catch((err) => console.log(err));
