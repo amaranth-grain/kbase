@@ -20,6 +20,9 @@ function getHome(req,res,next) {
         profile["editPath"] = `/profile/${user.id}/edit`;
         profile["topics"] = ["NodeJS", "Java", "SQL", "PHP", "Zend"];
         res.profile = profile;
+        if(req.body.topic != undefined){
+          res.topic = req.body.topic;
+        }
         next();
     }).catch(err => console.log("Error: Problem with getting user from DB. ", err));
 }
@@ -42,6 +45,8 @@ function getProfile(req,res,next) {
             discussions = data.rows;
             discussions.forEach((element) => {
                 element.imageurl = imageurl;
+                let date = new Date(Date.parse(element.datetime + "+0000"));
+                element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
             })
             res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions});
         }).catch((err) => console.log(err));
