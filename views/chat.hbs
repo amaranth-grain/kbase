@@ -1,20 +1,21 @@
-{{>searchbar}}
-<div id="chatContainer">
-    <div id="allContacts">
-        {{>chatContact contact=contacts}}
-    </div>
-
-    <div id="rightSide">
-        <div id="conversation">
-            {{>chatMessage message=messages}}
+<div class="divWrapper">
+    {{>searchbar}}
+    <div id="chatContainer">
+        <div id="allContacts">
+            {{>chatContact contact=contacts}}
         </div>
-        <form action="/chat/newMessage" method="POST">
-            <textarea name="messageInput" id="messageInput" required placeholder="Write a message..."></textarea>
-            <input type="hidden" name="convId" value="{{convId}}" />
-            <input type="hidden" name="sender" value="{{sender}}" />
-            <input type="submit" id="sendMsg" value="Send">
-        </form>
+        <div id="rightSide">
+            <div id="conversation">
+                {{>chatMessage message=messages}}
+            </div>
+            <form action="/chat/newMessage" method="POST">
+                <textarea name="messageInput" id="messageInput" required placeholder="Write a message..."></textarea>
+                <input type="hidden" name="convId" value="{{convId}}" />
+                <input type="hidden" name="sender" value="{{sender}}" />
+                <button type="submit" id="sendMsg" value="Send">Send</button>
+            </form>
+
+        </div>
 
     </div>
-
 </div>

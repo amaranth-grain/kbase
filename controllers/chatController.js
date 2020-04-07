@@ -69,14 +69,19 @@ function getConvId(req,res,next) {
     } else {
         var user_id = req.session.userId;
 
-        var contact_id = res.contacts[0].id;
+        if(res.contacts.length > 0){
+            var contact_id = res.contacts[0].id;
 
-        var queryConv = mod.getconvo(user_id, contact_id);
-        queryConv
-        .then((data) => {
-            res.convId = data.rows[0]["conversation_id"];
-            next();
-        }).catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"message": "Error: getting conversation id failed."}]}));
+            var queryConv = mod.getconvo(user_id, contact_id);
+            queryConv
+            .then((data) => {
+                res.convId = data.rows[0]["conversation_id"];
+                next();
+            }).catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"message": "Error: getting conversation id failed."}]}));
+        } else {
+            res.render('chat', {chatAssests: true, messages: [{"message": "No conversations. Go make some friends!"}]});
+        }
+        
     }
 }
 
@@ -136,32 +141,25 @@ function sendEmail(req,res,next) {
         email = data.rows[0].email;
         name = data.rows[0].name;
     }).then(() => {
-        var transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-              user: "ecoquestteam06@gmail.com",
-              pass: "ecoquest2"
-            }
-          });
-    
+          //Mail bot
           var transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-              user: "comp4711finalproject@gmail.com",
+              user: "knowledge.base.mailer@gmail.com",
               pass: "finalproject"
             }
           });
         
           // Setting mail options
           var mailOptions = {
-            from: "comp4711finalproject@gmail.com",
+            from: "knowledge.base.mailer@gmail.com",
             to: email,
             subject: res.subject,
             html:
-            `${res.message} From ${name}`
+            `Hi, ${name}!  You have a new message in your Knowledge Base inbox: "${res.message}"`
           };
         
-          // Finish sending maiil to user
+          // Finish sending mail to user
           transporter.sendMail(mailOptions, function(error, info) {
             if (error) {
                 console.log(error);

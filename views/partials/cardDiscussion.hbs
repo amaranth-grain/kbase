@@ -1,6 +1,6 @@
 {{#each discussion}}
     <div class="cardDiscussion">
-        <img class="profilePic" src="{{this.imageurl}}">
+        <a href="/profile/{{this.user_id}}"><img class="profilePic" src="{{this.imageurl}}"></a>
         <div class="cardDiscussionText">
             <div class="cardDiscussionHeader">
                 <span class="subjectDiscussion">{{this.subject}}</span>

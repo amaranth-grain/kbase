@@ -44,7 +44,7 @@ nav {
   pointer-events: none;
 }
 .test {
-  border: 1px solid grey;
+  border: 1px solid red;
 }
 /****** LOGIN *****/
 .divWrapper {
@@ -70,7 +70,9 @@ button {
   font-weight: bold;
   border: none;
   height: 35px;
-  padding: 0.4em 2em 0.4em 0.6em;
+  text-align: center;
+  min-width: 80px;
+  padding: 0.4em 0;
 }
 /****** LOGIN END *****/
 /****** SIGN UP *****/
@@ -98,7 +100,7 @@ button {
   padding-left: 3em;
 }
 #divSignup {
-  width: 80%;
+  width: 100%;
 }
 .inputHalf {
   width: 45%;
@@ -114,16 +116,16 @@ button {
 }
 /****** SIGN UP END *****/
 /****** SIGN UP DETAILS *****/
+#divSignup {
+  width: 90%;
+}
 #colLeft h2 {
   align-items: flex-start;
   font-weight: bold;
   font-size: 3em;
 }
-#divSignup input {
-  width: 400px;
-}
-#divSignup textarea {
-  width: 400px;
+#landingLeft {
+  width: 40%;
 }
 #signupTag {
   font-weight: bold;
@@ -135,11 +137,14 @@ button {
   padding: 2em 1em;
   width: 55%;
 }
+#signupAbout {
+  width: 90%;
+}
 .about {
   width: 20vw;
 }
 #btnRegister {
-  width: 20vw;
+  width: 90%;
 }
 /****** SIGN UP DETAILS END *****/
 /****** HOMEPAGE *****/
@@ -247,7 +252,7 @@ a, a:visited, a:hover, a:active {
   margin: auto 0;
   padding-left: 0.5em;
 }
-.messageProfileButton{
+/* .messageProfileButton{
   background-color: var(--buttonBlue);
   border-radius: 0.2em;
   color: var(--offWhite);
@@ -255,7 +260,7 @@ a, a:visited, a:hover, a:active {
   border: none;
   height: 35px;
   padding: 0.4em 2em 0.4em 0.6em;
-}
+} */
 .profileName {
   text-transform: capitalize;
 }
@@ -430,7 +435,7 @@ a, a:visited, a:hover, a:active {
   resize: none;
 }
 
-#sendMsg{
+/* #sendMsg{
   float: left;
   padding: 2% 4%;
-}
+} */

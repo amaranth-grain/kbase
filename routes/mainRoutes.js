@@ -22,7 +22,16 @@ router.get(
 );
 
 /***** PROFILE BEGIN *****/
-router.get("/profile/:userId", ensureAuth, mainController.getProfile);
+//router.get("/profile/:userId", ensureAuth, mainController.getProfile);
+
+router.get(
+  "/profile/:userId",
+  ensureAuth,
+  mainController.getProfile,
+  discController.getNumOfReplies,
+  discController.getReplies,
+  mainController.loadProfile
+);
 
 router.get("/profile/:userId/edit", ensureAuth, mainController.getEditProfile);
 
