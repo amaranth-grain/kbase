@@ -95,51 +95,40 @@ function getProfile(req,res,next) {
     notOwnProfile = false;
   }
   var id = req.params.userId;
-  var profile;
-  var profilePath;
-  var discussions;
-  var likes;
-  var posts;
-  var alreadyLiked;
   mod.checkLiked(req.params.userId,req.session.userId).then(data=>{
     if(data.rows[0].count >= 1){
-      alreadyLiked = true;
+      res.alreadyLiked = true;
     } else {
-      already_liked = false;
+      res.already_liked = false;
     }
   mod.getNumOfLikes(req.params.userId).then(data => {
     
-    likes = data.rows[0].count;
+    res.likes = data.rows[0].count;
   }).then(data => {
   mod.getNumOfPosts(req.session.userId).then(data => {
-    posts = data.rows[0].count;
+    res.posts = data.rows[0].count;
   }).then(data=>{
   mod.getUser(id).then(data => {
-      profile = data["rows"][0];
-      profilePath = `/profile/${id}`;
+      res.profile = data["rows"][0];
+      res.profilePath = `/profile/${id}`;
   }).then(()=>{
       mod2.getDiscussionsByUser(id).then(data => {
-          discussions = data.rows;
-          var imageurl = data.rows[0].imageurl;
-
-          let promise = new Promise(function(resolve, reject) {
-            discussions.forEach((element) => {
+          var {name, lastname, country, about, id, imageurl} = res.profile;
+          res.discussions = data.rows;
+          res.discussions.forEach((element) => {
               element.imageurl = imageurl;
               let date = new Date(Date.parse(element.datetime + "+0000"));
               element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
-              mod2.getNumOfReplies(element.discussion_id).then((data) => {element.numReplies = data.rows[0].count;}).catch((err) => reject(err))
-              mod2.getreplies(element.discussion_id).then((data) => {element.reply = data.rows;}).catch((err) => reject(err))
-            })
-
-            resolve();
-          });
-      }).then(()=>{
-        promise.then(()=>{
-          var {name, lastname, country, about, id, imageurl} = profile;
-          res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts,alreadyLiked:alreadyLiked,notOwnProfile:notOwnProfile});
-        }).catch((err) => console.log(err));
+          })
+          res.name = name; 
+          res.lastname = lastname;
+          res.country = country;
+          res.about = about;
+          res.id = id; 
+          res.imageurl = imageurl;
+          next();
       }).catch((err) => console.log(err));
-      
+
   })
 })
 })
@@ -147,6 +136,16 @@ function getProfile(req,res,next) {
     console.log("Error: Problem with retrieving profile page. ", err);
   });
 }
+
+
+function loadProfile(req,res,next) {
+  res.render('profile', {name: res.name, lastname: res.lastname, imageurl: res.imageurl, 
+                        country: res.country, id: res.id, about: res.about, profilePath: res.profilePath, 
+                        discussion: res.discussions, likes: res.likes, posts: res.posts, alreadyLiked: res.alreadyLiked,
+                        notOwnProfile: res.notOwnProfile});
+}
+
+
 
 /* Direct user to edit profile page */
 const getEditProfile = (req, res) => {
@@ -262,5 +261,6 @@ module.exports = {
     getEditProfile,
     likeProfile:likeProfile,
     search,
-    displaySearch
+    displaySearch,
+    loadProfile: loadProfile
 }
