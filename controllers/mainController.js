@@ -53,7 +53,6 @@ function likeProfile(req,res,next){
   var posts;
   var alreadyLiked;
   mod.checkLiked(req.body.userId,req.session.userId).then(data=>{
-    
     res.alreadyLiked = true;
   mod.getNumOfPosts(req.session.userId).then(data=> {
     posts = data.rows[0].count

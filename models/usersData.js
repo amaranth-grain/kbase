@@ -93,7 +93,6 @@ module.exports = {
     getNumOfPosts:getNumOfPosts,
     getNumOfMessages:getNumOfMessages,
     getNumOfLikes:getNumOfLikes,
-    getNumOfLikesOnPosts:getNumOfLikesOnPosts,
     incrementNumOfLikes:incrementNumOfLikes,
     checkLiked:checkLiked
 }
