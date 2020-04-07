@@ -177,7 +177,7 @@ const edit = async (req, res, next) => {
       imgUrl: req.body.imgUrl,
       about: req.body.about,
       country: req.body.country,
-      dob: req.body.dob,
+      dob: Date.parse(req.body.dob)
     };
     let data = await mod.getUser(userId);
     let user = data["rows"][0];
@@ -192,8 +192,7 @@ const edit = async (req, res, next) => {
     console.log("val about ", vals.about);
     console.log("val country ", vals.country);
     console.log("val dob ", vals.dob);
-    mod.updateProfile(userId, vals);
-    next();
+    mod.updateProfile(userId, vals).then(()=>{next()}).catch((err) => console.log(err));
   };
 
 /* Search for discussions with keyword in subject, and store in res.results */
