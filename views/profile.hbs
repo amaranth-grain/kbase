@@ -9,7 +9,7 @@
     </div>
     <div class="column" id="profileRight">
       {{#if notOwnProfile}}
-      <form action="/chat/messageProfile" method="POST">
+            <form action="/chat/messageProfile" method="POST">
         <input type="hidden" name="profileId" value="{{id}}" />
         <input type="hidden" name="profileImgUrl" value="{{imageurl}}" />
         <button class="messageProfileButton" type="submit" value="Message">Message</button>
