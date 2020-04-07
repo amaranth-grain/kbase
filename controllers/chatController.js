@@ -69,14 +69,19 @@ function getConvId(req,res,next) {
     } else {
         var user_id = req.session.userId;
 
-        var contact_id = res.contacts[0].id;
+        if(res.contacts.length > 0){
+            var contact_id = res.contacts[0].id;
 
-        var queryConv = mod.getconvo(user_id, contact_id);
-        queryConv
-        .then((data) => {
-            res.convId = data.rows[0]["conversation_id"];
-            next();
-        }).catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"message": "Error: getting conversation id failed."}]}));
+            var queryConv = mod.getconvo(user_id, contact_id);
+            queryConv
+            .then((data) => {
+                res.convId = data.rows[0]["conversation_id"];
+                next();
+            }).catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"message": "Error: getting conversation id failed."}]}));
+        } else {
+            res.render('chat', {chatAssests: true, messages: [{"message": "No conversations. Go make some friends!"}]});
+        }
+        
     }
 }
 
