@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const { ensureAuth } = require("../config/auth");
 const chatController = require('../controllers/chatController');
 
-router.get('/chat', chatController.getContacts, chatController.getLatestMessage, chatController.getConvId, chatController.loadConversation);
+router.get('/chat', ensureAuth, chatController.getContacts, chatController.getLatestMessage, chatController.getConvId, chatController.loadConversation);
 
-router.post('/chat', chatController.getContacts, chatController.getLatestMessage, chatController.getConvId, chatController.loadConversation);
+router.post('/chat', ensureAuth, chatController.getContacts, chatController.getLatestMessage, chatController.getConvId, chatController.loadConversation);
 
-router.post('/chat/newMessage', chatController.newMessage);
+router.post('/chat/newMessage', ensureAuth, chatController.newMessage);
 
-router.post('/chat/messageProfile', chatController.renderMessageProfile);
+router.post('/chat/messageProfile', ensureAuth, chatController.renderMessageProfile);
 
-router.post('/chat/newContact', chatController.createConv, chatController.createMessage, chatController.sendEmail);
+router.post('/chat/newContact', ensureAuth, chatController.createConv, chatController.createMessage, chatController.sendEmail);
 
 module.exports = router;
