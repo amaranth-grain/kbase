@@ -40,7 +40,9 @@ function getHome(req,res,next) {
 }
 
 function likeProfile(req,res,next){
+  var notOwnProfile = true;
   if (req.session.userId != req.body.userId) {
+    
       mod.incrementNumOfLikes(req.body.userId,req.session.userId).catch((err) => console.log(err));
   }
   var id = req.body.userId;
@@ -49,6 +51,13 @@ function likeProfile(req,res,next){
   var discussions;
   var likes;
   var posts;
+  var alreadyLiked;
+  mod.checkLiked(req.body.userId,req.session.userId).then(data=>{
+    if(data.rows[0].count >= 1){
+      alreadyLiked = true;
+    } else {
+      already_liked = false;
+    }
   mod.getNumOfPosts(req.session.userId).then(data=> {
     posts = data.rows[0].count
   mod.getNumOfLikes(req.body.userId).then(data => {
@@ -68,10 +77,11 @@ function likeProfile(req,res,next){
               element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
           })
           
-          res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts});
+          res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts,alreadyLiked:alreadyLiked,notOwnProfile:notOwnProfile});
       }).catch((err) => console.log(err));
 
   })
+})
 })
 }).catch((err) => console.log(err));
   
@@ -79,9 +89,13 @@ function likeProfile(req,res,next){
 
 
 function getProfile(req,res,next) {
+    var notOwnProfile = true;
     //TODO Disable ability to message self or increment likes if not own account
     if (req.session.userId != req.params.userId) {
         console.log("Not viewing my own profile");
+    } else {
+      console.log("Viewing my own profile")
+      notOwnProfile = false;
     }
     var id = req.params.userId;
     var profile;
@@ -89,6 +103,14 @@ function getProfile(req,res,next) {
     var discussions;
     var likes;
     var posts;
+    var alreadyLiked;
+    mod.checkLiked(req.params.userId,req.session.userId).then(data=>{
+      console.log(data.rows[0].count)
+      if(data.rows[0].count >= 1){
+        alreadyLiked = true;
+      } else {
+        already_liked = false;
+      }
     mod.getNumOfLikes(req.params.userId).then(data => {
       
       likes = data.rows[0].count;
@@ -109,16 +131,17 @@ function getProfile(req,res,next) {
                 element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
             })
             
-            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts});
+            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts,alreadyLiked:alreadyLiked,notOwnProfile:notOwnProfile});
         }).catch((err) => console.log(err));
 
     })
   })
-}).catch((err) => console.log(err));
+})
+    }).catch((err) => console.log(err));
 }
 
-
-getEditProfile = (req, res) => {
+/* Direct user to edit profile page */
+const getEditProfile = (req, res) => {
     //Redirect user to homepage if they attempt to visit edit profile page of another user
     if (req.session.userId != req.params.userId) {
       return res.redirect("/home");
@@ -142,6 +165,7 @@ getEditProfile = (req, res) => {
       );
   };
   
+/* Modify the user's profile information*/
 const edit = (req, res, next) => {
     let id = req.session.userId;
     let user = {
@@ -154,6 +178,7 @@ const edit = (req, res, next) => {
     next();
   };
 
+/* Search for discussions with keyword in subject, and store in res.results */
 const search = (req, res, next) => {
   let keyword = req.body.search;
   mod2.searchForSubject(keyword).then(data => {
@@ -164,55 +189,59 @@ const search = (req, res, next) => {
   });
 }
 
+/* Get the avatar of the person who posted discussion post */
 const getImage = async discussion => {
   let data = await mod.getUser(discussion.user_id);
   return data["rows"][0].imageurl;
 }
-
+/* Get the number of replies within this discussion */
 const getNumReplies = async discussion => {
   let data = await mod2.getNumOfReplies(discussion.discussion_id);
   return parseInt(data.rows[0].count);
 }
-
+/* Get the date of the curent post */
 const getDate = async discussion => {
   let date = new Date(Date.parse(discussion.datetime + "+0000"));
   return `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`
 }
-
+/* Get all images within these results */
 const getAllImages = async res => {
   return Promise.all(res.results.map(e => getImage(e))).catch(err => {
     console.log("Error: Trouble retrieving images for discussion search. ", err);
   });;
 }
-
+/* Get all reply counts within these results */
 const getAllNumReplies = async res => {
   return Promise.all(res.results.map(e => getNumReplies(e))).catch(err => {
     console.log("Error: Trouble retrieving replies for discussion search. ", err);
   });;
 }
-
+/* Get all dates of when discussion was posted within these results */
 const getAllDates = async res => {
   return Promise.all(res.results.map(e => getDate(e))).catch(err => {
     console.log("Error: Trouble retrieving dates for discussion search. ", err);
   });;
 }
-
+/* Get all images, replies, and dates */
 const getAllData = async res => {
   return Promise.all([getAllImages(res), getAllNumReplies(res), getAllDates(res)]).catch(err => {
     console.log("Error: Trouble retrieving data for discussion search. ", err);
   });
 }
-
+/* Display search results */
 const displaySearch = (req, res) => {
   let discussion = res.results;
   getAllData(res).then(data => {
-    for (let i = 0; i < data[0].length; i++) {
-      discussion[i].imageurl = data[0][i];
-      discussion[i].numReplies = data[1][i];
-      discussion[i].date = data[2][i];
+    if (data[0].length == 0) {
+      res.render("search", {msg: "No search results found."});
+    } else {
+      for (let i = 0; i < data[0].length; i++) {
+        discussion[i].imageurl = data[0][i];
+        discussion[i].numReplies = data[1][i];
+        discussion[i].date = data[2][i];
+      }
+      res.render("search", {discussion});
     }
-  }).then(data => {
-    res.render("search", {discussion});
   }).catch(err => {
     console.log("Error: Problem with parsing discussion related data. ", err);
   })
