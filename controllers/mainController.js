@@ -185,7 +185,13 @@ const edit = async (req, res, next) => {
     if (vals.imgUrl.length == 0) vals.imgUrl = user.imageurl;
     if (vals.about.length == 0) vals.about = user.about;
     if (vals.country.length == 0) vals.country = user.country;
-    if (vals.dob.length == 0) vals.dob = user.dob;
+    if (vals.dob == null || vals.dob.length == 0) vals.dob = user.dob;
+
+    console.log(user);
+    console.log("val url ", vals.imgUrl);
+    console.log("val about ", vals.about);
+    console.log("val country ", vals.country);
+    console.log("val dob ", vals.dob);
     mod.updateProfile(userId, vals);
     next();
   };
