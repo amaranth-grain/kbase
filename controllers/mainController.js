@@ -185,7 +185,13 @@ const edit = async (req, res, next) => {
     if (vals.imgUrl.length == 0) vals.imgUrl = user.imageurl;
     if (vals.about.length == 0) vals.about = user.about;
     if (vals.country.length == 0) vals.country = user.country;
-    if (vals.dob.length == 0) vals.dob = user.dob;
+    if (vals.dob == null || vals.dob.length == 0) vals.dob = user.dob;
+
+    console.log(user);
+    console.log("val url ", vals.imgUrl);
+    console.log("val about ", vals.about);
+    console.log("val country ", vals.country);
+    console.log("val dob ", vals.dob);
     mod.updateProfile(userId, vals);
     next();
   };
@@ -194,7 +200,7 @@ const edit = async (req, res, next) => {
 const search = (req, res, next) => {
   let keyword = req.body.search;
   mod2.searchForSubject(keyword).then(data => {
-    res.results = data["rows"];
+    res.discussions = data["rows"];
     next();
   }).catch(err => {
     console.log("Error: Problem with searching discussions by keyword. ", err);
@@ -242,21 +248,13 @@ const getAllData = async res => {
 }
 /* Display search results */
 const displaySearch = (req, res) => {
-  let discussion = res.results;
-  getAllData(res).then(data => {
-    if (data[0].length == 0) {
-      res.render("search", {msg: "No search results found."});
-    } else {
-      for (let i = 0; i < data[0].length; i++) {
-        discussion[i].imageurl = data[0][i];
-        discussion[i].numReplies = data[1][i];
-        discussion[i].date = data[2][i];
-      }
-      res.render("search", {discussion});
-    }
-  }).catch(err => {
-    console.log("Error: Problem with parsing discussion related data. ", err);
-  })
+  let discussion = res.discussions;
+  if (discussion.length == 0) {
+    res.render("search", {msg: "No search results found."});
+  } else {
+    res.render("search", {discussion});
+  }
+  
 }
 
 module.exports = {

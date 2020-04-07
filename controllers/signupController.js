@@ -33,7 +33,6 @@ signup = (req, res, next) => {
   .then(data => {
     return mod.getId(user.email);
   }).then(data => {
-    console.log("User id ", data["rows"][0]["id"]);
     req.session.userId = data["rows"][0]["id"];
     res.render('signup-details', {btnText: "complete registration"});
   })
@@ -42,20 +41,26 @@ signup = (req, res, next) => {
   });
 };
 
-signupExtended = (req, res, next) => {
-  let user = {
-    imgUrl: req.body.imgUrl,
-    about: req.body.about,
-    country: req.body.country,
-    dob: req.body.dob,
-  };
-  let id = req.session.userId;
-  console.log("extend user id sesson ", req.session.userId);
-  mod.updateProfile(id, user);
+signupExtended = (req, res) => {
   res.render("landing", {
     msg: "Registration successful!  Log into your account now.",
   });
-};
+}
+
+// signupExtended = (req, res, next) => {
+//   let vals = {
+//     imgUrl: req.body.imgUrl,
+//     about: req.body.about,
+//     country: req.body.country,
+//     dob: req.body.dob,
+//   };
+//   let id = req.session.userId;
+//   console.log("extend user id sesson ", req.session.userId);
+//   mod.updateProfile(id, vals);
+//   res.render("landing", {
+//     msg: "Registration successful!  Log into your account now.",
+//   });
+// };
 
 getSignup = (req, res) => {
   res.render('signup-details');
