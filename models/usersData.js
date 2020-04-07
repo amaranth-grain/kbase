@@ -3,7 +3,7 @@ let db = require('../db/db');
 
 function addUsers(name,about,imageurl,dob,country,email,password) {
     query = `Insert into users (name,about,imageurl,dob,country,email,password) VALUES ('${name}','${about}', '${imageurl}', '${dob}', '${country}','${email}','${password}')`
-    db.query(query);
+    return db.query(query);
 }
 /**** FOR SIGN UP ****/
 function createUser(user){
@@ -26,18 +26,18 @@ function getId(email){
 
 function updateProfile(id, user){
     query = `update users set imageurl='${user.imgUrl}', about='${user.about}', dob='${user.dob}',country='${user.country}' where id = ${id};`
-    db.query(query);
+    return db.query(query);
 }
 /**** FOR SIGN UP ****/
 
 function createCredentials(email,password){
     query = `Insert into users (email,password) VALUES ('${email}','${password}')`
-    db.query(query);
+    return db.query(query);
 }
 
 function addPicture(imageurl,id){
     query = `update users set imageurl = '${imageurl}' where id = ${id};`
-    db.query(query);
+    return db.query(query);
 }
 
 function getAllUsers() {
