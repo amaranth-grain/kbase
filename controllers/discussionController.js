@@ -1,6 +1,7 @@
 let mod = require('../models/discussionData');
 let mod2 = require('../models/usersData');
 var pagelimit = 5;
+
 function incrementOffset(req,res,next){
     
     res.backVisible = true;
