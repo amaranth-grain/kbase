@@ -53,7 +53,6 @@ function likeProfile(req,res,next){
   var posts;
   var alreadyLiked;
   mod.checkLiked(req.body.userId,req.session.userId).then(data=>{
-    
     res.alreadyLiked = true;
   mod.getNumOfPosts(req.session.userId).then(data=> {
     posts = data.rows[0].count
@@ -172,15 +171,28 @@ const getEditProfile = (req, res) => {
   };
   
 /* Modify the user's profile information*/
-const edit = (req, res, next) => {
-    let id = req.session.userId;
-    let user = {
+const edit = async (req, res, next) => {
+    let userId = req.session.userId;
+    let vals = {
       imgUrl: req.body.imgUrl,
       about: req.body.about,
       country: req.body.country,
       dob: req.body.dob,
     };
-    mod.updateProfile(id, user);
+    let data = await mod.getUser(userId);
+    let user = data["rows"][0];
+    //Enables user to modify some, but not all values
+    if (vals.imgUrl.length == 0) vals.imgUrl = user.imageurl;
+    if (vals.about.length == 0) vals.about = user.about;
+    if (vals.country.length == 0) vals.country = user.country;
+    if (vals.dob == null || vals.dob.length == 0) vals.dob = user.dob;
+
+    console.log(user);
+    console.log("val url ", vals.imgUrl);
+    console.log("val about ", vals.about);
+    console.log("val country ", vals.country);
+    console.log("val dob ", vals.dob);
+    mod.updateProfile(userId, vals);
     next();
   };
 

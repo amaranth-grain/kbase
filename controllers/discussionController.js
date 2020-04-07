@@ -1,6 +1,7 @@
 let mod = require('../models/discussionData');
 let mod2 = require('../models/usersData');
 var pagelimit = 5;
+
 function incrementOffset(req,res,next){
     
     res.backVisible = true;
@@ -251,7 +252,7 @@ const discuss = (req, res) => {
     let subject = req.body.subject;
     mod.creatediscussion(id, detail, date, tag, subject).catch(err => {
         console.log("Error: Problem with creating new discussion post. ", err);
-    });
+    }).catch((err) => console.log(err));
     res.redirect("/home");
 }
 

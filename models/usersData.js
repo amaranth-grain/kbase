@@ -3,11 +3,18 @@ let db = require('../db/db');
 
 function addUsers(name,about,imageurl,dob,country,email,password) {
     query = `Insert into users (name,about,imageurl,dob,country,email,password) VALUES ('${name}','${about}', '${imageurl}', '${dob}', '${country}','${email}','${password}')`
-    db.query(query);
+    return db.query(query);
 }
 /**** FOR SIGN UP ****/
 function createUser(user){
-    let sql = `Insert into users (name, lastname, email, password) values ('${user.fname}','${user.lname}','${user.email}','${user.password}')`;
+    let defaultUrl = 'https://api.adorable.io/avatars/285/default.png';
+    let defaultAbout = 'N/A';
+    let defaultCountry = 'N/A';
+    let defaultDob = Date.now();
+    let sql = `Insert into users (name, lastname, email, password, imageurl, about, country, dob)
+    values ('${user.fname}','${user.lname}','${user.email}','${user.password}', '${defaultUrl}', 
+    '${defaultAbout}', '${defaultCountry}', to_timestamp(${defaultDob}/ 1000.0))`;
+    console.log(sql);
     db.query(sql);
     return 1;
 }
@@ -18,19 +25,19 @@ function getId(email){
 }
 
 function updateProfile(id, user){
-    query = `update users set imageurl='${user.imgUrl}', about='${user.about}',dob='${user.dob}',country='${user.country}' where id = ${id};`
-    db.query(query);
+    query = `update users set imageurl='${user.imgUrl}', about='${user.about}', dob='${user.dob}',country='${user.country}' where id = ${id};`
+    return db.query(query);
 }
 /**** FOR SIGN UP ****/
 
 function createCredentials(email,password){
     query = `Insert into users (email,password) VALUES ('${email}','${password}')`
-    db.query(query);
+    return db.query(query);
 }
 
 function addPicture(imageurl,id){
     query = `update users set imageurl = '${imageurl}' where id = ${id};`
-    db.query(query);
+    return db.query(query);
 }
 
 function getAllUsers() {
@@ -93,7 +100,6 @@ module.exports = {
     getNumOfPosts:getNumOfPosts,
     getNumOfMessages:getNumOfMessages,
     getNumOfLikes:getNumOfLikes,
-    getNumOfLikesOnPosts:getNumOfLikesOnPosts,
     incrementNumOfLikes:incrementNumOfLikes,
     checkLiked:checkLiked
 }
