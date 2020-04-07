@@ -25,7 +25,7 @@ function getId(email){
 }
 
 function updateProfile(id, user){
-    query = `update users set imageurl='${user.imgUrl}', about='${user.about}', dob=to_date('${user.dob}', 'YYYYMMDD'),country='${user.country}' where id = ${id};`
+    query = `update users set imageurl='${user.imgUrl}', about='${user.about}',country='${user.country}' where id = ${id};`
     return db.query(query);
 }
 /**** FOR SIGN UP ****/
