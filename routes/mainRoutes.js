@@ -66,6 +66,7 @@ router.post(
   discController.formatDatetime,
   discController.getUserImages,
   discController.getNumOfReplies,
+  discController.getReplies,
   discController.loadLatestDiscussions
 );
 /***** SEARCH END *****/
