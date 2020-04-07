@@ -228,8 +228,19 @@ function loadLatestDiscussions(req,res,next) {
 }
 
 function newReply(req,res,next) {
-    let dbQuery = mod.createreply(req.session.userId, req.body.discId, req.body.replyInput, Date.now());
-    res.redirect('back');
+    mod.createreply(req.session.userId, req.body.discId, req.body.replyInput, Date.now())
+    .then(()=>{
+        mod.getDiscussion(req.body.discId)
+        .then((data) => {
+            res.discussions = data.rows;
+            next();
+        })
+        .catch((err) => {console.log(err)})
+    }).catch((err) => console.log(err))
+}
+
+function loadSingleDiscussion(req, res) {
+    res.render('singleDiscussion', {discussion: res.discussions});
 }
 
 const discuss = (req, res) => {
@@ -259,5 +270,6 @@ module.exports = {
     newReply: newReply,
     getLatestTopic: getLatestTopic,
     decrementOffsetForSearch:decrementOffsetForSearch,
-    discuss
+    discuss,
+    loadSingleDiscussion
 }
