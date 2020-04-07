@@ -105,7 +105,6 @@ function getProfile(req,res,next) {
     var posts;
     var alreadyLiked;
     mod.checkLiked(req.params.userId,req.session.userId).then(data=>{
-      console.log(data.rows[0].count)
       if(data.rows[0].count >= 1){
         alreadyLiked = true;
       } else {
