@@ -44,7 +44,7 @@ nav {
   pointer-events: none;
 }
 .test {
-  border: 1px solid grey;
+  border: 1px solid red;
 }
 /****** LOGIN *****/
 .divWrapper {
@@ -100,7 +100,7 @@ button {
   padding-left: 3em;
 }
 #divSignup {
-  width: 80%;
+  width: 100%;
 }
 .inputHalf {
   width: 45%;
@@ -116,16 +116,16 @@ button {
 }
 /****** SIGN UP END *****/
 /****** SIGN UP DETAILS *****/
+#divSignup {
+  width: 90%;
+}
 #colLeft h2 {
   align-items: flex-start;
   font-weight: bold;
   font-size: 3em;
 }
-#divSignup input {
-  width: 400px;
-}
-#divSignup textarea {
-  width: 400px;
+#landingLeft {
+  width: 40%;
 }
 #signupTag {
   font-weight: bold;
@@ -137,11 +137,14 @@ button {
   padding: 2em 1em;
   width: 55%;
 }
+#signupAbout {
+  width: 90%;
+}
 .about {
   width: 20vw;
 }
 #btnRegister {
-  width: 20vw;
+  width: 90%;
 }
 /****** SIGN UP DETAILS END *****/
 /****** HOMEPAGE *****/

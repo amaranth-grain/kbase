@@ -141,32 +141,25 @@ function sendEmail(req,res,next) {
         email = data.rows[0].email;
         name = data.rows[0].name;
     }).then(() => {
-        var transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-              user: "ecoquestteam06@gmail.com",
-              pass: "ecoquest2"
-            }
-          });
-    
+          //Mail bot
           var transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-              user: "comp4711finalproject@gmail.com",
+              user: "knowledge.base.mailer@gmail.com",
               pass: "finalproject"
             }
           });
         
           // Setting mail options
           var mailOptions = {
-            from: "comp4711finalproject@gmail.com",
+            from: "knowledge.base.mailer@gmail.com",
             to: email,
             subject: res.subject,
             html:
-            `${res.message} From ${name}`
+            `Hi, ${name}!  You have a new message in your Knowledge Base inbox: "${res.message}"`
           };
         
-          // Finish sending maiil to user
+          // Finish sending mail to user
           transporter.sendMail(mailOptions, function(error, info) {
             if (error) {
                 console.log(error);
