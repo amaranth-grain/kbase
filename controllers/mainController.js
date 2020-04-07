@@ -90,53 +90,62 @@ function likeProfile(req,res,next){
 
 
 function getProfile(req,res,next) {
-    var notOwnProfile = true;
-    if (req.session.userId == req.params.userId) {
-      notOwnProfile = false;
+  var notOwnProfile = true;
+  if (req.session.userId == req.params.userId) {
+    notOwnProfile = false;
+  }
+  var id = req.params.userId;
+  mod.checkLiked(req.params.userId,req.session.userId).then(data=>{
+    if(data.rows[0].count >= 1){
+      res.alreadyLiked = true;
+    } else {
+      res.already_liked = false;
     }
-    var id = req.params.userId;
-    var profile;
-    var profilePath;
-    var discussions;
-    var likes;
-    var posts;
-    var alreadyLiked;
-    mod.checkLiked(req.params.userId,req.session.userId).then(data=>{
-      if(data.rows[0].count >= 1){
-        alreadyLiked = true;
-      } else {
-        already_liked = false;
-      }
-    mod.getNumOfLikes(req.params.userId).then(data => {
-      
-      likes = data.rows[0].count;
-    }).then(data => {
-    mod.getNumOfPosts(req.session.userId).then(data => {
-      posts = data.rows[0].count;
-    }).then(data=>{
-    mod.getUser(id).then(data => {
-        profile = data["rows"][0];
-        profilePath = `/profile/${id}`;
-    }).then(()=>{
-        mod2.getDiscussionsByUser(id).then(data => {
-            var {name, lastname, country, about, id, imageurl} = profile;
-            discussions = data.rows;
-            discussions.forEach((element) => {
-                element.imageurl = imageurl;
-                let date = new Date(Date.parse(element.datetime + "+0000"));
-                element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
-            })
-            
-            res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts,alreadyLiked:alreadyLiked,notOwnProfile:notOwnProfile});
-        }).catch((err) => console.log(err));
+  mod.getNumOfLikes(req.params.userId).then(data => {
+    
+    res.likes = data.rows[0].count;
+  }).then(data => {
+  mod.getNumOfPosts(req.session.userId).then(data => {
+    res.posts = data.rows[0].count;
+  }).then(data=>{
+  mod.getUser(id).then(data => {
+      res.profile = data["rows"][0];
+      res.profilePath = `/profile/${id}`;
+  }).then(()=>{
+      mod2.getDiscussionsByUser(id).then(data => {
+          var {name, lastname, country, about, id, imageurl} = res.profile;
+          res.discussions = data.rows;
+          res.discussions.forEach((element) => {
+              element.imageurl = imageurl;
+              let date = new Date(Date.parse(element.datetime + "+0000"));
+              element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
+          })
+          res.name = name; 
+          res.lastname = lastname;
+          res.country = country;
+          res.about = about;
+          res.id = id; 
+          res.imageurl = imageurl;
+          next();
+      }).catch((err) => console.log(err));
 
-    })
   })
 })
-    }).catch(err => {
-      console.log("Error: Problem with retrieving profile page. ", err);
-    });
+})
+  }).catch(err => {
+    console.log("Error: Problem with retrieving profile page. ", err);
+  });
 }
+
+
+function loadProfile(req,res,next) {
+  res.render('profile', {name: res.name, lastname: res.lastname, imageurl: res.imageurl, 
+                        country: res.country, id: res.id, about: res.about, profilePath: res.profilePath, 
+                        discussion: res.discussions, likes: res.likes, posts: res.posts, alreadyLiked: res.alreadyLiked,
+                        notOwnProfile: res.notOwnProfile});
+}
+
+
 
 /* Direct user to edit profile page */
 const getEditProfile = (req, res) => {
@@ -252,7 +261,6 @@ module.exports = {
     getEditProfile,
     likeProfile:likeProfile,
     search,
-    displaySearch
+    displaySearch,
+    loadProfile: loadProfile
 }
-
-
