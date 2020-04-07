@@ -187,7 +187,7 @@ const edit = (req, res, next) => {
 const search = (req, res, next) => {
   let keyword = req.body.search;
   mod2.searchForSubject(keyword).then(data => {
-    res.results = data["rows"];
+    res.discussions = data["rows"];
     next();
   }).catch(err => {
     console.log("Error: Problem with searching discussions by keyword. ", err);
@@ -235,21 +235,13 @@ const getAllData = async res => {
 }
 /* Display search results */
 const displaySearch = (req, res) => {
-  let discussion = res.results;
-  getAllData(res).then(data => {
-    if (data[0].length == 0) {
-      res.render("search", {msg: "No search results found."});
-    } else {
-      for (let i = 0; i < data[0].length; i++) {
-        discussion[i].imageurl = data[0][i];
-        discussion[i].numReplies = data[1][i];
-        discussion[i].date = data[2][i];
-      }
-      res.render("search", {discussion});
-    }
-  }).catch(err => {
-    console.log("Error: Problem with parsing discussion related data. ", err);
-  })
+  let discussion = res.discussions;
+  if (discussion.length == 0) {
+    res.render("search", {msg: "No search results found."});
+  } else {
+    res.render("search", {discussion});
+  }
+  
 }
 
 module.exports = {
