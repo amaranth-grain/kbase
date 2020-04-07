@@ -40,7 +40,9 @@ function getHome(req,res,next) {
 }
 
 function likeProfile(req,res,next){
+  var notOwnProfile = true;
   if (req.session.userId != req.body.userId) {
+    
       mod.incrementNumOfLikes(req.body.userId,req.session.userId).catch((err) => console.log(err));
   }
   var id = req.body.userId;
@@ -75,7 +77,7 @@ function likeProfile(req,res,next){
               element.date = `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()} ${date.getFullYear()}`;
           })
           
-          res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts,alreadyLiked:alreadyLiked});
+          res.render('profile', {name, lastname, imageurl, country, id, about, profilePath, discussion: discussions,likes:likes,posts:posts,alreadyLiked:alreadyLiked,notOwnProfile:notOwnProfile});
       }).catch((err) => console.log(err));
 
   })
