@@ -54,6 +54,10 @@ router.post(
   "/search",
   ensureAuth,
   mainController.search,
+  discController.getReplies,
+  discController.formatDatetime,
+  discController.getUserImages,
+  discController.getNumOfReplies,
   mainController.displaySearch
 );
 
