@@ -228,7 +228,7 @@ function loadLatestDiscussions(req,res,next) {
 }
 
 function newReply(req,res,next) {
-    let dbQuery = mod.createreply(req.session.userId, req.body.discId, req.body.replyInput, Date.now());
+    let dbQuery = mod.createreply(req.session.userId, req.body.discId, req.body.replyInput, Date.now()).catch((err) => console.log(err));
     res.redirect('back');
 }
 
@@ -240,7 +240,7 @@ const discuss = (req, res) => {
     let subject = req.body.subject;
     mod.creatediscussion(id, detail, date, tag, subject).catch(err => {
         console.log("Error: Problem with creating new discussion post. ", err);
-    });
+    }).catch((err) => console.log(err));
     res.redirect("/home");
 }
 
