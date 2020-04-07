@@ -1,0 +1,15 @@
+<div id="questionInput">
+  <h2 id="headerDiscussion">What's your question today?</h2>
+  <form id="formDiscussion" action="/discuss" method="POST">
+    <input class="input inputFull" type="text" name="subject" placeholder="subject" /><br />
+    <textarea id="signupAbout" name="detail" rows="7" placeholder="explain in detail..."></textarea><br />
+    <select name="tag" class="dropdownTopic inputHalf" id="discussTag">
+      {{#each profile}}
+        {{#each this.topics}}
+          <option value={{this}}>{{this}}</option>
+        {{/each}}
+      {{/each}}
+    </select>
+    <button class="btnInverse" id="btnPostTimeline" onclick="selectDropdownValue()">post to timeline</button>
+  </form>
+</div>

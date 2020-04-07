@@ -1,0 +1,26 @@
+{{#each profile}}
+  <div class="profileSidebar">
+    <a href={{profilePath}}>
+      <img class="profilePic" src={{this.imgUrl}}>
+    </a>
+    <p class="profileName">{{this.name}} {{this.lastname}}</p>
+    <p>{{this.tagline}}</p>
+    <div id="stats">
+      <div class="statRow">
+        <p><a href={{profilePath}}>Posts</a></p>
+        <p>{{this.numPost}}</p>
+      </div>
+      <div class="statRow">
+        <p><a href="/chat">Messages</a></p>
+        <p>{{this.numMsg}}</p>
+      </div>
+      <div class="statRow">
+        <p>Likes</p>
+        <p>{{this.numLike}}</p>
+      </div>
+      <div class="statProfile">
+        <p><a href={{editPath}}>Edit Profile</a></p>
+      </div>
+    </div>
+  </div>
+{{/each}}

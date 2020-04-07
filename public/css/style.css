@@ -1,0 +1,438 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
+
+body {
+    font-family: 'PT Sans', sans-serif;
+}
+
+/****** FOR CHAT FRONTEND ^ *****/
+:root {
+  --logoBlue: rgb(100, 197, 240);
+  --buttonBlue: rgb(0, 162, 232);
+  --darkBlue: rgb(0, 115, 177);
+  --offWhite: rgb(240, 240, 248);
+  --inputGrey: rgb(225, 235, 235);
+  --textGrey: rgb(131, 134, 139);
+}
+body {
+  font-family: "Roboto", sans-serif;
+  padding: 1.5em 4em;
+}
+input {
+  /* display: inline-block; */
+  height: 35px;
+  padding-left: 0.5em;
+}
+textarea {
+  margin: 1em 0;
+}
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+.btnInverse {
+  color: var(--buttonBlue);
+  background-color: white;
+  border: 1px solid var(--buttonBlue);
+}
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 4vw;
+}
+.disabled{
+  pointer-events: none;
+}
+.test {
+  border: 1px solid grey;
+}
+/****** LOGIN *****/
+.divWrapper {
+  max-width: 900px;
+  min-width: 750px;
+  margin: 0 auto;
+}
+#logo {
+  font-size: 2.2em;
+  flex-grow: 2;
+}
+#logoBase {
+  color: var(--logoBlue);
+}
+.inputLogin {
+  margin: 0 0.4em; 
+  width: 170px; 
+}
+button {
+  background-color: var(--buttonBlue);
+  border-radius: 0.2em;
+  color: var(--offWhite);
+  font-weight: bold;
+  border: none;
+  height: 35px;
+  text-align: center;
+  min-width: 80px;
+  padding: 0.4em 0;
+}
+/****** LOGIN END *****/
+/****** SIGN UP *****/
+* {
+  box-sizing: border-box;
+}
+.row {
+  display: flex;
+  margin-top: 1em;
+}
+.msg {
+  color: var(--textGrey);
+  font-size: 1.5em;
+  text-align: center;
+}
+.err {
+  color: red;
+  text-align: center;
+}
+.colLeft {
+  width: 30%;
+}
+.colRight {
+  width: 60%;
+  padding-left: 3em;
+}
+#divSignup {
+  width: 80%;
+}
+.inputHalf {
+  width: 45%;
+}
+.inputFull {
+  width: 90%;
+}
+.input {
+  margin-bottom: 1.2em;
+}
+#btnSignup {
+  width: 90%;
+}
+/****** SIGN UP END *****/
+/****** SIGN UP DETAILS *****/
+#colLeft h2 {
+  align-items: flex-start;
+  font-weight: bold;
+  font-size: 3em;
+}
+#divSignup input {
+  width: 400px;
+}
+#divSignup textarea {
+  width: 400px;
+}
+#signupTag {
+  font-weight: bold;
+  font-size: 2rem;
+  width: 35%;
+  margin-right: 1em;
+}
+#signupDetails {
+  padding: 2em 1em;
+  width: 55%;
+}
+.about {
+  width: 20vw;
+}
+#btnRegister {
+  width: 20vw;
+}
+/****** SIGN UP DETAILS END *****/
+/****** HOMEPAGE *****/
+a, a:visited, a:hover, a:active {
+  color: inherit;
+}
+#logoLink{
+  text-decoration: none;
+  font-size: 1.7em;
+}
+#logoAbbr {
+  flex-grow: 0.3;
+}
+#formSearch {
+  display: inline-block;
+  flex-grow: 3;
+}
+#formSearch input[type="text"] {
+  background-color: var(--inputGrey);
+  color: var(--textGrey);
+  border: none;
+  width: 300px;
+  padding-left: 2em;
+}
+#btnLogout {
+  width: 100px;
+  padding-left: 0;
+}
+.searchContainer {
+  display: inline-flex;
+  flex: 1 1 300px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.searchIcon {
+  z-index: 200;
+  left: 1.4em;
+  display: inline-block;
+  position: relative;
+}
+/* .searchIcon {
+  display: inline-block;
+  padding: 0.38em;
+  background-color: var(--inputGrey);
+} */
+/****** HOMEPAGE END *****/
+/****** PROFILE SIDEBAR *****/
+.profileSidebar {
+  margin-top: 2em;
+  text-align: center;
+  align-items: center;
+}
+.profileSidebar {
+  color: var(--textGrey);
+}
+.profileName {
+  font-weight: bold;
+  font-size: 1.4em;
+  color: black;
+}
+.profilePic {
+  width: 100px;
+  height: 100px;
+  clip-path: circle(45%);
+}
+#stats {
+  display: table;
+  margin: 0 auto;
+  width: 80%;
+  text-align: left;
+}
+.statRow {
+  display: table-row;
+}
+.statRow p {
+  display: table-cell;
+  padding-left: 2em;
+  font-weight: bold;
+}
+.statProfile p {
+  padding-left: 2em;
+  margin-top: 2em;
+  font-weight: bold;
+}
+.dropdownTopic {
+  height: 2em;
+  color: var(--buttonBlue);
+  border: 1px solid var(--buttonBlue);
+  margin-right: 0.5em;
+}
+.btnPostTimeline {
+  width: 60%;
+}
+#questionInput {
+  padding-bottom: 2em; 
+}
+/****** PROFILE SIDEBAR END *****/
+/****** USER PROFILE *****/
+#formLike {
+  display: flex;
+}
+#formLike i {
+  margin: auto 0;
+  padding-left: 0.5em;
+}
+/* .messageProfileButton{
+  background-color: var(--buttonBlue);
+  border-radius: 0.2em;
+  color: var(--offWhite);
+  font-weight: bold;
+  border: none;
+  height: 35px;
+  padding: 0.4em 2em 0.4em 0.6em;
+} */
+.profileName {
+  text-transform: capitalize;
+}
+#profileLeft {
+  width:65%;
+}
+.fa-plus-circle {
+  color: var(--buttonBlue);
+  font-size: 3em;
+}
+#profileRight {
+  margin: auto 0;
+  padding-left: 2em;
+}
+#profileRight button {
+  background-color: var(--darkBlue);
+  color: var(--offWhite);
+}
+#profileLeft img {
+  width: 175px;
+  height: auto;
+}
+#profileName {
+  text-transform: capitalize;
+}
+.latestPosts {
+  margin: 0 auto;
+  width: 60%;
+}
+#headerDiscussion {
+  font-size: 2em;
+  text-transform: capitalize;
+}
+/****** USER PROFILE END *****/
+/****** EDIT PROFILE *****/
+#editLeft {
+  padding-left: 2em;
+  width: 30%;
+}
+#editRight {
+  padding-left: 2em;
+}
+#divEdit input {
+  width: 400px;
+}
+#divEdit textarea {
+  width: 400px;
+}
+#btnEdit {
+  width: 100%;
+}
+/****** EDIT PROFILE END *****/
+/****** QUESITON INPUT *****/
+#formDiscussion input {
+  width: 100%;
+}
+#formDiscussion textarea {
+  width: 100%;
+}
+#btnPostTimeline {
+  width: 50%;
+}
+/****** QUESITON INPUT END *****/
+/****** DISCUSSION ******/
+.tag {
+  color: var(--logoBlue);
+  border: 1px solid var(--logoBlue);
+}
+#divPage {
+  display: flex;
+  justify-content: flex-end;
+}
+#divPage button {
+  display: block;
+  margin-left: 1em;
+  border: 2px solid var(--buttonBlue);
+  width: 100px;
+}
+.replyContainer{
+  display: none;
+  flex-direction: column;
+}
+.replyInput {
+  display: block;
+  width: 90%;
+  height: 10vh;
+  margin-left: auto;
+  border: 1px solid grey;
+}
+.sendReply {
+  border: none;
+  color: white;
+  background-color: #01A2E8;
+  float: right;
+}
+.toggleReply {
+  background-color: transparent;
+  color: var(--textGrey);
+  text-decoration: underline;
+}
+#showReplies{
+  border: none;
+  background-color: white;
+  font-size: 1em;
+  padding: 0px;
+  margin-block-start: 1em;
+  height: auto;
+}
+#discussion {
+  margin-top: 2em;
+}
+#searchDiscussion {
+  color: var(--textGrey);
+}
+#latestDiscussion{
+  margin: 5% 0;
+}
+.cardDiscussion {
+  display: flex;
+  margin-bottom: 2em;
+}
+.cardDiscussionHeader {
+  display: flex;
+}
+.cardDiscussionFooter {
+  display: flex;
+}
+.dateDiscussion {
+  flex-grow: 2;
+}
+.cardDiscussion .profilePic {
+  margin-right: 1em;
+}
+.cardDiscussionText {
+  width: 90%;
+}
+.subjectDiscussion {
+  font-size: 1.3em;
+  flex-grow: 2;
+}
+/****** DISCUSSION ******/
+
+#btnSearchDiscussion{
+  background-color: var(--buttonBlue);
+  border-radius: 0.2em;
+  color: var(--offWhite);
+  font-weight: bold;
+  border: none;
+  height: 35px;
+  padding: 0.4em 2em 0.4em 0.6em;
+}
+
+/****** NEW CONTACT ******/
+.newContact{
+  margin-top: 2em;
+}
+
+#messageInput{
+  width: 80%;
+  height: 15vh;
+  border-top: 2px solid #ddd;
+  margin-top: 2%;
+  padding: 1%;
+  resize: none;
+  font-family: 'PT Sans', sans-serif;
+}
+
+#subjectInput{
+  width: 80%;
+  margin-top: 2%;
+  padding: 1%;
+  resize: none;
+}
+
+/* #sendMsg{
+  float: left;
+  padding: 2% 4%;
+} */

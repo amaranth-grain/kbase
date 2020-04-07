@@ -1,12 +1,14 @@
 <div class="divWrapper">
-  {{>searchbar}}
+  {{>loginbar}}
+  <div class="msg">
+    {{msg}}
+  </div>
   <div class="row">
     <div class="column colLeft">
-      {{>profile-sidebar}}
+      <img src="img/bookstack.jpg">
     </div>
     <div class="column colRight">
-    {{>question-input}}
-    {{>discussion}}
+      {{>signup-basic}}
     </div>
   </div>
 </div>

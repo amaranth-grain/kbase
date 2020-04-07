@@ -1,0 +1,128 @@
+body{
+    padding: 0em;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.loadConversationButton{
+    display: none;
+}
+
+#conversation{
+    height: 61vh;
+    overflow:auto;
+    overflow-y:scroll;
+}
+
+.message h4 {
+    width: 100%; 
+    text-align: center; 
+    border-bottom: 1px solid #000; 
+    line-height: 0.1em;
+    margin: 20px 0 20px; 
+ } 
+ 
+.message h4 span { 
+     background: #fff;
+     padding:0 10px; 
+     font-size: 0.8em;
+ }
+
+.message{
+    display: flex;
+    flex-direction: column;
+}
+
+.contactContainer{
+    display: flex;
+    flex-direction: row;
+}
+
+.contactImg{
+    margin-left: 1%;
+    background: #fff;
+    margin-right: 1%;
+}
+
+.message img {
+    margin-right: 1%;
+}
+
+.contactImg img{
+    border-radius: 50%;
+    min-width: 72px;
+    min-height: 72px;
+}
+
+
+.contactName{
+    padding-top: 1%;
+    display: inline;
+}
+
+.messageTime{
+    display: inline;
+}
+
+.contactCenter{
+    flex-grow: 4;
+}
+
+
+.contactDate{
+    margin: 1.4% 2% 0% 0%;
+    text-align: right;
+    flex-grow: 0.5;
+    background: #fff;
+    font-size: 0.95em;
+}
+
+#chatContainer{
+    background: #fff;
+    display: flex;
+    flex-direction: row;
+}
+
+#allContacts{
+    flex-grow: 2;
+    background: #fff;
+    border-right: 4px solid #ddd;
+}
+
+#allContacts .contactImg{
+    width: 25%;
+}
+
+#allContacts .message{
+    width: 10%;
+}
+
+
+#rightSide{
+    flex-grow: 4;
+    background: #fff;
+    margin-left: 1%;
+    border-left: 4px solid #ddd;
+    width: 60%;
+}
+
+#allContacts .contactContainer{
+    border-bottom: 2px solid #ddd;
+    padding: 10px 0px;
+}
+
+#messageInput{
+    width: 100%;
+    height: 15vh;
+    border-top: 2px solid #ddd;
+    margin-top: 2%;
+    padding: 1%;
+    resize: none;
+}
+
+#sendMsg{
+    float: right;
+    border: 0px;
+    padding: 0.5% 2%;
+    background-color: #6d84b4;
+    color: white;
+}
