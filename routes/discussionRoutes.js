@@ -5,6 +5,6 @@ const discController = require('../controllers/discussionController');
 
 router.post('/discussion/newReply', ensureAuth, discController.newReply);
 
-router.post('/discuss', discController.discuss);
+router.post('/discuss', ensureAuth, discController.discuss);
 
 module.exports = router;
