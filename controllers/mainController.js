@@ -92,8 +92,12 @@ function likeProfile(req,res,next){
 function getProfile(req,res,next) {
   var notOwnProfile = true;
   if (req.session.userId == req.params.userId) {
+    console.log(req.session.userId + "--------" + req.params.userId)
     notOwnProfile = false;
+    console.log("ownprofile")
+   
   }
+  res.notOwnProfile = notOwnProfile
   var id = req.params.userId;
   mod.checkLiked(req.params.userId,req.session.userId).then(data=>{
     if(data.rows[0].count >= 1){
