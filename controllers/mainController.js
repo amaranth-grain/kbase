@@ -237,7 +237,12 @@ const getAllData = async res => {
 /* Display search results */
 const displaySearch = (req, res) => {
   let discussion = res.discussions;
-  res.render("search", {discussion});
+  if (discussion.length == 0) {
+    res.render("search", {msg: "No search results found."});
+  } else {
+    res.render("search", {discussion});
+  }
+  
 }
 
 module.exports = {

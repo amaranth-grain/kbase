@@ -241,7 +241,7 @@ const discuss = (req, res) => {
     mod.creatediscussion(id, detail, date, tag, subject).catch(err => {
         console.log("Error: Problem with creating new discussion post. ", err);
     });
-    res.redirect("/home");
+    res.redirect("back");
 }
 
 module.exports = {
