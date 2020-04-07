@@ -18,7 +18,9 @@ function incrementOffset(req,res,next){
         }
         
         next();
-    }).catch((err) => console.log(err));
+    }).catch(err => {
+        console.log("Error: Problem with incrementing the offset for pagination (all posts). ", err);
+    });
     
 }
 
@@ -36,7 +38,9 @@ function incrementOffsetForSearch(req,res,next){
             res.nextVisibleFiltered = true;
         }
         next();
-    }).catch((err) => console.log(err));
+    }).catch(err => {
+        console.log("Error: Problem with incrementing the offset for pagination (search by topic). ", err);
+    });
     
 }
 
@@ -56,7 +60,9 @@ function resetOffset(req,res,next){
         }
         
         next();
-    }).catch((err) => console.log(err));
+    }).catch(err => {
+        console.log("Error: Problem with resetting offset for pagination. ", err);
+    });
 }
 
 function decrementOffset(req,res,next){
@@ -81,8 +87,9 @@ function decrementOffsetForSearch(req,res,next){
         res.backVisibleFiltered = true;
     }
     res.nextVisibleFiltered = true;
-    next()
+    next();
 }
+
 function getLatestDiscussion(req,res,next) {
     var limit = 5;
     var queryConv = mod.selectTopicRange(req.session.offset, limit);
@@ -91,7 +98,9 @@ function getLatestDiscussion(req,res,next) {
     .then((data) => {
         res.discussions = data.rows;
         next();
-    }).catch((err) => console.log(err));
+    }).catch(err => {
+        console.log("Error: Problem with getting the latest discussion. ", err);
+    });
 }
 
 function getLatestTopic(req,res,next) {
@@ -101,7 +110,9 @@ function getLatestTopic(req,res,next) {
     .then((data) => {
         res.discussions = data.rows;
         next();
-    }).catch((err) => console.log(err));
+    }).catch(err => {
+        console.log("Error: Problem with getting the latest topic. ", err);
+    });
 }
 
 
@@ -119,7 +130,9 @@ function resetOffsetForSearch(req,res,next){
             res.nextVisibleFiltered = true;
         }
         next();
-    }).catch((err) => console.log(err));
+    }).catch(err => {
+        console.log("Error: Problem with resetting the offset for search by topic. ", err);
+    });
 }
 
 
@@ -137,7 +150,9 @@ function getUserImages(req,res,next) {
     .then(() => {
         res.discussions = discussions;
         next();
-    }).catch((err) => console.log(err));
+    }).catch(err => {
+        console.log("Error: Problem with getting user images for discussion posts. ", err);
+    });
 }
 
 function formatDatetime(req,res,next) {
@@ -156,7 +171,9 @@ function formatDatetime(req,res,next) {
         res.discussions = discussions;
         next();
     })
-    .catch((err) => console.log(err));
+    .catch(err => {
+        console.log("Error: Problem with formatting datetime from discussion post. ", err);
+    });
 
 }
 
@@ -174,7 +191,9 @@ function getNumOfReplies(req,res,next) {
     .then(() => {
         res.discussions = discussions;
         next();
-    }).catch((err) => console.log(err));
+    }).catch(err => {
+        console.log("Error: Problem with getting the number of replies in discussion thread. ", err);
+    });
 }
 
 function getReplies(req,res,next) {
@@ -198,7 +217,9 @@ function getReplies(req,res,next) {
         //console.log(element.reply)
         res.discussions = discussions;
         next();
-    }).catch((err) => console.log(err));
+    }).catch(err => {
+        console.log("Error: Problem with getting the replies in discussion thread. ", err);
+    });
 }
 
 

@@ -83,18 +83,15 @@ function likeProfile(req,res,next){
   })
 })
 })
-}).catch((err) => console.log(err));
-  
+}).catch(err => {
+  console.log("Error: Problem with like function on user profile. ", err);
+});  
 }
 
 
 function getProfile(req,res,next) {
     var notOwnProfile = true;
-    //TODO Disable ability to message self or increment likes if not own account
-    if (req.session.userId != req.params.userId) {
-        console.log("Not viewing my own profile");
-    } else {
-      console.log("Viewing my own profile")
+    if (req.session.userId == req.params.userId) {
       notOwnProfile = false;
     }
     var id = req.params.userId;
@@ -136,7 +133,9 @@ function getProfile(req,res,next) {
     })
   })
 })
-    }).catch((err) => console.log(err));
+    }).catch(err => {
+      console.log("Error: Problem with retrieving profile page. ", err);
+    });
 }
 
 /* Direct user to edit profile page */
