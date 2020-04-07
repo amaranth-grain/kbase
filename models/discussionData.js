@@ -10,7 +10,7 @@ function createDiscussion(id,details,datetime,tag,subject){
 
 function createReply(user_id,discussion_id,reply_details,reply_time){
     query = `insert into reply (user_id,discussion_id,reply_details,reply_time) values (${user_id},${discussion_id},'${reply_details}',to_timestamp(${reply_time}/ 1000.0));`
-    db.query(query)
+    return db.query(query)
 }
 
 //gets the replies of a discussion based on the discussion id

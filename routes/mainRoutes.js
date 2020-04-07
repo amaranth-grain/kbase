@@ -45,6 +45,7 @@ router.post(
   discController.formatDatetime,
   discController.getUserImages,
   discController.getNumOfReplies,
+  discController.getReplies,
   discController.loadLatestDiscussions
 );
 /***** PROFILE END *****/
@@ -58,6 +59,7 @@ router.post(
   discController.formatDatetime,
   discController.getUserImages,
   discController.getNumOfReplies,
+  discController.getReplies,
   mainController.displaySearch
 );
 
@@ -111,6 +113,7 @@ router.get(
   discController.formatDatetime,
   discController.getUserImages,
   discController.getNumOfReplies,
+  discController.getReplies,
   discController.loadLatestDiscussions
 );
 
@@ -123,6 +126,7 @@ router.get(
   discController.formatDatetime,
   discController.getUserImages,
   discController.getNumOfReplies,
+  discController.getReplies,
   discController.loadLatestDiscussions
 );
 
