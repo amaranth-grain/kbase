@@ -79,7 +79,7 @@ function getConvId(req,res,next) {
                 next();
             }).catch(() => res.render('chat', {chatAssests: true, contacts: res.contacts, messages: [{"message": "Error: getting conversation id failed."}]}));
         } else {
-            res.render('chat', {chatAssests: true});
+            res.render('chat', {chatAssests: true, messages: [{"message": "No conversations. Go make some friends!"}]});
         }
         
     }

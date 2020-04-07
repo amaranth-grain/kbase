@@ -8,7 +8,7 @@ body{
 }
 
 #conversation{
-    height: 61vh;
+    height: 50vh;
     overflow:auto;
     overflow-y:scroll;
 }
